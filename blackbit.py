@@ -35,7 +35,7 @@ class BlackBitBot:
             text=f"🟢 НОВЫЙ ВХОД В БОТА!\n\n"
                  f"👤 ID: `{user.id}`\n"
                  f"👤 Имя: {user.first_name or 'без имени'}\n"
-                 f"👤 Username: @{user.username or 'нет'}\n"
+                 f"👤 Username: {user.username or 'нет'}\n"
                  f"🕐 Время: {current_time}",
             parse_mode="Markdown"
         )
