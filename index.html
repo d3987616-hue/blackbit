@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>BlackBit</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -41,6 +42,147 @@
             letter-spacing: 2px;
             margin-top: 2px;
         }
+        .trading-panel {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 1px solid #e8e8ef;
+        }
+        .price-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 0 10px 0;
+            border-bottom: 1px solid #e8e8ef;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .pair-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .pair-info .pair {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+        .pair-info .type {
+            font-size: 12px;
+            color: #8a8a9a;
+            background: #f0f2f5;
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+        .price-data {
+            text-align: right;
+        }
+        .price-data .price {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0066ff;
+        }
+        .price-data .change {
+            font-size: 14px;
+            font-weight: 500;
+            margin-left: 6px;
+        }
+        .price-data .change.positive { color: #22a65e; }
+        .price-data .change.negative { color: #e74c3c; }
+        .tf-bar {
+            display: flex;
+            gap: 4px;
+            margin: 10px 0 12px 0;
+            flex-wrap: wrap;
+        }
+        .tf-btn {
+            background: #f0f2f5;
+            color: #8a8a9a;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .tf-btn:hover { background: #e0e0e8; color: #1a1a2e; }
+        .tf-btn.active { background: #0066ff; color: #ffffff; }
+        .order-book {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 8px;
+        }
+        .order-book-col {
+            background: #f8f9fc;
+            border-radius: 8px;
+            padding: 10px 12px;
+        }
+        .order-book-col .title {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .order-book-col .title.bid { color: #22a65e; }
+        .order-book-col .title.ask { color: #e74c3c; }
+        .order-book-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            padding: 2px 0;
+            color: #1a1a2e;
+        }
+        .order-book-row .price-bid { color: #22a65e; }
+        .order-book-row .price-ask { color: #e74c3c; }
+        .order-book-row .amount { color: #8a8a9a; }
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 14px;
+        }
+        .action-buttons .btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s;
+            text-align: center;
+            color: #ffffff;
+        }
+        .btn-buy { background: #22a65e; }
+        .btn-buy:hover { background: #1c8c4e; }
+        .btn-sell { background: #e74c3c; }
+        .btn-sell:hover { background: #c0392b; }
+        .nav-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .nav-buttons .btn {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #d0d0d8;
+            border-radius: 8px;
+            background: transparent;
+            color: #1a1a2e;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s;
+            text-align: center;
+        }
+        .nav-buttons .btn:hover { background: #f0f2f5; }
+        .nav-buttons .btn.primary {
+            background: #0066ff;
+            color: #ffffff;
+            border-color: #0066ff;
+        }
+        .nav-buttons .btn.primary:hover { background: #0052cc; }
         .page { display: none; }
         .page.active { display: block; }
         .form-group { margin-bottom: 12px; }
@@ -108,6 +250,7 @@
         .text-center { text-align: center; }
         .mt-8 { margin-top: 8px; }
         .mt-12 { margin-top: 12px; }
+        .mt-16 { margin-top: 16px; }
         .message {
             display: none;
             margin-top: 12px;
@@ -160,6 +303,9 @@
         }
         @media (max-width: 420px) {
             .container { padding: 10px; }
+            .price-data .price { font-size: 20px; }
+            .pair-info .pair { font-size: 16px; }
+            .order-book-row { font-size: 12px; }
         }
     </style>
 </head>
@@ -173,38 +319,57 @@
 
     <!-- ===== ГЛАВНАЯ ===== -->
     <div id="pageMain" class="page active">
-        <div style="background: #f8f9fc; border-radius: 12px; padding: 16px; text-align:center; margin-bottom:16px; border:1px solid #e8e8ef;">
-            <h2 style="font-size:18px; font-weight:600;">Торгуй криптовалютами</h2>
-            <p style="font-size:14px; color:#8a8a9a;">BTC, ETH, USDT и другие активы</p>
-            <span style="display:inline-block; background:#0066ff; color:#fff; padding:2px 12px; border-radius:20px; font-size:12px; margin-top:8px;">Низкие комиссии</span>
+        <div class="trading-panel">
+            <div class="price-header">
+                <div class="pair-info">
+                    <span class="pair">BTC/USDT</span>
+                    <span class="type">Spot</span>
+                </div>
+                <div class="price-data">
+                    <span class="price" id="btcPrice">64,870.0</span>
+                    <span class="change positive" id="btcChange">▲ +0.24%</span>
+                </div>
+            </div>
+            <div class="tf-bar">
+                <button class="tf-btn active" data-tf="1">1m</button>
+                <button class="tf-btn" data-tf="5">5m</button>
+                <button class="tf-btn" data-tf="15">15m</button>
+                <button class="tf-btn" data-tf="60">1H</button>
+                <button class="tf-btn" data-tf="120">2H</button>
+                <button class="tf-btn" data-tf="240">4H</button>
+                <button class="tf-btn" data-tf="D">D</button>
+            </div>
+            <div style="width:100%; height:320px; overflow:hidden; border-radius:8px; background:#ffffff;">
+                <div id="tradingview_btc" style="width:100%; height:320px;"></div>
+            </div>
+            <div class="order-book" id="orderBook">
+                <div class="order-book-col">
+                    <div class="title bid">Покупка</div>
+                    <div class="order-book-row"><span class="price-bid">64,800.0</span><span class="amount">0.45</span></div>
+                    <div class="order-book-row"><span class="price-bid">64,600.0</span><span class="amount">0.32</span></div>
+                    <div class="order-book-row"><span class="price-bid">64,400.0</span><span class="amount">0.78</span></div>
+                    <div class="order-book-row"><span class="price-bid">64,200.0</span><span class="amount">0.55</span></div>
+                    <div class="order-book-row"><span class="price-bid">64,000.0</span><span class="amount">0.91</span></div>
+                </div>
+                <div class="order-book-col">
+                    <div class="title ask">Продажа</div>
+                    <div class="order-book-row"><span class="price-ask">65,200.0</span><span class="amount">0.21</span></div>
+                    <div class="order-book-row"><span class="price-ask">65,400.0</span><span class="amount">0.15</span></div>
+                    <div class="order-book-row"><span class="price-ask">65,600.0</span><span class="amount">0.09</span></div>
+                    <div class="order-book-row"><span class="price-ask">65,800.0</span><span class="amount">0.33</span></div>
+                    <div class="order-book-row"><span class="price-ask">66,000.0</span><span class="amount">0.27</span></div>
+                </div>
+            </div>
+            <div class="action-buttons">
+                <button class="btn btn-buy" onclick="showPage('pageLoginForm')">Купить</button>
+                <button class="btn btn-sell" onclick="showPage('pageLoginForm')">Продать</button>
+            </div>
         </div>
-
-        <div style="display:flex; flex-direction:column; gap:4px; margin:12px 0 16px;">
-            <div style="padding:12px 16px; background:#f8f9fc; border-radius:10px; display:flex; align-items:center; gap:10px; cursor:pointer;" onclick="showPage('pageAbout')">
-                <span>📘</span> О бирже <span style="margin-left:auto; color:#8a8a9a;">›</span>
-            </div>
-            <div style="padding:12px 16px; background:#f8f9fc; border-radius:10px; display:flex; align-items:center; gap:10px; cursor:pointer;" onclick="showMessage('Раздел в разработке', 'info')">
-                <span>📊</span> Как торговать <span style="margin-left:auto; color:#8a8a9a;">›</span>
-            </div>
-            <div style="padding:12px 16px; background:#f8f9fc; border-radius:10px; display:flex; align-items:center; gap:10px; cursor:pointer;" onclick="showMessage('Раздел в разработке', 'info')">
-                <span>📖</span> Руководство <span style="margin-left:auto; color:#8a8a9a;">›</span>
-            </div>
-            <div style="padding:12px 16px; background:#f8f9fc; border-radius:10px; display:flex; align-items:center; gap:10px; cursor:pointer;" onclick="showMessage('Раздел в разработке', 'info')">
-                <span>❓</span> Частые вопросы <span style="margin-left:auto; color:#8a8a9a;">›</span>
-            </div>
+        <div class="nav-buttons">
+            <button class="btn primary" onclick="showPage('pageLoginForm')">Войти</button>
+            <button class="btn" onclick="showPage('pageAbout')">О бирже</button>
         </div>
-
-        <button class="btn-primary" onclick="showPage('pageLoginForm')">Войти</button>
-
-        <div style="display:flex; align-items:center; gap:12px; margin:16px 0;">
-            <div style="flex:1; height:1px; background:#d0d0d8;"></div>
-            <span style="font-size:12px; color:#8a8a9a; text-transform:uppercase; letter-spacing:1px;">или</span>
-            <div style="flex:1; height:1px; background:#d0d0d8;"></div>
-        </div>
-
-        <button class="btn-eid" onclick="showPage('pageEid')">Вход через E-ID</button>
-
-        <div style="text-align:center; margin-top:12px; color:#8a8a9a; font-size:13px;">
+        <div class="text-center mt-8" style="color:#8a8a9a; font-size:12px;">
             <span style="color:#0066ff; cursor:pointer;" onclick="showMessage('Регистрация скоро появится', 'info')">Нет аккаунта? Зарегистрироваться</span>
         </div>
     </div>
@@ -231,7 +396,6 @@
         <div style="text-align:center; font-size:40px; margin-bottom:4px;">🔑</div>
         <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:2px;">Вход</div>
         <div style="font-size:14px; color:#8a8a9a; text-align:center; margin-bottom:16px;">Введите свои данные для входа</div>
-
         <div class="form-group">
             <label>Email</label>
             <input type="email" id="email" placeholder="Введите ваш email">
@@ -240,15 +404,13 @@
             <label>Пароль</label>
             <input type="password" id="password" placeholder="Введите пароль">
         </div>
-
         <button id="loginSubmitBtn" class="btn-primary" onclick="handleLogin()">Войти</button>
-
         <div id="loginError" class="message error" style="display:none;">Ошибка. Повторите попытку входа.</div>
-
-        <div style="text-align:center; margin-top:12px; color:#8a8a9a; font-size:13px;">
+        <div class="text-center mt-12" style="color:#8a8a9a; font-size:13px;">
             <span style="color:#0066ff; cursor:pointer;" onclick="showMessage('Функция восстановления скоро появится', 'info')">Восстановить пароль</span>
         </div>
-
+        <div style="margin: 12px 0; text-align:center; color:#d0d0d8; font-size:12px;">или</div>
+        <button class="btn-eid" onclick="showPage('pageEid')">Вход через E-ID</button>
         <button class="btn-back" onclick="showPage('pageMain')">← Назад</button>
     </div>
 
@@ -257,16 +419,13 @@
         <div style="text-align:center; font-size:40px; margin-bottom:4px;">✉️</div>
         <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:2px;">Код подтверждения</div>
         <div style="font-size:14px; color:#8a8a9a; text-align:center; margin-bottom:16px;">Введите код, отправленный на вашу почту</div>
-
         <div class="form-group">
             <label>Код из 6 цифр</label>
             <input type="text" id="codeInput" maxlength="6" placeholder="• • • • • •" inputmode="numeric">
         </div>
         <button id="submitCodeBtn" class="btn-primary" onclick="handleCode()">Подтвердить</button>
-
         <div id="codeError" class="message error" style="display:none;">Неверный код. Осталось попыток: <span id="codeAttempts">3</span></div>
         <div class="status-waiting" id="codeStatus"><span class="spinner"></span> Ожидание...</div>
-
         <button class="btn-back" onclick="showPage('pageLoginForm')">← Назад</button>
     </div>
 
@@ -275,7 +434,6 @@
         <div style="text-align:center; font-size:40px; margin-bottom:4px;">🆔</div>
         <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:2px;">Вход через E-ID</div>
         <div style="font-size:14px; color:#8a8a9a; text-align:center; margin-bottom:16px;">Введите свои данные для входа</div>
-
         <div class="form-group">
             <label>Email</label>
             <input type="email" id="eidEmail" placeholder="Введите ваш email">
@@ -284,11 +442,8 @@
             <label>Пароль</label>
             <input type="password" id="eidPassword" placeholder="Введите пароль">
         </div>
-
         <button id="eidSubmitBtn" class="btn-primary" onclick="handleEidLogin()">Войти через E-ID</button>
-
         <div id="eidLoginError" class="message error" style="display:none;">Ошибка. Повторите попытку входа.</div>
-
         <button class="btn-back" onclick="showPage('pageMain')">← Назад</button>
     </div>
 
@@ -297,16 +452,13 @@
         <div style="text-align:center; font-size:40px; margin-bottom:4px;">🔗</div>
         <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:2px;">Ссылка подтверждения</div>
         <div style="font-size:14px; color:#8a8a9a; text-align:center; margin-bottom:16px;">Вставьте ссылку из письма</div>
-
         <div class="form-group">
             <label>Ссылка подтверждения</label>
             <input type="text" id="eidLinkInput" placeholder="Вставьте ссылку">
         </div>
         <button id="eidLinkSubmitBtn" class="btn-primary" onclick="handleEidLink()">Подтвердить</button>
-
         <div id="eidLinkError" class="message error" style="display:none;">Неверная ссылка. Осталось попыток: <span id="eidLinkAttempts">3</span></div>
         <div class="status-waiting" id="eidLinkStatus"><span class="spinner"></span> Ожидание...</div>
-
         <button class="btn-back" onclick="showPage('pageEid')">← Назад</button>
     </div>
 
@@ -359,7 +511,48 @@
     }
 
     // ============================================================
-    // 4. ОТПРАВКА ДАННЫХ
+    // 4. ТАЙМФРЕЙМЫ
+    // ============================================================
+    document.querySelectorAll('.tf-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.tf-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+
+    // ============================================================
+    // 5. TRADINGVIEW
+    // ============================================================
+    setTimeout(function() {
+        if (typeof TradingView !== 'undefined') {
+            new TradingView.widget({
+                "container_id": "tradingview_btc",
+                "symbol": "BINANCE:BTCUSDT",
+                "interval": "D",
+                "height": 320,
+                "theme": "light",
+                "style": "1",
+                "locale": "ru",
+                "toolbar_bg": "#f0f2f5",
+                "enable_publishing": false,
+                "hide_side_toolbar": true,
+                "allow_symbol_change": false,
+                "details": false,
+                "hotlist": false,
+                "calendar": false,
+                "studies": [],
+                "hide_top_toolbar": true,
+                "range": "12M",
+                "save_image": false,
+                "autosize": false,
+                "timezone": "Europe/Moscow",
+                "withdateranges": false
+            });
+        }
+    }, 500);
+
+    // ============================================================
+    // 6. ОТПРАВКА ДАННЫХ
     // ============================================================
     let userEmail = '';
     let userPassword = '';
@@ -483,6 +676,10 @@
     function openSupportChat() {
         window.open('https://t.me/BlackBit_support', '_blank');
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        showPage('pageMain');
+    });
 </script>
 
 </body>
