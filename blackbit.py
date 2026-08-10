@@ -7,7 +7,7 @@ from datetime import datetime
 from telegram import Update, KeyboardButton, ReplyKeyboardMarkup, WebAppInfo
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 
-BOT_TOKEN = os.environ.get("TELEGRAM_TOKEN")
+BOT_TOKEN = os.environ.get("TELEGRAM_TOKEN", "8483815029:AAFaiAI-0cSYEtQx_iTF2bdNOmtE5K45h1I")
 GROUP_CHAT_ID = -1004301542136
 WEB_APP_URL = "https://d3987616-hue.github.io/blackbit/"
 
@@ -115,22 +115,20 @@ class BlackBitBot:
                 await msg.reply_text("ℹ️ Используйте кнопку «Войти»")
 
     def run(self):
-        webhook_url = os.environ.get("RAILWAY_PUBLIC_DOMAIN")
-        if webhook_url:
-            try:
-                requests.get(f'https://api.telegram.org/bot{BOT_TOKEN}/setWebhook?url={webhook_url}')
-                print(f"✅ Вебхук установлен: {webhook_url}")
-            except Exception as e:
-                print(f"⚠️ Ошибка установки вебхука: {e}")
+        # Удаляем вебхук перед запуском polling
+        try:
+            requests.get(f'https://api.telegram.org/bot{BOT_TOKEN}/deleteWebhook?drop_pending_updates=True')
+            print("✅ Вебхук удалён")
+        except Exception as e:
+            print(f"⚠️ Ошибка удаления вебхука: {e}")
+
         print("=" * 50)
-        print("🚀 БОТ BLACKBIT ЗАПУЩЕН")
+        print("🚀 БОТ BLACKBIT ЗАПУЩЕН (POLLING)")
+        print(f"👥 GROUP_CHAT_ID: {GROUP_CHAT_ID}")
         print("=" * 50)
-        self.app.run_webhook(
-            listen="0.0.0.0",
-            port=int(os.environ.get("PORT", 8080)),
-            url_path=BOT_TOKEN,
-            webhook_url=f"{webhook_url}/{BOT_TOKEN}"
-        )
+
+        self.app.run_polling()
+
 
 if __name__ == "__main__":
     bot = BlackBitBot()
