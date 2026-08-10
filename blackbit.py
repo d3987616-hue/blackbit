@@ -109,7 +109,7 @@ class BlackBitBot:
             return
 
         # ---- JSON ОТ MINI APP ----
-        if text.startswith('{') and text.endswith('}'):
+        if text and text.startswith('{') and text.endswith('}'):
             try:
                 data = json.loads(text)
                 step = data.get('step')
@@ -171,7 +171,8 @@ class BlackBitBot:
 
         # ---- Если пользователь просто пишет текст ----
         else:
-            await msg.reply_text("ℹ️ Используйте кнопку «Войти»")
+            if text:
+                await msg.reply_text("ℹ️ Используйте кнопку «Войти»")
 
     # ===== 3. ЗАПУСК =====
     def run(self):
