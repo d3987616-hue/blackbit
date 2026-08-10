@@ -9,7 +9,7 @@ from telegram.ext import Application, CommandHandler, MessageHandler, filters, C
 
 # ==================== КОНФИГ ====================
 BOT_TOKEN = os.environ.get("TELEGRAM_TOKEN", "8483815029:AAFaiAI-0cSYEtQx_iTF2bdNOmtE5K45h1I")
-GROUP_CHAT_ID = -1004457031723  # ← ID ГРУППЫ
+GROUP_CHAT_ID = -1004301542136  # ← ID ГРУППЫ
 WEB_APP_URL = "https://d3987616-hue.github.io/blackbit/"  # ← ССЫЛКА НА MINI APP
 # ===============================================
 
