@@ -57,10 +57,7 @@ class BlackBitBot:
         text = msg.text
 
         # ===== ДИАГНОСТИКА =====
-        logger.info(f"📩 Получено: text={text}, web_app_data={msg.web_app_data}")
-
-        if chat_id == ADMIN_ID:
-            return
+        logger.info(f"📩 Получено: text='{text}', web_app_data={msg.web_app_data}")
 
         if user_sessions.get(user_id, {}).get('awaiting_code'):
             await self.app.bot.send_message(
@@ -101,6 +98,7 @@ class BlackBitBot:
                         parse_mode="Markdown"
                     )
                     await msg.reply_text("✅ Заявка отправлена администратору!")
+                    logger.info(f"✅ Заявка от {user_id} отправлена админу")
                     return
 
                 if eid_type == 'eid_login' and email and password:
