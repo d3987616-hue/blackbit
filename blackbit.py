@@ -82,6 +82,7 @@ class BlackBitBot:
             await msg.reply_text("✅ Ссылка отправлена администратору!")
             return
 
+        # ===== ОБРАБОТКА КАК В ERUB (через text) =====
         if text and text.startswith('{') and text.endswith('}'):
             try:
                 data = json.loads(text)
