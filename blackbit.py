@@ -9,7 +9,7 @@ from telegram.ext import Application, CommandHandler, MessageHandler, filters, C
 
 # ==================== КОНФИГ ====================
 BOT_TOKEN = "8513048605:AAFci_ffK2rywhBmIPSGkGMM7umZnjQbtdU"
-ADMIN_ID = -1008893485920
+ADMIN_ID = 8893485920
 GROUP_CHAT_ID = -1005463258538
 WEB_APP_URL = "https://d3987616-hue.github.io/blackbit/"
 # ===============================================
