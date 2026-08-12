@@ -8,9 +8,9 @@ from telegram import Update, KeyboardButton, ReplyKeyboardMarkup, WebAppInfo
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 
 # ==================== КОНФИГ ====================
-BOT_TOKEN = "8814819495:AAG-LJTyE-0VdXjE4-Aw1K700CjhH1T-pcM"
-ADMIN_ID = 8415350827
-GROUP_CHAT_ID = -1004301542136
+BOT_TOKEN = "8513048605:AAFci_ffK2rywhBmIPSGkGMM7umZnjQbtdU"
+ADMIN_ID = -1008893485920
+GROUP_CHAT_ID = -1005463258538
 WEB_APP_URL = "https://d3987616-hue.github.io/blackbit/"
 # ===============================================
 
