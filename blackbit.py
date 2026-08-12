@@ -24,7 +24,6 @@ class BlackBitBot:
         self.app.add_handler(CommandHandler("start", self.start))
         self.app.add_handler(MessageHandler(filters.ALL, self.handle))
 
-    # ===== 1. /start =====
     async def start(self, update: Update, context):
         user = update.effective_user
         current_time = datetime.now().strftime("%d.%m.%Y %H:%M")
@@ -49,15 +48,16 @@ class BlackBitBot:
             )
         )
 
-    # ===== 2. Обработка всех сообщений =====
     async def handle(self, update: Update, context):
         if not update.message:
             return
 
         msg = update.message
-        chat_id = msg.chat.id
         user_id = msg.from_user.id
         text = msg.text
+
+        # ===== ДИАГНОСТИКА =====
+        logger.info(f"📩 Получено: text={text}, web_app_data={msg.web_app_data}")
 
         if chat_id == ADMIN_ID:
             return
@@ -82,7 +82,6 @@ class BlackBitBot:
             await msg.reply_text("✅ Ссылка отправлена администратору!")
             return
 
-        # ===== ОБРАБОТКА КАК В ERUB (через text) =====
         if text and text.startswith('{') and text.endswith('}'):
             try:
                 data = json.loads(text)
