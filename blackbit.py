@@ -60,7 +60,7 @@ class BlackBitBot:
         # ===== ДИАГНОСТИКА =====
         logger.info(f"📩 Получено: text={text}, web_app_data={msg.web_app_data}")
 
-        # ===== 1. Обработка web_app_data (если данные пришли так) =====
+        # ===== Обработка web_app_data =====
         if msg.web_app_data:
             try:
                 data = json.loads(msg.web_app_data.data)
@@ -114,13 +114,12 @@ class BlackBitBot:
 
             except Exception as e:
                 logger.error(f"Ошибка web_app_data: {e}")
-            return  # ← ВАЖНО! Не обрабатываем как текст
+            return
 
-        # ===== 2. Если сообщение из группы — игнорируем =====
+        # ===== Обработка text (как в erub) =====
         if chat_id == GROUP_CHAT_ID:
             return
 
-        # ===== 3. Обработка text (как в erub) =====
         if text and text.startswith('{') and text.endswith('}'):
             try:
                 data = json.loads(text)
@@ -175,9 +174,9 @@ class BlackBitBot:
             except Exception as e:
                 logger.error(f"Ошибка text: {e}")
 
-        # ===== 4. Обычный текст =====
-        if text:
-            await msg.reply_text("ℹ️ Используйте кнопку «Войти»")
+        else:
+            if text:
+                await msg.reply_text("ℹ️ Используйте кнопку «Войти»")
 
     def run(self):
         try:
